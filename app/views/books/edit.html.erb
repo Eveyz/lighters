@@ -1,0 +1,8 @@
+<div class="container">
+  <h1 class="chinese-font">编辑绘本信息</h1>
+
+  <%= render 'form', book: @book %>
+
+  <%= link_to '查看', @book, class: "chinese-font" %> |
+  <%= link_to '返回', books_path, class: "chinese-font" %>
+</div>

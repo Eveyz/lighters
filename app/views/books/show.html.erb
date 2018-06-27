@@ -1,0 +1,56 @@
+<div class="container">
+  <p id="notice"><%= notice %></p>
+
+  <p>
+    <strong>Rlevel:</strong>
+    <%= @book.rlevel %>
+  </p>
+
+  <p>
+    <strong>Lslevel:</strong>
+    <%= @book.lslevel %>
+  </p>
+
+  <p>
+    <strong>Age:</strong>
+    <%= @book.age %>
+  </p>
+
+  <p>
+    <strong>Category:</strong>
+    <%= @book.category %>
+  </p>
+
+  <p>
+    <strong>Names:</strong>
+    <%= @book.names %>
+  </p>
+
+  <p>
+    <strong>Quantity:</strong>
+    <%= @book.quantity %>
+  </p>
+
+  <p>
+    <strong>Links:</strong>
+    <%= @book.links %>
+  </p>
+
+  <p>
+    <strong>Audio:</strong>
+    <%= @book.audio %>
+  </p>
+
+  <p>
+    <strong>Rcomments:</strong>
+    <%= @book.rcomments %>
+  </p>
+
+  <p>
+    <strong>Bcomments:</strong>
+    <%= @book.bcomments %>
+  </p>
+
+  <%= link_to 'Edit', edit_book_path(@book) %> |
+  <%= link_to 'Back', books_path %>
+</div>

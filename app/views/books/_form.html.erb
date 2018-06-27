@@ -1,0 +1,89 @@
+<%= form_with(model: book, local: true) do |form| %>
+  <% if book.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(book.errors.count, "error") %> prohibited this book from being saved:</h2>
+
+      <ul>
+      <% book.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  
+  <div class="row">
+    <form class="col s12">
+      <div class="row">
+        <div class="input-field col s12">
+          <%= form.text_field :rlevel, id: :book_rlevel %>
+          <label for="rlevel">RAZ等级</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <%= form.text_field :lslevel, id: :book_lslevel %>
+          <label for="lslevel">蓝思等级</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <%= form.text_field :age, id: :book_age %>
+          <label for="age">年龄段</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <%= form.text_field :category, id: :book_category %>
+          <label for="category">绘本分类</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <%= form.text_field :names, id: :book_names %>
+          <label for="names">系列名(links)</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <%= form.number_field :quantity, id: :book_quantity %>
+          <label for="quantity">数量/本</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <%= form.text_field :links, id: :book_links %>
+          <label for="links">书序/名(links)</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <%= form.text_field :audio, id: :book_audio %>
+          <label for="audio">音频资源</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <%= form.text_area :rcomments, id: :book_rcomments, class: "materialize-textarea" %>
+          <label for="rcomments">推荐备注</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <%= form.text_area :bcomments, id: :book_bcomments, class: "materialize-textarea" %>
+          <label for="bcomments">购买备注</label>
+        </div>
+      </div>
+    </form>
+
+    <div class="actions">
+      <%= form.submit "提交", class:"btn" %>
+    </div>
+  </div>
+<% end %>
+
+<script>
+  $(document).ready(function() {
+    M.updateTextFields();
+  });
+</script>
