@@ -1,0 +1,51 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  firstname: MyString
+  lastname: MyString
+  englishname: MyString
+  age: 1
+  birthday: 2018-06-27
+  gender: MyString
+  city: MyString
+  work: MyString
+  education: MyString
+  experience: MyText
+  otherexperience: MyText
+  profour: 1
+  proeight: 1
+  levelsix: 1
+  other: MyString
+  honor: MyString
+  interaction: MyText
+  like: MyString
+  availabletime: 1
+  audio: MyString
+  comments: MyText
+  resume: MyString
+  user: one
+
+two:
+  firstname: MyString
+  lastname: MyString
+  englishname: MyString
+  age: 1
+  birthday: 2018-06-27
+  gender: MyString
+  city: MyString
+  work: MyString
+  education: MyString
+  experience: MyText
+  otherexperience: MyText
+  profour: 1
+  proeight: 1
+  levelsix: 1
+  other: MyString
+  honor: MyString
+  interaction: MyText
+  like: MyString
+  availabletime: 1
+  audio: MyString
+  comments: MyText
+  resume: MyString
+  user: two

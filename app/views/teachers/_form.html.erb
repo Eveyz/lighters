@@ -1,0 +1,156 @@
+<%= form_with(model: teacher, local: false) do |f| %>
+  <% if teacher.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(teacher.errors.count, "error") %> prohibited this teacher from being saved:</h2>
+
+      <ul>
+      <% teacher.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="col s12 m8 offset-m2">
+      <div class="card">
+        <div class="card-content" style="padding: 50px;">
+          <span class="card-title">基本信息</span>
+          <div class="row">
+            <div class="input-field col m6 s12">
+              <%= f.text_field :firstname, autofocus: false, autocomplete: "firstname", id: :firstname %>
+              <label for="firstname">姓 <span style="color: red;">*</span></label>
+            </div>
+
+            <div class="input-field col m6 s12">
+              <%= f.text_field :lastname, autofocus: false, autocomplete: "lastname", id: :lastname %>
+              <label for="lastname">名字</label>
+            </div>
+          </div>
+
+          <div class="input-field">
+            <%= f.text_field :englishname, autofocus: false, autocomplete: "englishname", id: :englishname %>
+            <label for="englishname">英文名</label>
+          </div>
+
+          <div class="input-field">
+            <%= f.number_field :age, autofocus: false, autocomplete: "age", id: :age %>
+            <label for="age">年龄</label>
+          </div>
+
+          <div class="input-field">
+            <%= f.date_select :birthday, id: :teacher_birthday %>
+            <label for="teacher_birthday">出生日期</label>
+          </div>
+
+          <div class="input-field">
+            <%= f.text_field :gender, autofocus: false, autocomplete: "gender", id: :gender %>
+            <label for="gender">性别</label>
+          </div>
+
+          <div class="input-field">
+            <%= f.text_field :city, autofocus: false, autocomplete: "city", id: :city %>
+            <label for="city">所在城市</label>
+          </div>
+
+          <div class="input-field">
+            <%= f.text_field :work, autofocus: false, autocomplete: "work", id: :work %>
+            <label for="work">当前工作状态</label>
+          </div>
+
+          <div class="input-field">
+            <%= f.text_field :education, autofocus: false, autocomplete: "education", id: :education %>
+            <label for="education">教育背景</label>
+          </div>
+
+          <div class="input-field">
+            <%= f.text_area :experience, autofocus: false, autocomplete: "experience", id: :experience, class: "materialize-textarea" %>
+            <label for="experience">与教师/家教相关的工作经历</label>
+          </div>
+
+          <div class="input-field">
+            <%= f.text_area :otherexperience, autofocus: false, autocomplete: "otherexperience", id: :otherexperience, class: "materialize-textarea" %>
+            <label for="otherexperience">其他工作经历</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col s12 m8 offset-m2">
+      <div class="card">
+        <div class="card-content" style="padding: 50px;">
+          <span class="card-title">英语水平: (上传证书)</span>
+          <div class="input-field">
+            <%= f.number_field :profour, autofocus: false, autocomplete: "profour", id: :profour %>
+            <label for="profour">英语专业四级(分数)</label>
+          </div>
+
+          <div class="input-field">
+            <%= f.number_field :proeight, autofocus: false, autocomplete: "proeight", id: :proeight %>
+            <label for="proeight">英语专业八级 (分数)</label>
+          </div>
+
+          <div class="input-field">
+            <%= f.number_field :levelsix, autofocus: false, autocomplete: "levelsix", id: :levelsix %>
+            <label for="levelsix">大学英语六级 (分数)</label>
+          </div>
+
+          <div class="input-field">
+            <%= f.text_field :other, autofocus: false, autocomplete: "other", id: :other %>
+            <label for="other">其他英语等级测试(托福, 雅思等) (分数)</label>
+          </div>
+          
+          <div class="input-field">
+            <%= f.text_area :honor, autofocus: false, autocomplete: "honor", id: :honor, class: "materialize-textarea" %>
+            <label for="honor">证明英语能力的荣誉</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col s12 m8 offset-m2">
+      <div class="card">
+        <div class="card-content" style="padding: 50px;">
+          <span class="card-title">兴趣特长: </span>
+          <div class="input-field">
+            <%= f.text_area :interaction, autofocus: false, autocomplete: "interaction", id: :interaction, class: "materialize-textarea" %>
+            <label for="interaction">有与学龄儿童互动的经验吗 (包括自己的弟妹)</label>
+          </div>
+
+          <div class="input-field">
+            <%= f.text_field :like, autofocus: false, autocomplete: "like", id: :like %>
+            <label for="like">是否喜欢英文原著阅读</label>
+          </div>
+
+          <div class="input-field">
+            <%= f.number_field :availabletime, autofocus: false, autocomplete: "availabletime", id: :availabletime %>
+            <label for="availabletime">每周可保证几个小时线上教学时间</label>
+          </div>
+
+          <div class="input-field">
+            <%= f.text_field :audio, autofocus: false, autocomplete: "audio", id: :audio %>
+            <label for="audio">story录音</label>
+          </div>
+
+          <div class="input-field">
+            <%= f.text_area :comments, autofocus: false, autocomplete: "comments", id: :comments, class: "materialize-textarea" %>
+            <label for="comments">对英语(远程线上)教育和英文原版阅读的见解, 以及为何对我们的教学平台感兴趣 (请用英文填写, 不少于300字)</label>
+          </div>
+
+          <div class="input-field">
+            <%= f.text_field :resume, autofocus: false, autocomplete: "resume", id: :resume %>
+            <label for="resume">简历</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
