@@ -1,0 +1,382 @@
+<%= form_with(model: student, local: true) do |f| %>
+
+  <div class="row">
+    <div class="col s12 m10 offset-m1">
+      <% if student.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(student.errors.count, "error") %> prohibited this student from being saved:</h2>
+
+          <ul>
+          <% student.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col s12 m10 offset-m1">
+      <div class="card">
+        <div class="card-content" style="padding: 50px;">
+          <span class="card-title">家长基本信息</span>
+          <div class="row">
+            <div class="input-field col m12">
+              <%= f.text_field :pphone, autofocus: false, autocomplete: "pphone", id: :pphone %>
+              <label for="pphone">家长联系方式 (手机) <span style="color: red;">*</span></label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col m12">
+              <%= f.text_field :pemail, autofocus: false, autocomplete: "pemail", id: :pemail %>
+              <label for="pemail">家长常用邮箱</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col m12">
+              <%= f.text_field :pwechat, autofocus: false, autocomplete: "pwechat", id: :pwechat %>
+              <label for="pwechat">家长微信号 (微信联系方式) <span style="color: red;">*</span></label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col m12">
+              <%= f.text_field :pqq, autofocus: false, autocomplete: "pqq", id: :pqq %>
+              <label for="pqq">家长QQ号</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col s12 m10 offset-m1">
+      <div class="card">
+        <div class="card-content" style="padding: 50px;">
+          <span class="card-title">孩子基本信息</span>
+          <div class="row">
+            <div class="input-field col m6 s12">
+              <%= f.text_field :firstname, autofocus: false, autocomplete: "firstname", id: :firstname %>
+              <label for="firstname">姓 <span style="color: red;">*</span></label>
+            </div>
+
+            <div class="input-field col m6 s12">
+              <%= f.text_field :lastname, autofocus: false, autocomplete: "lastname", id: :lastname %>
+              <label for="lastname">名 <span style="color: red;">*</span></label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col m12">
+              <%= f.text_field :englishname, autofocus: false, autocomplete: "englishname", id: :englishname %>
+              <label for="englishname">英文名 <span style="color: red;">*</span></label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col m12">
+              <%= f.number_field :age, autofocus: false, autocomplete: "age", id: :age %>
+              <label for="age">年龄 <span style="color: red;">*</span></label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col m12">
+              <%= f.date_select :birthday, id: :student_birthday %>
+              <label for="student_birthday">出生日期 <span style="color: red;">*</span></label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col m12">
+              <%= f.text_field :gender, autofocus: false, autocomplete: "gender", id: :gender %>
+              <label for="gender">性别 <span style="color: red;">*</span></label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col m12">
+              <%= f.text_field :city, autofocus: false, autocomplete: "city", id: :city %>
+              <label for="city">所在城市 <span style="color: red;">*</span></label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col m12">
+              <%= f.text_field :schoolname, autofocus: false, autocomplete: "schoolname", id: :schoolname %>
+              <label for="schoolname">孩子所在学校的名称 <span style="color: red;">*</span></label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col m12">
+              <p>孩子所在学校性质 <span style="color: red;">*</span></p>
+              <p style="margin-top: 8px;">
+                <label>
+                  <%= f.radio_button :schoolstatus, '国内公立' %>
+                  <span>国内公立</span>
+                </label>
+              </p>
+              <p>
+                <label>
+                  <%= f.radio_button :schoolstatus, '国内私立' %>
+                  <span>国内私立</span>
+                </label>
+              </p>
+              <p>
+                <label>
+                  <%= f.radio_button :schoolstatus, '国际学校' %>
+                  <span>国际学校</span>
+                </label>
+              </p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col m12">
+              <%= f.text_field :level, autofocus: false, autocomplete: "level", id: :level %>
+              <label for="level">目前所在年级 (例如: 幼儿园中班， 小学三年级) <span style="color: red;">*</span></label>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="input-field col m12">
+              <%= f.text_field :time, autofocus: false, autocomplete: "time", id: :time %>
+              <label for="time">孩子学英语时长</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col m12">
+              <p>您对孩子目前英语水平的自我评价 <span style="color: red;">*</span></p>
+              <p style="margin-top: 8px;">
+                <label>
+                  <%= f.radio_button :estimate, '优秀' %>
+                  <span>优秀</span>
+                </label>
+              </p>
+              <p>
+                <label>
+                  <%= f.radio_button :estimate, '中上水平' %>
+                  <span>中上水平</span>
+                </label>
+              </p>
+              <p>
+                <label>
+                  <%= f.radio_button :estimate, '中等水平' %>
+                  <span>中等水平</span>
+                </label>
+              </p>
+              <p>
+                <label>
+                  <%= f.radio_button :estimate, '中下水平' %>
+                  <span>中下水平</span>
+                </label>
+              </p>
+              <p>
+                <label>
+                  <%= f.radio_button :estimate, '靠后' %>
+                  <span>靠后</span>
+                </label>
+              </p>
+              <p>
+                <label>
+                  <%= f.radio_button :estimate, '其他, 请说明' %>
+                  <span>其他, 请说明</span>
+                </label>
+              </p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col m12">
+              <p>您对孩子英文学习的期望：可多选，依照重要程度来排列 (5星为您觉得最重要) (打分题 请填1-5数字打分）<span style="color: red;">*</span></p>
+              <p style="margin-top: 8px;">
+                <label>
+                  <%= f.check_box :expectation, {multiple: true, class: "filled-in"}, '提高英语应试成绩', nil %>
+                  <span>提高英语应试成绩</span>
+                </label>
+              </p>
+              <p>
+                <label>
+                  <%= f.check_box :expectation, {multiple: true, class: "filled-in"}, '培养对英文及英语学习的兴趣', nil %>
+                  <span>培养对英文及英语学习的兴趣</span>
+                </label>
+              </p>
+              <p>
+                <label>
+                  <%= f.check_box :expectation, {multiple: true, class: "filled-in"}, '会听会说 (不是应试英语，哑巴英语)', nil %>
+                  <span>会听会说 (不是应试英语，哑巴英语)</span>
+                </label>
+              </p>
+              <p>
+                <label>
+                  <%= f.check_box :expectation, {multiple: true, class: "filled-in"}, '会写', nil %>
+                  <span>会写</span>
+                </label>
+              </p>
+              <p>
+                <label>
+                  <%= f.check_box :expectation, {multiple: true, class: "filled-in"}, '积累词汇量', nil %>
+                  <span>积累词汇量</span>
+                </label>
+              </p>
+              <p>
+                <label>
+                  <%= f.check_box :expectation, {multiple: true, class: "filled-in"}, '养成(中英文)阅读习惯', nil %>
+                  <span>养成(中英文)阅读习惯</span>
+                </label>
+              </p>
+              <p>
+                <label>
+                  <%= f.check_box :expectation, {multiple: true, class: "filled-in"}, '了解西方文化', nil %>
+                  <span>了解西方文化</span>
+                </label>
+              </p>
+              <p>
+                <label>
+                  <%= f.check_box :expectation, {multiple: true, class: "filled-in"}, '为出国学习做准备', nil %>
+                  <span>为出国学习做准备</span>
+                </label>
+              </p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col m12">
+              <p>请让孩子阅读以下段落，选出孩子能完整读出 (请按语音键录音) 并理解的最高级别的选项 (不超过两个生词) (多选题) <span style="color: red;">*</span></p>
+              <p style="margin-top: 8px;">
+                <label>
+                  <%= f.check_box :paragraph, {multiple: true, class: "filled-in"}, 'RAZ', nil %>
+                  <span>RAZ</span>
+                </label>
+              </p>
+              <p>
+                <label>
+                  <%= f.check_box :paragraph, {multiple: true, class: "filled-in"}, 'aaa', nil %>
+                  <span>aaa</span>
+                </label>
+              </p>
+              <p>
+                <label>
+                  <%= f.check_box :paragraph, {multiple: true, class: "filled-in"}, 'B-C', nil %>
+                  <span>B-C</span>
+                </label>
+              </p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col m12">
+              <p>是否有每日阅读 (中英文均可) 的习惯 (包括亲子阅读) 并填写每日阅读时间 <span style="color: red;">*</span></p>
+              <p style="margin-top: 8px;">
+                <label>
+                  
+                  <%= f.radio_button :dailyreading, '有。每日阅读时间为' %>
+                  <span>有。每日阅读时间为</span>
+                </label>
+              </p>
+              <p>
+                <label>
+                  <%= f.radio_button :dailyreading, '没有' %>
+                  <span>没有</span>
+                </label>
+              </p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col m12">
+              <p>如果没有每日阅读,那么目前的阅读状况是 <span style="color: red;">*</span></p>
+              <p style="margin-top: 8px;">
+                <label>
+                  <%= f.radio_button :currentreadingstatus, '几乎没有阅读习惯' %>
+                  <span>几乎没有阅读习惯</span>
+                </label>
+              </p>
+              <p>
+                <label>
+                  <%= f.radio_button :currentreadingstatus, '偶尔读书' %>
+                  <span>偶尔读书</span>
+                </label>
+              </p>
+              <p>
+                <label>
+                  <%= f.radio_button :currentreadingstatus, '其他情况请说明' %>
+                  <span>其他情况请说明</span>
+                </label>
+              </p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col m12">
+              <p>家长本身英语水平 <span style="color: red;">*</span></p>
+              <p style="margin-top: 8px;">
+                <label>
+                  <%= f.radio_button :penglishlevel, '精通英语' %>
+                  <span>精通英语</span>
+                </label>
+              </p>
+              <p>
+                <label>
+                  <%= f.radio_button :penglishlevel, '辅助孩子英语学习和读书够用' %>
+                  <span>辅助孩子英语学习和读书够用</span>
+                </label>
+              </p>
+              <p>
+                <label>
+                  <%= f.radio_button :penglishlevel, '出国旅游够用' %>
+                  <span>出国旅游够用</span>
+                </label>
+              </p>
+              <p>
+                <label>
+                  <%= f.radio_button :penglishlevel, '几乎不懂' %>
+                  <span>几乎不懂</span>
+                </label>
+              </p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col m12">
+              <p>自己对孩子的英语学习 <span style="color: red;">*</span></p>
+              <p style="margin-top: 8px;">
+                <label>
+                  <%= f.radio_button :custody, '可以做到每天监督，圆满配合老师的任务' %>
+                  <span>可以做到每天监督，圆满配合老师的任务</span>
+                </label>
+              </p>
+              <p>
+                <label>
+                  <%= f.radio_button :custody, '可以下载资料，剩下的工作要靠孩子自己完成，自己并不能给其他的帮助' %>
+                  <span>可以下载资料，剩下的工作要靠孩子自己完成，自己并不能给其他的帮助</span>
+                </label>
+              </p>
+              <p>
+                <label>
+                  <%= f.radio_button :custody, '自己太忙了，没空管孩子学习' %>
+                  <span>自己太忙了，没空管孩子学习</span>
+                </label>
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col s12 m10 offset-m1">
+      <div class="actions">
+        <%= f.submit "提交", class: 'student-form-button' %>
+      </div>
+    </div>
+  </div>
+<% end %>

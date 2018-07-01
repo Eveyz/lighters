@@ -1,0 +1,49 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  pphone: MyString
+  pemail: MyString
+  pwechat: MyString
+  pqq: MyString
+  firstname: MyString
+  lastname: MyString
+  age: 1
+  birthday: 2018-06-29
+  gender: MyString
+  city: MyString
+  schoolname: MyString
+  schoolstatus: MyString
+  level: MyString
+  time: MyString
+  estimate: MyString
+  expectation: MyString
+  paragraph: MyText
+  dailyreading: MyString
+  penglishlevel: MyString
+  custody: MyString
+  way: MyString
+  reason: MyString
+
+two:
+  pphone: MyString
+  pemail: MyString
+  pwechat: MyString
+  pqq: MyString
+  firstname: MyString
+  lastname: MyString
+  age: 1
+  birthday: 2018-06-29
+  gender: MyString
+  city: MyString
+  schoolname: MyString
+  schoolstatus: MyString
+  level: MyString
+  time: MyString
+  estimate: MyString
+  expectation: MyString
+  paragraph: MyText
+  dailyreading: MyString
+  penglishlevel: MyString
+  custody: MyString
+  way: MyString
+  reason: MyString

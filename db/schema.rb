@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180628035810) do
+ActiveRecord::Schema.define(version: 20180701025737) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,44 @@ ActiveRecord::Schema.define(version: 20180628035810) do
     t.text "bcomments"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "keywords", force: :cascade do |t|
+    t.string "content"
+    t.bigint "book_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["book_id"], name: "index_keywords_on_book_id"
+  end
+
+  create_table "students", force: :cascade do |t|
+    t.string "pphone"
+    t.string "pemail"
+    t.string "pwechat"
+    t.string "pqq"
+    t.string "firstname"
+    t.string "lastname"
+    t.integer "age"
+    t.date "birthday"
+    t.string "gender"
+    t.string "city"
+    t.string "schoolname"
+    t.string "schoolstatus"
+    t.string "level"
+    t.string "time"
+    t.string "estimate"
+    t.string "expectation"
+    t.text "paragraph"
+    t.string "dailyreading"
+    t.string "currentreadingstatus"
+    t.string "penglishlevel"
+    t.string "custody"
+    t.string "way"
+    t.string "reason"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_students_on_user_id"
   end
 
   create_table "teachers", force: :cascade do |t|
@@ -87,5 +125,7 @@ ActiveRecord::Schema.define(version: 20180628035810) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "keywords", "books"
+  add_foreign_key "students", "users"
   add_foreign_key "teachers", "users"
 end

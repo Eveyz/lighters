@@ -67,6 +67,10 @@ class BooksController < ApplicationController
       @book = Book.find(params[:id])
     end
 
+    def admin?
+      # return current_user.admin
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def book_params
       params.require(:book).permit(:rlevel, :lslevel, :age, :category, :names, :quantity, :links, :audio, :rcomments, :bcomments)

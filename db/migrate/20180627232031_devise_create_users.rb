@@ -9,6 +9,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.1]
       t.string :wechat,             null: false, default: ""
       t.string :identity,           null: false, default: ""
       t.string :status,             null: false, default: ""
+      t.binary :admin,              null: false, default: false
       t.string :encrypted_password, null: false, default: ""
 
       ## Recoverable

@@ -20,7 +20,7 @@
           <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 
             <div class="input-field">
-              <%= f.email_field :email, autofocus: true, autocomplete: "email", id: :email, placeholder: "example@email.com" %>
+              <%= f.email_field :email, autofocus: true, id: :email, placeholder: "example@email.com" %>
               <label for="email">邮箱</label>
             </div>
 
@@ -30,18 +30,19 @@
             </div>
 
             <% if devise_mapping.rememberable? -%>
-              <div class="field">
-                <%= f.check_box :remember_me %>
-                <%= f.label :remember_me %>
-              </div>
+               <label>
+                <%= f.check_box :remember_me, class: "filled-in" %>
+                <span>记住登录</span>
+              </label>
             <% end -%>
             <br>
-
+            <br>
             <div class="actions">
               <%= f.submit "登录", class: 'btn' %>
             </div>
           <% end %>
-
+          <br>
+          <br>
           <%= render "devise/shared/links" %>
         </div>
       </div>
@@ -54,7 +55,7 @@
 
 <script>
 
-  document.addEventListener('DOMContentLoaded', function() {
+  $(document).ready(function() {
     var elems = document.querySelectorAll('select');
     var instances = M.FormSelect.init(elems, {});
   });
