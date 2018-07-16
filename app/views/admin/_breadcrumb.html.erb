@@ -1,0 +1,28 @@
+<div style="background-color: white;padding: 20px 0px 20px 0px;">
+  <div class="container">
+    <div class="row no-margin">
+      <div class="col m3">
+        <% case domain %>
+        <% when "dashboard" %>
+          <span style="color: #BDC8CB;">Dashboard</span>
+          <h5 style="margin-top: 10px;"><b>Dashboard</b></h5>
+        <% when "students" %>
+          <span style="color: #BDC8CB;"><%= link_to "Dashboard", admin_dashboard_path %> > 学生管理</span>
+          <h5 style="margin-top: 10px;"><b>学生管理</b></h5>
+        <% when "courses" %>
+          <span style="color: #BDC8CB;"><%= link_to "Dashboard", admin_dashboard_path %> > 课程管理</span>
+          <h5 style="margin-top: 10px;"><b>课程管理</b></h5>
+        <% when "teachers" %>
+          <span style="color: #BDC8CB;"><%= link_to "Dashboard", admin_dashboard_path %> > 教师管理</span>
+          <h5 style="margin-top: 10px;"><b>教师管理</b></h5>
+        <% when "books" %>
+          <span style="color: #BDC8CB;"><%= link_to "Dashboard", admin_dashboard_path %> > 绘本管理</span>
+          <h5 style="margin-top: 10px;"><b>绘本管理</b></h5>
+        <% when "addStudents" %>
+          <span style="color: #BDC8CB;"><%= link_to "Dashboard", admin_dashboard_path %> > <%= link_to "课程管理", courses_path %> > 添加学生</span>
+          <h5 style="margin-top: 10px;"><b>添加学生</b></h5>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

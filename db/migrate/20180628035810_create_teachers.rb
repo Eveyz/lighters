@@ -23,7 +23,8 @@ class CreateTeachers < ActiveRecord::Migration[5.1]
       t.string :audio
       t.text :comments
       t.string :resume
-      t.string :status
+      t.string :status, null: false, default: "pending"
+      t.json :certificates, null: false, default: '{}'
       t.references :user, foreign_key: true
 
       t.timestamps

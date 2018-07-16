@@ -15,6 +15,8 @@ gem 'pg'
 gem 'puma', '~> 3.7'
 
 gem 'devise', '~> 4.4.3'
+gem 'react-rails', '~> 2.4.4'
+gem 'carrierwave', '~> 1.0'
 
 # Use SCSS for stylesheets
 gem 'materialize-sass', '~> 1.0.0.rc1'

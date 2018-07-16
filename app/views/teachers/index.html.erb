@@ -1,71 +1,75 @@
-<p id="notice"><%= notice %></p>
+<div class="bg-light-green">
 
-<h1>Teachers</h1>
+  <%= render "admin/breadcrumb", domain: "teachers" %>
+  <p id="notice"><%= notice %></p>
 
-<table>
-  <thead>
-    <tr>
-      <th>Firstname</th>
-      <th>Lastname</th>
-      <th>Englishname</th>
-      <th>Age</th>
-      <th>Birthday</th>
-      <th>Gender</th>
-      <th>City</th>
-      <th>Work</th>
-      <th>Education</th>
-      <th>Experience</th>
-      <th>Otherexperience</th>
-      <th>Profour</th>
-      <th>Proeight</th>
-      <th>Levelsix</th>
-      <th>Other</th>
-      <th>Honor</th>
-      <th>Interaction</th>
-      <th>Like</th>
-      <th>Availabletime</th>
-      <th>Audio</th>
-      <th>Comments</th>
-      <th>Resume</th>
-      <th>User</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+  <h1>Teachers</h1>
 
-  <tbody>
-    <% @teachers.each do |teacher| %>
+  <table>
+    <thead>
       <tr>
-        <td><%= teacher.firstname %></td>
-        <td><%= teacher.lastname %></td>
-        <td><%= teacher.englishname %></td>
-        <td><%= teacher.age %></td>
-        <td><%= teacher.birthday %></td>
-        <td><%= teacher.gender %></td>
-        <td><%= teacher.city %></td>
-        <td><%= teacher.work %></td>
-        <td><%= teacher.education %></td>
-        <td><%= teacher.experience %></td>
-        <td><%= teacher.otherexperience %></td>
-        <td><%= teacher.profour %></td>
-        <td><%= teacher.proeight %></td>
-        <td><%= teacher.levelsix %></td>
-        <td><%= teacher.other %></td>
-        <td><%= teacher.honor %></td>
-        <td><%= teacher.interaction %></td>
-        <td><%= teacher.like %></td>
-        <td><%= teacher.availabletime %></td>
-        <td><%= teacher.audio %></td>
-        <td><%= teacher.comments %></td>
-        <td><%= teacher.resume %></td>
-        <td><%= teacher.user %></td>
-        <td><%= link_to 'Show', teacher %></td>
-        <td><%= link_to 'Edit', edit_teacher_path(teacher) %></td>
-        <td><%= link_to 'Destroy', teacher, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Englishname</th>
+        <th>Age</th>
+        <th>Birthday</th>
+        <th>Gender</th>
+        <th>City</th>
+        <th>Work</th>
+        <th>Education</th>
+        <th>Experience</th>
+        <th>Otherexperience</th>
+        <th>Profour</th>
+        <th>Proeight</th>
+        <th>Levelsix</th>
+        <th>Other</th>
+        <th>Honor</th>
+        <th>Interaction</th>
+        <th>Like</th>
+        <th>Availabletime</th>
+        <th>Audio</th>
+        <th>Comments</th>
+        <th>Resume</th>
+        <th>User</th>
+        <th colspan="3"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
+    <tbody>
+      <% @teachers.each do |teacher| %>
+        <tr>
+          <td><%= teacher.firstname %></td>
+          <td><%= teacher.lastname %></td>
+          <td><%= teacher.englishname %></td>
+          <td><%= teacher.age %></td>
+          <td><%= teacher.birthday %></td>
+          <td><%= teacher.gender %></td>
+          <td><%= teacher.city %></td>
+          <td><%= teacher.work %></td>
+          <td><%= teacher.education %></td>
+          <td><%= teacher.experience %></td>
+          <td><%= teacher.otherexperience %></td>
+          <td><%= teacher.profour %></td>
+          <td><%= teacher.proeight %></td>
+          <td><%= teacher.levelsix %></td>
+          <td><%= teacher.other %></td>
+          <td><%= teacher.honor %></td>
+          <td><%= teacher.interaction %></td>
+          <td><%= teacher.like %></td>
+          <td><%= teacher.availabletime %></td>
+          <td><%= teacher.audio %></td>
+          <td><%= teacher.comments %></td>
+          <td><%= teacher.resume %></td>
+          <td><%= teacher.user %></td>
+          <td><%= link_to 'Show', teacher %></td>
+          <td><%= link_to 'Edit', edit_teacher_path(teacher) %></td>
+          <td><%= link_to 'Destroy', teacher, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-<%= link_to 'New Teacher', new_teacher_path %>
+  <br>
+
+  <%= link_to 'New Teacher', new_teacher_path %>
+</div>

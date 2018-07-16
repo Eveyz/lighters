@@ -1,0 +1,59 @@
+<div class="bg-light-green page-min-height">
+
+  <%= render "admin/breadcrumb", domain: "courses" %>
+  <div class="container">
+    <p id="notice"><%= notice %></p>
+
+    <div class="row">
+      <div class="col m3">
+        <h6 style="color: rgba(0,0,0,.6);font-weight: 700;">课程管理</h6>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col m12">
+        <% if @courses.size == 0 %>
+          <h4>当前没有课程，请添加</h4>
+        <% elsif %>
+          <% @courses.each do |course| %>
+            <%= render "courses/course", course: course %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+    <!-- Modal Trigger -->
+    <div class="row">
+      <div class="col m12">
+        <a class="waves-effect waves-light btn modal-trigger" href="#modal1">添加课程</a>
+      </div>
+    </div>
+
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+      <div class="modal-content">
+        <div class="row">
+          <div class="col s12 m10 offset-m1">
+            <br>
+            <h4>添加课程</h4>
+            <div class="card">
+              <div class="card-content" style="padding: 50px;">
+                <%= render "courses/form", course: @course %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+
+  </div>
+</div>
+
+<script>
+  $(document).ready(function() {
+    var elems = document.querySelectorAll('.modal');
+    var instances = M.Modal.init(elems, {
+      opacity: 0.6,
+    });
+  });
+</script>

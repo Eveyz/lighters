@@ -86,15 +86,15 @@
 
           <div class="row">
             <div class="input-field col m12">
-              <%= f.date_select :birthday, id: :student_birthday %>
+              <%= f.date_select :birthday, start_year: 1970, id: :student_birthday %>
               <label for="student_birthday">出生日期 <span style="color: red;">*</span></label>
             </div>
           </div>
 
           <div class="row">
-            <div class="input-field col m12">
-              <%= f.text_field :gender, autofocus: false, autocomplete: "gender", id: :gender %>
-              <label for="gender">性别 <span style="color: red;">*</span></label>
+            <div class="input-field col m12 s12">
+              <%= f.select :gender, [ '男', '女'], :prompt => '选择性别' %>
+              <label><b>性别</b> <span style="color: red;">*</span></label>
             </div>
           </div>
 

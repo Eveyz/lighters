@@ -10,6 +10,7 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
+ *= require material_icons
  *= require_tree .
  *= require_self
  */
@@ -24,10 +25,23 @@
   font-family: Helvetica, Tahoma, Arial, STXihei, "华文细黑", "Microsoft YaHei", "微软雅黑", sans-serif;
 }
 
+.flat-font {
+  color: rgba(0,0,0,.6);
+  font-weight: 700;
+}
+
 .no-padding {
   padding: 0px;
 }
 
 .no-margin {
   margin: 0px;
+}
+
+.bg-light-green {
+  background-color: #F2F6F6;
+}
+
+.page-min-height {
+  min-height: 70vh;
 }

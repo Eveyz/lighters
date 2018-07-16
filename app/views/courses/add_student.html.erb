@@ -1,0 +1,15 @@
+<div class="bg-light-green page-min-height">
+  <%= render "admin/breadcrumb", domain: "addStudents" %>
+
+  <div class="container">
+    <%= react_component("AddStudentsWidget", {
+      course_id: @course.id,
+      course_name: @course.name, 
+      course_level: @course.level, 
+      course_capacity: @course.capacity, 
+      teacher: @teacher
+    }) %>
+    <br>
+    <br>
+  </div>
+</div>

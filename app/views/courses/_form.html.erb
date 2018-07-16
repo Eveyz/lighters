@@ -1,0 +1,51 @@
+<%= form_with(model: course, local: true) do |f| %>
+  <% if course.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(course.errors.count, "error") %> prohibited this course from being saved:</h2>
+
+      <ul>
+      <% course.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="input-field col m12">
+      <%= f.text_field :name, autofocus: false, autocomplete: "name", id: :name %>
+      <label for="name">课程名称<span style="color: red;">*</span></label>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-field col m12">
+      <%= f.text_field :level, autofocus: false, autocomplete: "level", id: :level %>
+      <label for="level">课程评级<span style="color: red;">*</span></label>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-field col m12">
+      <%= f.number_field :capacity, autofocus: false, autocomplete: "capacity", id: :capacity %>
+      <label for="capacity">课程容量<span style="color: red;">*</span></label>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-field col m12">
+      <%= f.select :teacher_id, @teachers.collect {|a| [a.fullname, a.id]}, :prompt => '选择教师' %>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "提交", class: 'student-form-button' %>
+  </div>
+<% end %>
+
+<script>
+  $(document).ready(function() {
+    var elems = document.querySelectorAll('select');
+    var instances = M.FormSelect.init(elems, {});
+  });
+</script>

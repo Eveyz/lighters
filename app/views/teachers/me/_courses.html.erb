@@ -1,0 +1,43 @@
+<div>
+  <br>
+  <br>
+   <!-- Modal Trigger -->
+  <a class="waves-effect waves-light btn modal-trigger" href="#modal1">添加课程</a>
+
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <div class="row">
+        <div class="col s12 m10 offset-m1">
+          <br>
+          <h4>添加课程</h4>
+          <div class="card">
+            <div class="card-content" style="padding: 50px;">
+              <%= render "courses/form", course: course %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div>
+    <% courses.each do |course| %>
+      <div class="card">
+        <div class="card-content">
+          <h5><%= link_to "#{course.name}", course_path(course) %></h5>
+          <h5><%= course.students.size %></h5>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function() {
+    var elems = document.querySelectorAll('.modal');
+    var instances = M.Modal.init(elems, {
+      opacity: 0.6,
+    });
+  });
+</script>

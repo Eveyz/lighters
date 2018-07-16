@@ -1,5 +1,5 @@
 class TeachersController < ApplicationController
-  before_action :set_teacher, only: [:show, :edit, :update, :destroy]
+  before_action :set_teacher, only: [:show, :edit, :update, :destroy, :me]
 
   # GET /teachers
   # GET /teachers.json
@@ -24,11 +24,19 @@ class TeachersController < ApplicationController
   # POST /teachers
   # POST /teachers.json
   def create
-    @teacher = Teacher.new(teacher_params)
+    @teacher = current_user.create_teacher(teacher_params)
 
     respond_to do |format|
       if @teacher.save
-        format.html { redirect_to @teacher, notice: 'Teacher was successfully created.' }
+        format.html {
+          if @teacher.active?
+            redirect_to me_teacher_path(@teacher)
+            flash[:notice] = 'Teacher was successfully created.' 
+          else
+            redirect_to pending_teacher_path(@teacher)
+            flash[:notice] = 'Teacher was successfully created.'
+          end
+        }
         format.json { render :show, status: :created, location: @teacher }
       else
         format.html { render :new }
@@ -61,6 +69,12 @@ class TeachersController < ApplicationController
     end
   end
 
+  def me
+    @students = @teacher.students
+    @courses = @teacher.courses
+    @course = Course.new
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_teacher
@@ -69,6 +83,6 @@ class TeachersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def teacher_params
-      params.require(:teacher).permit(:firstname, :lastname, :englishname, :age, :birthday, :gender, :city, :work, :education, :experience, :otherexperience, :profour, :proeight, :levelsix, :other, :honor, :interaction, :like, :availabletime, :audio, :comments, :resume, :user_id)
+      params.require(:teacher).permit(:firstname, :lastname, :englishname, :age, :birthday, :gender, :city, :work, :education, :experience, :otherexperience, :profour, :proeight, :levelsix, :other, :honor, :interaction, :like, :availabletime, :audio, :comments, :resume, :user_id, certificates: [])
     end
 end

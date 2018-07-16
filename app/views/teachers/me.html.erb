@@ -1,0 +1,68 @@
+<div class="page-min-height">
+  <div class="container">
+    <br>
+    <br>
+    <div class="row">
+      <div class="col s12">
+        <ul class="tabs">
+          <li class="tab col s3"><a href="#test1">课程</a></li>
+          <li class="tab col s3"><a href="#test2">学生</a></li>
+          <li class="tab col s3"><a href="#test3">绘本</a></li>
+          <li class="tab col s3"><a href="#test4">Test 4</a></li>
+        </ul>
+      </div>
+      <div id="test1" class="col s12">
+
+        <div class="row">
+          <div class="col m12">
+            <% if @courses.size == 0 %>
+              <h4>当前没有课程，请联系教导处添加你的课程</h4>
+            <% elsif %>
+              <% @courses.each do |course| %>
+                <%= link_to do %>
+                  <div class="card">
+                    <div class="card-content black-text">
+                      <span class="card-title"><%= course.name %></span>
+                      <p>授课老师: <%= @teacher.fullname %></p>
+                      <p>课程级别: <%= course.level %></p>
+                      <p>课程容量: <%= course.capacity %></p>
+                    </div>
+                    <div class="card-action">
+                      <a href="#">This is a link</a>
+                    </div>
+                  </div>
+                <% end %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+
+      </div>
+      <div id="test2" class="col s12">Test 2</div>
+      <div id="test3" class="col s12">
+        <div>
+          <img src="/test.jpg" style='height: 100%; width: 100%; object-fit: contain' oncontextmenu="return false;" />
+        </div>
+      </div>
+      <div id="test4" class="col s12">Test 4</div>
+    </div>
+  </div>
+
+  <div style="background: url(/test.jpg) no-repeat center #eee;background-size:100%;"></div>
+
+</div>
+
+<script>
+  $(document).ready(function() {
+    var elems = document.querySelectorAll('.tabs');
+    var instance = M.Tabs.init(elems, {});
+  });
+
+  $(document).ready(function() {
+    var elems = document.querySelectorAll('.modal');
+    var instances = M.Modal.init(elems, {
+      opacity: 0.6,
+    });
+  });
+
+</script>

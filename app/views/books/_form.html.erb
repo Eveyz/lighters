@@ -36,8 +36,8 @@
           </div>
           <div class="row">
             <div class="input-field col s12">
-              <%= form.text_field :category, id: :book_category %>
-              <label for="category">绘本分类</label>
+              <%= form.select :category, [ '主流绘本分类', '名家绘本', '自然拼读', '科普读物', '动画视频', '写作教程', '学生自读'], :prompt => '选择绘本分类' %>
+              <label><b>绘本分类</b></label>
             </div>
           </div>
           <div class="row">
@@ -46,16 +46,7 @@
               <label for="names">系列名(links)</label>
             </div>
           </div>
-          <div class="row">
-            <div class="col s12 m6">
-              <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                  <span class="card-title">关键词</span>
-                  
-                </div>
-              </div>
-            </div>
-          </div>
+          <%= react_component("KeywordWidget", {keywords: @keywords, edit: true}) %>
           <div class="row">
             <div class="input-field col s12">
               <%= form.number_field :quantity, id: :book_quantity %>
@@ -86,6 +77,17 @@
               <label for="bcomments">购买备注</label>
             </div>
           </div>
+          <div class="row">
+            <div class="file-field input-field">
+              <div class="btn cyan">
+                <span>绘本文件</span>
+                <%= form.file_field :files, multiple: true %>
+              </div>
+              <div class="file-path-wrapper">
+                <input class="file-path validate" type="text" placeholder="Upload one or more files">
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -105,5 +107,15 @@
 <script>
   $(document).ready(function() {
     M.updateTextFields();
+  });
+
+  $(document).ready(function() {
+    var elems = document.querySelectorAll('select');
+    var instances = M.FormSelect.init(elems, {});
+  });
+
+  $(document).ready(function() {
+    var elems = document.querySelectorAll('.chips');
+    var instances = M.Chips.init(elems, {});
   });
 </script>

@@ -7,6 +7,7 @@ class CreateStudents < ActiveRecord::Migration[5.1]
       t.string :pqq
       t.string :firstname
       t.string :lastname
+      t.string :englishname
       t.integer :age
       t.date :birthday
       t.string :gender

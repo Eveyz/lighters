@@ -1,16 +1,16 @@
 <nav>
-  <div class="nav-wrapper yellow darken-2">
+  <div class="nav-wrapper cyan">
     <%= link_to "Lighters", root_path, class: 'brand-logo center' %>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
       <% if user_signed_in? %>
         <% if current_user.identity == "老师" && current_user.teacher.present? %>
-          <li><%= link_to "我的账号", teacher_path(current_user.teacher) %> </li>
+          <li><%= link_to "我的账号", me_teacher_path(current_user.teacher) %> </li>
         <% elsif current_user.identity == "学员/家长" && current_user.student.present? %>
-          <li><%= link_to "我的账号", student_path(current_user.student) %> </li>
+          <li><%= link_to "我的账号", me_student_path(current_user.student) %> </li>
         <% end %>
         <li><%= link_to "注销", destroy_user_session_path, method: :delete %> </li>
       <% else %>
-        <li><%= link_to "注册", new_user_registration_path %></li>
+        <li><%= link_to "申请免费试听", new_user_registration_path %></li>
         <li><%= link_to "登录", new_user_session_path %></li>
       <% end %>
     </ul>

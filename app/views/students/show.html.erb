@@ -1,114 +1,148 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <br>
+  <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Pphone:</strong>
-  <%= @student.pphone %>
-</p>
+  <div class="row">
+    <div class="col m3">
+      <h5 style="color: rgba(0,0,0,.6);font-weight: 700;">我的账号</h5>
+      <ul>
+        <li class="single-item-wrap"><a class="single-item active">个人信息</a></li>
+        <li class="single-item-wrap"><a class="single-item">密码</a></li>
+        <li class="single-item-wrap"><a class="single-item">Alvin</a></li>
+        <li class="single-item-wrap"><a class="single-item">Alvin</a></li>
+      </ul>
+    </div>
+    <div class="col m9">
+      <div class="row">
+        <div class="col s12 m12">
+          <div class="card">
+            <div class="card-content">
+              <span class="card-title">Card Title</span>
+              <p>I am a very simple card. I am good at containing small bits of information.
+              I am convenient because I require little markup to use effectively.</p>
+            </div>
+            <div class="card-action">
+              <a href="#">This is a link</a>
+              <a href="#">This is a link</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<p>
-  <strong>Pemail:</strong>
-  <%= @student.pemail %>
-</p>
+  <p>
+    <strong>Pphone:</strong>
+    <%= @student.pphone %>
+  </p>
 
-<p>
-  <strong>Pwechat:</strong>
-  <%= @student.pwechat %>
-</p>
+  <p>
+    <strong>Pemail:</strong>
+    <%= @student.pemail %>
+  </p>
 
-<p>
-  <strong>Pqq:</strong>
-  <%= @student.pqq %>
-</p>
+  <p>
+    <strong>Pwechat:</strong>
+    <%= @student.pwechat %>
+  </p>
 
-<p>
-  <strong>Firstname:</strong>
-  <%= @student.firstname %>
-</p>
+  <p>
+    <strong>Pqq:</strong>
+    <%= @student.pqq %>
+  </p>
 
-<p>
-  <strong>Lastname:</strong>
-  <%= @student.lastname %>
-</p>
+  <p>
+    <strong>Firstname:</strong>
+    <%= @student.firstname %>
+  </p>
 
-<p>
-  <strong>Age:</strong>
-  <%= @student.age %>
-</p>
+  <p>
+    <strong>Lastname:</strong>
+    <%= @student.lastname %>
+  </p>
 
-<p>
-  <strong>Birthday:</strong>
-  <%= @student.birthday %>
-</p>
+  <p>
+    <strong>Age:</strong>
+    <%= @student.age %>
+  </p>
 
-<p>
-  <strong>Gender:</strong>
-  <%= @student.gender %>
-</p>
+  <p>
+    <strong>Birthday:</strong>
+    <%= @student.birthday %>
+  </p>
 
-<p>
-  <strong>City:</strong>
-  <%= @student.city %>
-</p>
+  <p>
+    <strong>Gender:</strong>
+    <%= @student.gender %>
+  </p>
 
-<p>
-  <strong>Schoolname:</strong>
-  <%= @student.schoolname %>
-</p>
+  <p>
+    <strong>City:</strong>
+    <%= @student.city %>
+  </p>
 
-<p>
-  <strong>Schoolstatus:</strong>
-  <%= @student.schoolstatus %>
-</p>
+  <p>
+    <strong>Schoolname:</strong>
+    <%= @student.schoolname %>
+  </p>
 
-<p>
-  <strong>Level:</strong>
-  <%= @student.level %>
-</p>
+  <p>
+    <strong>Schoolstatus:</strong>
+    <%= @student.schoolstatus %>
+  </p>
 
-<p>
-  <strong>Time:</strong>
-  <%= @student.time %>
-</p>
+  <p>
+    <strong>Level:</strong>
+    <%= @student.level %>
+  </p>
 
-<p>
-  <strong>Estimate:</strong>
-  <%= @student.estimate %>
-</p>
+  <p>
+    <strong>Time:</strong>
+    <%= @student.time %>
+  </p>
 
-<p>
-  <strong>Expectation:</strong>
-  <%= @student.expectation %>
-</p>
+  <p>
+    <strong>Estimate:</strong>
+    <%= @student.estimate %>
+  </p>
 
-<p>
-  <strong>Paragraph:</strong>
-  <%= @student.paragraph %>
-</p>
+  <p>
+    <strong>Expectation:</strong>
+    <%= @student.expectation %>
+  </p>
 
-<p>
-  <strong>Dailyreading:</strong>
-  <%= @student.dailyreading %>
-</p>
+  <p>
+    <strong>Paragraph:</strong>
+    <%= @student.paragraph %>
+  </p>
 
-<p>
-  <strong>Penglishlevel:</strong>
-  <%= @student.penglishlevel %>
-</p>
+  <p>
+    <strong>Dailyreading:</strong>
+    <%= @student.dailyreading %>
+  </p>
 
-<p>
-  <strong>Custody:</strong>
-  <%= @student.custody %>
-</p>
+  <p>
+    <strong>Penglishlevel:</strong>
+    <%= @student.penglishlevel %>
+  </p>
 
-<p>
-  <strong>Way:</strong>
-  <%= @student.way %>
-</p>
+  <p>
+    <strong>Custody:</strong>
+    <%= @student.custody %>
+  </p>
 
-<p>
-  <strong>Reason:</strong>
-  <%= @student.reason %>
-</p>
+  <p>
+    <strong>Way:</strong>
+    <%= @student.way %>
+  </p>
 
-<%= link_to 'Edit', edit_student_path(@student) %> |
-<%= link_to 'Back', students_path %>
+  <p>
+    <strong>Reason:</strong>
+    <%= @student.reason %>
+  </p>
+
+  <%= link_to 'Edit', edit_student_path(@student) %> |
+  <%= link_to 'Back', students_path %>
+  <br>
+  <br>
+</div>

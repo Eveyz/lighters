@@ -5,6 +5,9 @@ class StudentsController < ApplicationController
   # GET /students.json
   def index
     @students = Student.all
+    respond_to do |format|
+      format.json { render json: @students.pluck(:id, :firstname, :lastname) }
+    end
   end
 
   # GET /students/1
@@ -67,6 +70,13 @@ class StudentsController < ApplicationController
   def me
   end
 
+  def search_student
+    @students = Student.where("lastname like ? OR firstname like ?","%#{params[:name]}%", "%#{params[:name]}").pluck(:id, :firstname, :lastname)
+    respond_to do |format|
+      format.json { render json: @students }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_student
@@ -75,6 +85,6 @@ class StudentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def student_params
-      params.require(:student).permit(:pphone, :pemail, :pwechat, :pqq, :firstname, :lastname, :age, :birthday, :gender, :city, :schoolname, :schoolstatus, :level, :time, :estimate, :expectation, :paragraph, :dailyreading, :currentreadingstatus, :penglishlevel, :custody, :way, :reason)
+      params.require(:student).permit(:pphone, :pemail, :pwechat, :pqq, :firstname, :lastname, :englishname, :age, :birthday, :gender, :city, :schoolname, :schoolstatus, :level, :time, :estimate, :expectation, :paragraph, :dailyreading, :currentreadingstatus, :penglishlevel, :custody, :way, :reason)
     end
 end

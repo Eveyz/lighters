@@ -6,10 +6,12 @@ class SessionsController < Devise::SessionsController
     if current_user.identity == "老师"
       @teacher = current_user.teacher
       if @teacher.present?
-        teacher_path(@teacher)
+        me_teacher_path(@teacher)
       else
         new_teacher_path
       end
+    elsif current_user.identity == "admin"
+      admin_user_path(current_user)
     else
       new_student_path
     end

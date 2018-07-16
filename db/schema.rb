@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180701025737) do
+ActiveRecord::Schema.define(version: 20180716050350) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,8 +24,33 @@ ActiveRecord::Schema.define(version: 20180701025737) do
     t.integer "quantity"
     t.string "links"
     t.string "audio"
+    t.string "file"
+    t.string "cover"
     t.text "rcomments"
     t.text "bcomments"
+    t.json "files", default: "{}", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "course_students", force: :cascade do |t|
+    t.bigint "course_id"
+    t.bigint "student_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_course_students_on_course_id"
+    t.index ["student_id"], name: "index_course_students_on_student_id"
+  end
+
+  create_table "courses", force: :cascade do |t|
+    t.integer "teacher_id"
+    t.integer "student_id"
+    t.string "name"
+    t.string "level"
+    t.integer "capacity"
+    t.string "code"
+    t.string "type"
+    t.string "status", default: "active", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -38,6 +63,25 @@ ActiveRecord::Schema.define(version: 20180701025737) do
     t.index ["book_id"], name: "index_keywords_on_book_id"
   end
 
+  create_table "reports", force: :cascade do |t|
+    t.integer "teacher_id"
+    t.integer "course_id"
+    t.integer "student_id"
+    t.string "type"
+    t.datetime "course_date"
+    t.integer "duration"
+    t.integer "focus"
+    t.string "tutor_comment"
+    t.string "homework"
+    t.string "future_book"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.integer "report_number"
+    t.json "audios", default: "{}", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "students", force: :cascade do |t|
     t.string "pphone"
     t.string "pemail"
@@ -45,6 +89,7 @@ ActiveRecord::Schema.define(version: 20180701025737) do
     t.string "pqq"
     t.string "firstname"
     t.string "lastname"
+    t.string "englishname"
     t.integer "age"
     t.date "birthday"
     t.string "gender"
@@ -62,10 +107,20 @@ ActiveRecord::Schema.define(version: 20180701025737) do
     t.string "custody"
     t.string "way"
     t.string "reason"
+    t.string "status"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_students_on_user_id"
+  end
+
+  create_table "teacher_students", force: :cascade do |t|
+    t.bigint "teacher_id"
+    t.bigint "student_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["student_id"], name: "index_teacher_students_on_student_id"
+    t.index ["teacher_id"], name: "index_teacher_students_on_teacher_id"
   end
 
   create_table "teachers", force: :cascade do |t|
@@ -91,6 +146,8 @@ ActiveRecord::Schema.define(version: 20180701025737) do
     t.string "audio"
     t.text "comments"
     t.string "resume"
+    t.string "status", default: "pending", null: false
+    t.json "certificates", default: "{}", null: false
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -103,7 +160,9 @@ ActiveRecord::Schema.define(version: 20180701025737) do
     t.string "wechat", default: "", null: false
     t.string "identity", default: "", null: false
     t.string "status", default: "", null: false
+    t.binary "admin", default: "false", null: false
     t.string "encrypted_password", default: "", null: false
+    t.json "avatars", default: "{}", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -125,7 +184,11 @@ ActiveRecord::Schema.define(version: 20180701025737) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "course_students", "courses"
+  add_foreign_key "course_students", "students"
   add_foreign_key "keywords", "books"
   add_foreign_key "students", "users"
+  add_foreign_key "teacher_students", "students"
+  add_foreign_key "teacher_students", "teachers"
   add_foreign_key "teachers", "users"
 end

@@ -1,7 +1,15 @@
 <div class="container">
-  <h1 class="chinese-font">新绘本</h1>
+  <div class="row">
+    <div class="col s12 m10 offset-m1">
+      <h1 class="chinese-font">新绘本</h1>
+    </div>
+  </div>
 
   <%= render 'form', book: @book %>
 
-  <%= link_to '返回', books_path %>
+  <div class="row">
+    <div class="col s12 m10 offset-m1">
+      <%= link_to '返回', books_path %>
+    </div>
+  </div>
 </div>

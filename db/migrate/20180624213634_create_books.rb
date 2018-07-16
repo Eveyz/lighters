@@ -9,8 +9,11 @@ class CreateBooks < ActiveRecord::Migration[5.1]
       t.integer :quantity
       t.string :links
       t.string :audio
+      t.string :file
+      t.string :cover
       t.text :rcomments
       t.text :bcomments
+      t.json :files, null: false, default: '{}'
 
       t.timestamps
     end
