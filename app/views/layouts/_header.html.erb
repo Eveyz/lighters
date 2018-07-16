@@ -7,6 +7,8 @@
           <li><%= link_to "我的账号", me_teacher_path(current_user.teacher) %> </li>
         <% elsif current_user.identity == "学员/家长" && current_user.student.present? %>
           <li><%= link_to "我的账号", me_student_path(current_user.student) %> </li>
+        <% else %>
+          <li><%= link_to "管理员Dashboard", admin_dashboard_path %></li>
         <% end %>
         <li><%= link_to "注销", destroy_user_session_path, method: :delete %> </li>
       <% else %>
