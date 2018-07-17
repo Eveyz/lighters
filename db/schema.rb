@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180716232436) do
+ActiveRecord::Schema.define(version: 20180717172231) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,19 +72,27 @@ ActiveRecord::Schema.define(version: 20180716232436) do
     t.index ["book_id"], name: "index_keywords_on_book_id"
   end
 
+  create_table "report_keywords", force: :cascade do |t|
+    t.string "content"
+    t.bigint "report_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["report_id"], name: "index_report_keywords_on_report_id"
+  end
+
   create_table "reports", force: :cascade do |t|
     t.integer "teacher_id"
     t.integer "course_id"
     t.integer "student_id"
     t.string "type"
-    t.datetime "course_date"
+    t.string "course_date"
     t.integer "duration"
     t.integer "focus"
     t.string "tutor_comment"
     t.string "homework"
     t.string "future_book"
-    t.datetime "start_time"
-    t.datetime "end_time"
+    t.string "start_time"
+    t.string "end_time"
     t.integer "report_number"
     t.json "audios", default: "{}", null: false
     t.datetime "created_at", null: false
@@ -100,7 +108,7 @@ ActiveRecord::Schema.define(version: 20180716232436) do
     t.string "lastname"
     t.string "englishname"
     t.integer "age"
-    t.date "birthday"
+    t.string "birthday"
     t.string "gender"
     t.string "city"
     t.string "schoolname"
@@ -137,7 +145,7 @@ ActiveRecord::Schema.define(version: 20180716232436) do
     t.string "lastname"
     t.string "englishname"
     t.integer "age"
-    t.date "birthday"
+    t.string "birthday"
     t.string "gender"
     t.string "city"
     t.string "work"
@@ -198,6 +206,7 @@ ActiveRecord::Schema.define(version: 20180716232436) do
   add_foreign_key "course_students", "courses"
   add_foreign_key "course_students", "students"
   add_foreign_key "keywords", "books"
+  add_foreign_key "report_keywords", "reports"
   add_foreign_key "students", "users"
   add_foreign_key "teacher_students", "students"
   add_foreign_key "teacher_students", "teachers"
