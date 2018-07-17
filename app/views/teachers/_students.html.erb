@@ -1,0 +1,50 @@
+<div class="row">
+  <div class="col m12">
+    <h6><b>你的学生 (<%= students.size %>)</b></h6>
+  </div>
+</div>
+<div class="row">
+  <div class="col m12">
+    <% if students.size > 0%>
+      <table>
+        <thead>
+          <tr>
+            <th>学生姓名</th>
+            <th>学生英文名</th>
+            <th>学生年龄</th>
+            <th>课程</th>
+            <th>课程回馈表</th>
+            <th colspan="2"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% courses.each do |course| %>
+            <% course.students.each do |student| %>
+              <tr>
+                <td><%= student.fullname %></td>
+                <td><%= student.englishname %></td>
+                <td><%= student.age %></td>
+                <td><%= course.name %></td>
+                <td><%= course.reports.where(student_id: student.id).size %></td>
+                <td><%= link_to '填写新课程回馈表', new_report_path(report, course_id: course, student_id: student, teacher_id: @teacher), class: 'btn' %></td>
+                <td><%= link_to '查看', student, class: 'btn cyan' %></td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <div class="row">
+        <div class="col m12">
+          <div class="card">
+            <div class="card-content black-text">
+              <span class="card-title cyan-text center"><b>当前学生数量为0</b></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+  </div>
+</div>

@@ -1,5 +1,6 @@
 class CoursesController < ApplicationController
-  before_action :set_course, only: [:show, :edit, :update, :destroy, :add_student, :enroll_student, :drop_student]
+  before_action :authenticate_user!
+  before_action :set_course, only: [:show, :edit, :update, :destroy, :add_student, :enroll_student, :drop_student, :get_students, :add_books, :get_books, :append_book, :remove_book]
 
   # GET /courses
   # GET /courses.json
@@ -45,7 +46,7 @@ class CoursesController < ApplicationController
   def update
     respond_to do |format|
       if @course.update(course_params)
-        format.html { redirect_to @course, notice: 'Course was successfully updated.' }
+        format.html { redirect_to courses_url, notice: 'Course was successfully updated.' }
         format.json { render :show, status: :ok, location: @course }
       else
         format.html { render :edit }
@@ -61,6 +62,13 @@ class CoursesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to courses_url, notice: 'Course was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def get_students
+    @students = @course.students
+    respond_to do |format|
+      format.json { render json: @students.pluck(:id, :firstname, :lastname) }
     end
   end
 
@@ -85,19 +93,77 @@ class CoursesController < ApplicationController
     end
     # flash[:notice] = 'Student was added.'
     respond_to do |format|
-      format.json { render json: @course.students }
+      format.json { render json: @course.students.pluck(:id, :firstname, :lastname) }
     end
   end
 
   def drop_student
     @student = Student.find(params[:student_id])
-    @course.students.delete(@student)
+    begin
+      @course.students.delete(@student)
+    rescue Exception => e
+      puts "drop student #{e.message}"
+    end
 
     @teacher = Teacher.find(@course.teacher_id)
-    @teacher.students.delete(@student)
+    begin
+      @teacher.students.delete(@student)
+    rescue Exception => e
+      puts "drop teacher #{e.message}"
+    end
 
     respond_to do |format|
-      format.json { render json: @course.students }
+      format.json { render json: @course.students.pluck(:id, :firstname, :lastname) }
+    end
+  end
+
+  def get_books
+    @books = @course.books
+    respond_to do |format|
+      format.json { render json: @books.pluck(:id, :rlevel, :lslevel, :age, :category, :names) }
+    end
+  end
+
+  def add_books
+    @books = @course.books
+    @teacher = Teacher.find(@course.teacher_id).fullname
+  end
+
+  def append_book
+    @book = Book.find(params[:book_id])
+    @message = ""
+    begin
+      @course.books << @book
+    rescue Exception => e
+      puts "#{e.message}"
+      @message = "#{e.message}"
+    end
+    respond_to do |format|
+      format.json { 
+        render json: { 
+          courses: @course.books.pluck(:id, :rlevel, :lslevel, :age, :category, :names), 
+          msg: @message
+        }
+      }
+    end
+  end
+
+  def remove_book
+    @book = Book.find(params[:book_id])
+    @message = ""
+    begin
+      @course.books.delete(@book)
+    rescue Exception => e
+      puts "#{e.message}"
+      @message = "#{e.message}"
+    end  
+    respond_to do |format|
+      format.json { 
+        render json: { 
+          courses: @course.books.pluck(:id, :rlevel, :lslevel, :age, :category, :names), 
+          msg: @message
+        }
+      }
     end
   end
 

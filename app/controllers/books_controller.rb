@@ -1,4 +1,5 @@
 class BooksController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_book, only: [:show, :edit, :update, :destroy]
   before_action :set_keywords, only: [:show, :edit]
 
@@ -6,6 +7,10 @@ class BooksController < ApplicationController
   # GET /books.json
   def index
     @books = Book.all
+    respond_to do |format|
+      format.html { render :index }
+      format.json { render json: @books.pluck(:id, :rlevel, :lslevel, :age, :category, :names) }
+    end
   end
 
   # GET /books/1
@@ -41,7 +46,7 @@ class BooksController < ApplicationController
             end
           end
         end
-        format.html { redirect_to @book, notice: 'Book was successfully created.' }
+        format.html { redirect_to books_url, notice: 'Book was successfully created.' }
         format.json { render :show, status: :created, location: @book }
       else
         format.html { render :new }
@@ -68,7 +73,7 @@ class BooksController < ApplicationController
             end
           end
         end
-        format.html { redirect_to @book, notice: 'Book was successfully updated.' }
+        format.html { redirect_to books_url, notice: 'Book was successfully updated.' }
         format.json { render :show, status: :ok, location: @book }
       else
         format.html { render :edit }
@@ -97,8 +102,10 @@ class BooksController < ApplicationController
       @keywords = @book.keywords.pluck(:content)
     end
 
-    def admin?
-      # return current_user.admin
+    def require_admin
+      unless current_user.admin?
+        redirect_to root_path
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

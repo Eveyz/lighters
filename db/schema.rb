@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180716050350) do
+ActiveRecord::Schema.define(version: 20180716232436) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,15 @@ ActiveRecord::Schema.define(version: 20180716050350) do
     t.json "files", default: "{}", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "course_books", force: :cascade do |t|
+    t.bigint "course_id"
+    t.bigint "book_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["book_id"], name: "index_course_books_on_book_id"
+    t.index ["course_id"], name: "index_course_books_on_course_id"
   end
 
   create_table "course_students", force: :cascade do |t|
@@ -184,6 +193,8 @@ ActiveRecord::Schema.define(version: 20180716050350) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "course_books", "books"
+  add_foreign_key "course_books", "courses"
   add_foreign_key "course_students", "courses"
   add_foreign_key "course_students", "students"
   add_foreign_key "keywords", "books"

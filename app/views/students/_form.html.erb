@@ -86,7 +86,7 @@
 
           <div class="row">
             <div class="input-field col m12">
-              <%= f.date_select :birthday, start_year: 1970, id: :student_birthday %>
+              <%= f.text_field :birthday, id: :student_birthday, class: "datepicker" %>
               <label for="student_birthday">出生日期 <span style="color: red;">*</span></label>
             </div>
           </div>

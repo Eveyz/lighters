@@ -14,6 +14,10 @@ class Teacher < ApplicationRecord
     return self.status == "active"
   end
 
+  def pending?
+    self.status == "pending"
+  end
+
   def fullname
     return self.lastname + self.firstname
   end

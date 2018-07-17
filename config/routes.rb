@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root "mainpages#welcome"
 
   get 'admin/dashboard', to: 'admin#dashboard'
+  get 'reports/new/hide-path-for-rails', to: 'reports#new'
   
   namespace :admin do
     resources :users do
@@ -13,9 +14,14 @@ Rails.application.routes.draw do
 
   resources :courses do
     member do
+      get :get_students
       get :add_student
       post :enroll_student
       delete :drop_student
+      get :get_books
+      get :add_books
+      post :append_book
+      delete :remove_book
     end
   end
   resources :reports
@@ -33,6 +39,9 @@ Rails.application.routes.draw do
     member do
       get :me
       get :pending
+      get :activate
+      get :deactivate
+      get :course_manage
     end
   end
 

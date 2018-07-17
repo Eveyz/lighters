@@ -1,119 +1,163 @@
-<p id="notice"><%= notice %></p>
+<div class="page-min-height">
+  <div class="container">
+    <p id="notice"><%= notice %></p>
+    <div class="row">
+      <div class="col s12 m8 offset-m2">
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">基本信息:</span>
+            <p>
+              <strong>姓:</strong>
+              <%= @teacher.lastname %>
+            </p>
 
-<p>
-  <strong>Firstname:</strong>
-  <%= @teacher.firstname %>
-</p>
+            <p>
+              <strong>名字:</strong>
+              <%= @teacher.firstname %>
+            </p>
 
-<p>
-  <strong>Lastname:</strong>
-  <%= @teacher.lastname %>
-</p>
+            <p>
+              <strong>英文名:</strong>
+              <%= @teacher.englishname %>
+            </p>
 
-<p>
-  <strong>Englishname:</strong>
-  <%= @teacher.englishname %>
-</p>
+            <p>
+              <strong>年龄:</strong>
+              <%= @teacher.age %>
+            </p>
 
-<p>
-  <strong>Age:</strong>
-  <%= @teacher.age %>
-</p>
+            <p>
+              <strong>出生日期:</strong>
+              <%= @teacher.birthday %>
+            </p>
 
-<p>
-  <strong>Birthday:</strong>
-  <%= @teacher.birthday %>
-</p>
+            <p>
+              <strong>性别:</strong>
+              <%= @teacher.gender %>
+            </p>
 
-<p>
-  <strong>Gender:</strong>
-  <%= @teacher.gender %>
-</p>
+            <p>
+              <strong>城市:</strong>
+              <%= @teacher.city %>
+            </p>
 
-<p>
-  <strong>City:</strong>
-  <%= @teacher.city %>
-</p>
+            <p>
+              <strong>当前工作状态:</strong>
+              <%= @teacher.work %>
+            </p>
 
-<p>
-  <strong>Work:</strong>
-  <%= @teacher.work %>
-</p>
+            <p>
+              <strong>教育背景:</strong>
+              <%= @teacher.education %>
+            </p>
 
-<p>
-  <strong>Education:</strong>
-  <%= @teacher.education %>
-</p>
+            <p>
+              <strong>与教师/家教相关的工作经历:</strong>
+              <%= @teacher.experience %>
+            </p>
 
-<p>
-  <strong>Experience:</strong>
-  <%= @teacher.experience %>
-</p>
+            <p>
+              <strong>其他工作经历:</strong>
+              <%= @teacher.otherexperience %>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
 
-<p>
-  <strong>Otherexperience:</strong>
-  <%= @teacher.otherexperience %>
-</p>
+    <div class="row">
+      <div class="col s12 m8 offset-m2">
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">英语水平: </span>
+            <p>
+              <strong>英语专业四级(分数):</strong>
+              <%= @teacher.profour %>
+            </p>
 
-<p>
-  <strong>Profour:</strong>
-  <%= @teacher.profour %>
-</p>
+            <p>
+              <strong>英语专业八级 (分数):</strong>
+              <%= @teacher.proeight %>
+            </p>
 
-<p>
-  <strong>Proeight:</strong>
-  <%= @teacher.proeight %>
-</p>
+            <p>
+              <strong>大学英语六级 (分数):</strong>
+              <%= @teacher.levelsix %>
+            </p>
 
-<p>
-  <strong>Levelsix:</strong>
-  <%= @teacher.levelsix %>
-</p>
+            <p>
+              <strong>其他英语等级测试(托福, 雅思等) (分数):</strong>
+              <%= @teacher.other %>
+            </p>
 
-<p>
-  <strong>Other:</strong>
-  <%= @teacher.other %>
-</p>
+            <p>
+              <strong>证明英语能力的荣誉:</strong>
+              <%= @teacher.honor %>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
 
-<p>
-  <strong>Honor:</strong>
-  <%= @teacher.honor %>
-</p>
+    <div class="row">
+      <div class="col s12 m8 offset-m2">
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">兴趣特长: </span>
+            <p>
+              <strong>有与学龄儿童互动的经验吗 (包括自己的弟妹):</strong>
+              <%= @teacher.interaction %>
+            </p>
 
-<p>
-  <strong>Interaction:</strong>
-  <%= @teacher.interaction %>
-</p>
+            <p>
+              <strong>是否喜欢英文原著阅读:</strong>
+              <%= @teacher.like %>
+            </p>
 
-<p>
-  <strong>Like:</strong>
-  <%= @teacher.like %>
-</p>
+            <p>
+              <strong>每周可保证几个小时线上教学时间:</strong>
+              <%= @teacher.availabletime %>
+            </p>
 
-<p>
-  <strong>Availabletime:</strong>
-  <%= @teacher.availabletime %>
-</p>
+            <p>
+              <strong>story录音:</strong>
+              <%= @teacher.audio %>
+            </p>
 
-<p>
-  <strong>Audio:</strong>
-  <%= @teacher.audio %>
-</p>
+            <p>
+              <strong>对英语(远程线上)教育和英文原版阅读的见解, 以及为何对我们的教学平台感兴趣 (请用英文填写, 不少于300字):</strong>
+              <%= @teacher.comments %>
+            </p>
 
-<p>
-  <strong>Comments:</strong>
-  <%= @teacher.comments %>
-</p>
+            <p>
+              <strong>简历:</strong>
+              <%= @teacher.resume %>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
 
-<p>
-  <strong>Resume:</strong>
-  <%= @teacher.resume %>
-</p>
 
-<p>
-  <strong>User:</strong>
-  <%= @teacher.user %>
-</p>
+    <div class="row">
+      <div class="col s12 m8 offset-m2">
+        <% if current_user.admin? %>
+          <% if @teacher.pending? %>
+            <%= link_to '通过审核', activate_teacher_path(@teacher), class: "btn" %>
+          <% elsif @teacher.active? %>
+            <%= link_to '冻结账号', deactivate_teacher_path(@teacher), class: "btn red" %>
+          <% end %>
+        <% end %>
+        <% if current_user.teacher == @teacher %>
+          <%= link_to '编辑', edit_teacher_path(@teacher) %> |
+        <% end %>
+        <%= link_to '返回', teachers_path, class: "btn white black-text" %>
+      </div>
+    </div>
 
-<%= link_to 'Edit', edit_teacher_path(@teacher) %> |
-<%= link_to 'Back', teachers_path %>
+  </div>
+
+  <br>
+  <br>
+  <br>
+</div>

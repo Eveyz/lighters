@@ -4,4 +4,9 @@ class Course < ApplicationRecord
 
   has_many :course_students
   has_many :students, :through => :course_students
+
+  has_many :course_books
+  has_many :books, :through => :course_books
+
+  has_many :reports
 end

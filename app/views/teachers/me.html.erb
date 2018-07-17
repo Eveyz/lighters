@@ -1,34 +1,40 @@
 <div class="page-min-height">
+  <div style="background-color: #fbc02d; padding: 10px 0px 13px 0px;">
+    <div class="container">
+      <div class="row no-margin">
+        <div class="col s12">
+          <h5 class="white-text" style="font-weight: 500;">Welcome, <%= @teacher.fullname %></h5>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="container">
     <br>
     <br>
     <div class="row">
       <div class="col s12">
         <ul class="tabs">
-          <li class="tab col s3"><a href="#test1">课程</a></li>
-          <li class="tab col s3"><a href="#test2">学生</a></li>
-          <li class="tab col s3"><a href="#test3">绘本</a></li>
+          <li class="tab col s3"><a href="#courses">课程</a></li>
+          <li class="tab col s3"><a href="#students">学生</a></li>
+          <li class="tab col s3"><a href="#books">绘本</a></li>
           <li class="tab col s3"><a href="#test4">Test 4</a></li>
         </ul>
       </div>
-      <div id="test1" class="col s12">
-
+      <div id="courses" class="col s12">
+        <br>
         <div class="row">
           <div class="col m12">
             <% if @courses.size == 0 %>
               <h4>当前没有课程，请联系教导处添加你的课程</h4>
             <% elsif %>
               <% @courses.each do |course| %>
-                <%= link_to do %>
+                <%= link_to course_manage_teacher_path(@teacher, course_id: course) do %>
                   <div class="card">
                     <div class="card-content black-text">
-                      <span class="card-title"><%= course.name %></span>
+                      <span class="card-title cyan-text"><b><%= course.name %></b></span>
                       <p>授课老师: <%= @teacher.fullname %></p>
                       <p>课程级别: <%= course.level %></p>
-                      <p>课程容量: <%= course.capacity %></p>
-                    </div>
-                    <div class="card-action">
-                      <a href="#">This is a link</a>
+                      <p>当前学生数量: <%= course.students.size %>/<%= course.capacity %></p>
                     </div>
                   </div>
                 <% end %>
@@ -36,10 +42,12 @@
             <% end %>
           </div>
         </div>
-
       </div>
-      <div id="test2" class="col s12">Test 2</div>
-      <div id="test3" class="col s12">
+      <div id="students" class="col s12">
+        <br>
+        <%= render "teachers/students", teacher: @teacher, courses: @courses, students: @students, report: @report %>
+      </div>
+      <div id="books" class="col s12">
         <div>
           <img src="/test.jpg" style='height: 100%; width: 100%; object-fit: contain' oncontextmenu="return false;" />
         </div>
@@ -49,7 +57,8 @@
   </div>
 
   <div style="background: url(/test.jpg) no-repeat center #eee;background-size:100%;"></div>
-
+  <br>
+  <br>
 </div>
 
 <script>

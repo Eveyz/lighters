@@ -5,14 +5,14 @@ class CreateReports < ActiveRecord::Migration[5.1]
       t.integer :course_id
       t.integer :student_id
       t.string :type
-      t.datetime :course_date
+      t.string :course_date
       t.integer :duration
       t.integer :focus
       t.string :tutor_comment
       t.string :homework
       t.string :future_book
-      t.datetime :start_time
-      t.datetime :end_time
+      t.string :start_time
+      t.string :end_time
       t.integer :report_number
       t.json :audios, null: false, default: '{}'
 

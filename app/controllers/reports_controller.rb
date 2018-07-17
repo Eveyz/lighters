@@ -1,4 +1,5 @@
 class ReportsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_report, only: [:show, :edit, :update, :destroy]
 
   # GET /reports
@@ -15,6 +16,9 @@ class ReportsController < ApplicationController
   # GET /reports/new
   def new
     @report = Report.new
+    @teacher = Teacher.find(params[:teacher_id])
+    @student = Student.find(params[:student_id])
+    @course = Course.find(params[:course_id])
   end
 
   # GET /reports/1/edit

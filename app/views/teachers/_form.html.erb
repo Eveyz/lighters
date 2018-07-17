@@ -18,12 +18,12 @@
           <span class="card-title">基本信息</span>
           <div class="row">
             <div class="input-field col m6 s12">
-              <%= f.text_field :firstname, autofocus: false, autocomplete: "firstname", id: :firstname %>
+              <%= f.text_field :lastname, autofocus: false, autocomplete: "firstname", id: :firstname %>
               <label for="firstname">姓 <span style="color: red;">*</span></label>
             </div>
 
             <div class="input-field col m6 s12">
-              <%= f.text_field :lastname, autofocus: false, autocomplete: "lastname", id: :lastname %>
+              <%= f.text_field :firstname, autofocus: false, autocomplete: "lastname", id: :lastname %>
               <label for="lastname">名字 <span style="color: red;">*</span></label>
             </div>
           </div>
@@ -44,7 +44,7 @@
 
           <div class="row">
             <div class="input-field col m12 s12">
-              <%= f.date_select :birthday, start_year: 1970, id: :teacher_birthday %>
+              <%= f.text_field :birthday, id: :teacher_birthday, class: "datepicker" %>
               <label for="teacher_birthday">出生日期 <span style="color: red;">*</span></label>
             </div>
           </div>

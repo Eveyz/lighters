@@ -1,4 +1,4 @@
-<%= form_with(model: report, local: true) do |form| %>
+<%= form_with(model: report, local: true) do |f| %>
   <% if report.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(report.errors.count, "error") %> prohibited this report from being saved:</h2>
@@ -10,8 +10,109 @@
       </ul>
     </div>
   <% end %>
+  <br>
+  <div class="row">
+    <div class="col s12 m8 offset-m2">
+      <div class="card">
+        <div class="card-content" style="padding: 50px;">
+          <span class="card-title cyan-text"><b>课程基本信息</b></span>
+          <p>授课老师: <%= @teacher.fullname %></p>
+          <p>学生名字: <%= @student.fullname %></p>
+          <p>课程名称: <%= @course.name %></p>
+          <br>
+          <div class="row">
+            <div class="input-field col m12">
+              <%= f.text_field :course_date, start_year: 1970, id: :course_date, class: "datepicker" %>
+              <label for="course_date">上课日期 <span style="color: red;">*</span></label>
+            </div>
+          </div>
 
-  <div class="actions">
-    <%= form.submit %>
+          <div class="row">
+            <div class="input-field col m12">
+              <%= f.text_field :start_time, id: :start_time, class: "timepicker" %>
+              <label for="start_time">开始时间 <span style="color: red;">*</span></label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col m12">
+              <%= f.text_field :end_time, id: :end_time, class: "timepicker" %>
+              <label for="end_time">结束时间 <span style="color: red;">*</span></label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col m12">
+              <%= f.number_field :focus, autofocus: false, id: :focus %>
+              <label for="focus">学生专注时间 <span style="color: red;">*</span></label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col m12 s12">
+              <%= f.text_area :tutor_comment, autofocus: false, id: :tutor_comment, class: "materialize-textarea" %>
+              <label for="tutor_comment">课程评价 <span style="color: red;">*</span></label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col m12 s12">
+              <%= f.text_area :homework, autofocus: false, id: :homework, class: "materialize-textarea" %>
+              <label for="homework">课后作业 <span style="color: red;">*</span></label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col m12 s12">
+              <%= f.text_area :future_book, autofocus: false, id: :future_book, class: "materialize-textarea" %>
+              <label for="future_book">下次课书目 <span style="color: red;">*</span></label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="file-field input-field col m12 s12">
+              <div class="btn cyan">
+                <span>课程录音文件 <span style="color: red;">*</span></span>
+                <%= f.file_field :audios, multiple: true %>
+              </div>
+              <div class="file-path-wrapper">
+                <input class="file-path validate" type="text">
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col s12 m8 offset-m2">
+        <%= f.submit "生成最终报告", class: 'btn' %>
+      </div>
+    </div>
+
   </div>
+
 <% end %>
+
+<script>
+  $(document).ready(function() {
+    M.updateTextFields();
+  });
+
+  $(document).ready(function() {
+    var elems = document.querySelectorAll('select');
+    var instances = M.FormSelect.init(elems, {});
+  });
+
+  $(document).ready(function() {
+    var elems = document.querySelectorAll('.datepicker');
+    var instances = M.Datepicker.init(elems, {});
+  });
+
+  $(document).ready(function() {
+    var elems = document.querySelectorAll('.timepicker');
+    var instances = M.Timepicker.init(elems, {});
+  });
+
+</script>

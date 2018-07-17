@@ -1,10 +1,13 @@
 class TeachersController < ApplicationController
-  before_action :set_teacher, only: [:show, :edit, :update, :destroy, :me]
+  before_action :authenticate_user!
+  before_action :set_teacher, only: [:show, :edit, :update, :destroy, :me, :activate, :deactivate, :course_manage]
 
   # GET /teachers
   # GET /teachers.json
   def index
     @teachers = Teacher.all
+    @activeTeachers = Teacher.where(status: "active")
+    @pendingTeachers = Teacher.where(status: "pending")
   end
 
   # GET /teachers/1
@@ -73,6 +76,31 @@ class TeachersController < ApplicationController
     @students = @teacher.students
     @courses = @teacher.courses
     @course = Course.new
+    @report = Report.new
+  end
+
+  def activate
+    @teacher.status = "active"
+    @teacher.save
+    respond_to do |format|
+      format.html { redirect_to teachers_url, notice: '激活教师成功.' }
+      format.json { head :no_content }
+    end
+  end
+
+  def deactivate
+    @teacher.status = "inactive"
+    @teacher.save
+    respond_to do |format|
+      format.html { redirect_to teachers_url, notice: '冻结教师成功.' }
+      format.json { head :no_content }
+    end
+  end
+
+  def course_manage
+    @course = Course.find(params[:course_id])
+    @students = @course.students
+    @report = Report.new
   end
 
   private
