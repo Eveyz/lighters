@@ -1,6 +1,6 @@
 class TeachersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_teacher, only: [:show, :edit, :update, :destroy, :me, :activate, :deactivate, :course_manage]
+  before_action :set_teacher, only: [:show, :edit, :update, :destroy, :me, :activate, :deactivate, :course_manage, :student_reports]
 
   # GET /teachers
   # GET /teachers.json
@@ -75,6 +75,10 @@ class TeachersController < ApplicationController
   def me
     @students = @teacher.students
     @courses = @teacher.courses
+    @books = []
+    @courses.each do |course|
+      @books = @books + course.books
+    end
     @course = Course.new
     @report = Report.new
   end
@@ -99,8 +103,15 @@ class TeachersController < ApplicationController
 
   def course_manage
     @course = Course.find(params[:course_id])
+    @books = @course.books
     @students = @course.students
     @report = Report.new
+  end
+
+  def student_reports
+    @course = Course.find(params[:course_id])
+    @student = Student.find(params[:student_id])
+    @reports = @course.reports.where(student_id: params[:student_id])
   end
 
   private

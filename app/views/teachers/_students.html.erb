@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col m12">
-    <h6><b>你的学生 (<%= students.size %>)</b></h6>
+    <h5><b>你的学生 (<%= students.size %>)</b></h5>
   </div>
 </div>
 <div class="row">
@@ -28,7 +28,7 @@
                 <td><%= course.name %></td>
                 <td><%= course.reports.where(student_id: student.id).size %></td>
                 <td><%= link_to '填写新课程回馈表', new_report_path(report, course_id: course, student_id: student, teacher_id: @teacher), class: 'btn' %></td>
-                <td><%= link_to '查看', student, class: 'btn cyan' %></td>
+                <td><%= link_to '查看所有课程回馈表', student_reports_teacher_path(@teacher, course_id: course, student_id: student), class: 'btn cyan' %></td>
               </tr>
             <% end %>
           <% end %>

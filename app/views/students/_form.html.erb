@@ -60,13 +60,13 @@
           <span class="card-title">孩子基本信息</span>
           <div class="row">
             <div class="input-field col m6 s12">
-              <%= f.text_field :firstname, autofocus: false, autocomplete: "firstname", id: :firstname %>
-              <label for="firstname">姓 <span style="color: red;">*</span></label>
+              <%= f.text_field :lastname, autofocus: false, autocomplete: "lastname", id: :lastname %>
+              <label for="lastname">姓 <span style="color: red;">*</span></label>
             </div>
 
             <div class="input-field col m6 s12">
-              <%= f.text_field :lastname, autofocus: false, autocomplete: "lastname", id: :lastname %>
-              <label for="lastname">名 <span style="color: red;">*</span></label>
+              <%= f.text_field :firstname, autofocus: false, autocomplete: "firstname", id: :firstname %>
+              <label for="firstname">名 <span style="color: red;">*</span></label>
             </div>
           </div>
 
@@ -86,7 +86,7 @@
 
           <div class="row">
             <div class="input-field col m12">
-              <%= f.text_field :birthday, id: :student_birthday, class: "datepicker" %>
+              <%= f.text_field :birthday, start_year: 1970, id: :student_birthday, class: "datepicker" %>
               <label for="student_birthday">出生日期 <span style="color: red;">*</span></label>
             </div>
           </div>
@@ -380,3 +380,19 @@
     </div>
   </div>
 <% end %>
+
+<script>
+  $(document).ready(function() {
+    M.updateTextFields();
+  });
+
+  $(document).ready(function() {
+    var elems = document.querySelectorAll('select');
+    var instances = M.FormSelect.init(elems, {});
+  });
+
+  $(document).ready(function() {
+    var elems = document.querySelectorAll('.datepicker');
+    var instances = M.Datepicker.init(elems, {});
+  });
+</script>

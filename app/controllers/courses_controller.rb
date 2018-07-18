@@ -135,7 +135,6 @@ class CoursesController < ApplicationController
     begin
       @course.books << @book
     rescue Exception => e
-      puts "#{e.message}"
       @message = "#{e.message}"
     end
     respond_to do |format|

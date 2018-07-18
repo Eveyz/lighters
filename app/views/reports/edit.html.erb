@@ -1,6 +1,29 @@
-<h1>Editing Report</h1>
+<div class="page-min-height">
+  <div style="background-color: #fbc02d; padding: 10px 0px 13px 0px;">
+    <div class="container">
+      <div class="row no-margin">
+        <div class="col s12">
+          <h5 class="white-text" style="font-weight: 500;"> <%= link_to "返回", me_teacher_path(@teacher), style: "color: white;" %> > <span style="color: #eeeeee;">编辑课程回馈表</span></h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <%= render 'form', report: @report %>
+  </div>
+</div>
 
-<%= render 'form', report: @report %>
+<script>
+  $(document).ready(function() {
+    var elems = document.querySelectorAll('.tabs');
+    var instance = M.Tabs.init(elems, {});
+  });
 
-<%= link_to 'Show', @report %> |
-<%= link_to 'Back', reports_path %>
+  $(document).ready(function() {
+    var elems = document.querySelectorAll('.modal');
+    var instances = M.Modal.init(elems, {
+      opacity: 0.6,
+    });
+  });
+
+</script>
