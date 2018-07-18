@@ -27,6 +27,10 @@
             </div>
           </div>
 
+          <%= f.hidden_field :course_id, value: @course.id %>
+          <%= f.hidden_field :teacher_id, value: @teacher.id %>
+          <%= f.hidden_field :student_id, value: @student.id %>
+
           <div class="row">
             <div class="input-field col m12">
               <%= f.text_field :start_time, id: :start_time, class: "timepicker" %>
@@ -54,6 +58,11 @@
               <label for="tutor_comment">课程评价 <span style="color: red;">*</span></label>
             </div>
           </div>
+
+          <%= react_component("KeywordWidget", { 
+            keywords: @keywords, 
+            edit: true, 
+            model: "report" }) %>
 
           <div class="row">
             <div class="input-field col m12 s12">
@@ -87,7 +96,7 @@
 
     <div class="row">
       <div class="col s12 m10 offset-m1">
-        <%= f.submit "生成最终报告", class: 'btn' %>
+        <%= f.submit "提交", class: 'btn' %>
       </div>
     </div>
 

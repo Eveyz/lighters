@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       delete :remove_book
     end
   end
+
   resources :reports
   
   resources :students do
@@ -42,6 +43,7 @@ Rails.application.routes.draw do
       get :activate
       get :deactivate
       get :course_manage
+      get :student_reports
     end
   end
 

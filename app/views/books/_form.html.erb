@@ -46,7 +46,12 @@
               <label for="names">系列名(links)</label>
             </div>
           </div>
-          <%= react_component("KeywordWidget", {keywords: @keywords, edit: true}) %>
+          
+          <%= react_component("KeywordWidget", {
+            keywords: @keywords, 
+            edit: true, 
+            model: "book" }) %>
+
           <div class="row">
             <div class="input-field col s12">
               <%= form.number_field :quantity, id: :book_quantity %>

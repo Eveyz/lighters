@@ -1,0 +1,47 @@
+<div class="row">
+  <div class="col m12">
+    <h5><b>绘本(<%= books.size %>) :</b></h5>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col m12">
+    <% if books.size > 0%>
+      <table>
+        <thead>
+          <tr>
+            <th>RAZ等级</th>
+            <th>蓝思等级</th>
+            <th>年龄段</th>
+            <th>绘本分类</th>
+            <th>系列名(links)</th>
+            <th colspan="2"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @books.each do |book| %>
+            <tr>
+              <td><%= book.rlevel %></td>
+              <td><%= book.lslevel %></td>
+              <td><%= book.age %></td>
+              <td><%= book.category %></td>
+              <td><%= book.names %></td>
+              <td><%= link_to '查看', book_path(book), target: "_blank", class: 'btn' %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <div class="row">
+        <div class="col m12">
+          <div class="card">
+            <div class="card-content black-text">
+              <span class="card-title cyan-text center"><b>当前课程没有相应的绘本，请联系管理员添加绘本</b></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

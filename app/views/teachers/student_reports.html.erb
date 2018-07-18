@@ -3,46 +3,44 @@
     <div class="container">
       <div class="row no-margin">
         <div class="col s12">
-          <h5 class="white-text" style="font-weight: 500;"> <%= link_to "返回", me_teacher_path(@teacher), style: "color: white;" %> > <span style="color: #eeeeee;"><%= @course.name %></span></h5>
+          <h5 class="white-text" style="font-weight: 500;"> <%= link_to "返回", me_teacher_path(@teacher), style: "color: white;" %> > <span style="color: #eeeeee;">课程反馈表</span></h5>
         </div>
       </div>
     </div>
   </div>
   <div class="container">
     <br>
-    <%= render "teachers/books", books: @books %>
-
     <div class="row">
       <div class="col m12">
-        <h5><b>学生(<%= @students.size %>/<%= @course.capacity %>) :</b></h5>
+        <h5><b>学生: <%= @student.fullname %></b></h5>
       </div>
     </div>
     
     <div class="row">
       <div class="col m12">
-        <% if @students.size > 0%>
+        <% if @reports.size > 0%>
           <table>
             <thead>
               <tr>
-                <th>学生姓名</th>
+                <th>课程回馈表</th>
+                <th>上课时间</th>
                 <th>学生英文名</th>
                 <th>学生年龄</th>
                 <th>课程</th>
-                <th>课程回馈表</th>
                 <th colspan="2"></th>
               </tr>
             </thead>
 
             <tbody>
-              <% @course.students.each do |student| %>
+              <% @reports.each_with_index do |report, index| %>
                 <tr>
-                  <td><%= student.fullname %></td>
-                  <td><%= student.englishname %></td>
-                  <td><%= student.age %></td>
+                  <td>第<%= index + 1 %>次</td>
+                  <td><%= report.course_date %></td>
+                  <td><%= @student.englishname %></td>
+                  <td><%= @student.age %></td>
                   <td><%= @course.name %></td>
-                  <td><%= @course.reports.where(student_id: student.id).size %></td>
-                  <td><%= link_to '填写新课程回馈表', new_report_path(@report, course_id: @course, student_id: student, teacher_id: @teacher), class: 'btn' %></td>
-                  <td><%= link_to '查看所有课程回馈表', student_reports_teacher_path(@teacher, course_id: @course, student_id: student), class: 'btn cyan' %></td>
+                  <td><%= link_to '编辑课程回馈表', edit_report_path(report, course_id: @course, student_id: @student, teacher_id: @teacher), class: 'btn' %></td>
+                  <td><%= link_to '删除', report, method: :delete, data: { confirm: '你确认要删除嘛?' }, class: "btn red" %></td>
                 </tr>
               <% end %>
             </tbody>
@@ -63,6 +61,4 @@
     </div>
 
   </div>
-  <br>
-  <br>
 </div>
