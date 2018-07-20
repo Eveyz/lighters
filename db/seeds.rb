@@ -5,3 +5,9 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+admin = User.new
+admin.email = 'admin@lighter.com'
+admin.identity = "admin"
+admin.password = 'saiop147'
+admin.save!
