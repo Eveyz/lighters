@@ -22,6 +22,8 @@
       </div>
       <div id="courses" class="col s12">
         <br>
+        <div id="calendar" style="height: 800px;"></div>
+        <br>
         <div class="row">
           <div class="col m12">
             <% if @courses.size == 0 %>
@@ -76,4 +78,16 @@
     });
   });
 
+  var Calendar = tui.Calendar;
+  var calendar = new Calendar('#calendar', {
+    defaultView: 'month',
+    taskView: true,
+    template: {
+      monthGridHeader: function(model) {
+        var date = new Date(model.date);
+        var template = '<span class="tui-full-calendar-weekday-grid-date">' + date.getDate() + '</span>';
+        return template;
+      }
+    }
+  });
 </script>

@@ -12,6 +12,7 @@
 /db/*.sqlite3-journal
 /config/database.yml
 /public/uploads
+*.DS_Store
 
 # Ignore all logfiles and tempfiles.
 /log/*
