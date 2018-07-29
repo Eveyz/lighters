@@ -76,8 +76,14 @@ class TeachersController < ApplicationController
     @students = @teacher.students
     @courses = @teacher.courses
     @books = []
+    book_hash = {}
     @courses.each do |course|
-      @books = @books + course.books
+      course.books.each do |book|
+        unless book_hash.has_key?(book.id)
+          @books << book
+          book_hash[book.id] = true
+        end
+      end
     end
     @course = Course.new
     @report = Report.new

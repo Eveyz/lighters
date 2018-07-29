@@ -1,5 +1,7 @@
 {
   "name": "lighters",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "tui-calendar": "^1.5.0"
+  }
 }

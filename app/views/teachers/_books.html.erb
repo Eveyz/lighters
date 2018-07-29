@@ -14,7 +14,8 @@
             <th>蓝思等级</th>
             <th>年龄段</th>
             <th>绘本分类</th>
-            <th>系列名(links)</th>
+            <th>系列名</th>
+            <th>绘本名</th>
             <th colspan="2"></th>
           </tr>
         </thead>
@@ -26,7 +27,8 @@
               <td><%= book.lslevel %></td>
               <td><%= book.age %></td>
               <td><%= book.category %></td>
-              <td><%= book.names %></td>
+              <td><%= book.serials %></td>
+              <td><%= book.name %></td>
               <td><%= link_to '查看', book_path(book), target: "_blank", class: 'btn' %></td>
             </tr>
           <% end %>

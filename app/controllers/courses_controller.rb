@@ -119,9 +119,10 @@ class CoursesController < ApplicationController
 
   def get_books
     @books = @course.books
-    respond_to do |format|
-      format.json { render json: @books.pluck(:id, :rlevel, :lslevel, :age, :category, :names) }
-    end
+    # respond_to do |format|
+    #   format.json { render json: @books }
+    # end
+    render "books/index.json"
   end
 
   def add_books
@@ -137,10 +138,11 @@ class CoursesController < ApplicationController
     rescue Exception => e
       @message = "#{e.message}"
     end
+    @books = @course.books
     respond_to do |format|
       format.json { 
         render json: { 
-          courses: @course.books.pluck(:id, :rlevel, :lslevel, :age, :category, :names), 
+          books: @course.books, 
           msg: @message
         }
       }
@@ -155,11 +157,12 @@ class CoursesController < ApplicationController
     rescue Exception => e
       puts "#{e.message}"
       @message = "#{e.message}"
-    end  
+    end
+    @books = @course.books
     respond_to do |format|
       format.json { 
         render json: { 
-          courses: @course.books.pluck(:id, :rlevel, :lslevel, :age, :category, :names), 
+          books: @course.books, 
           msg: @message
         }
       }

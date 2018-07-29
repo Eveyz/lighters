@@ -14,7 +14,11 @@ class CreateReports < ActiveRecord::Migration[5.1]
       t.string :start_time
       t.string :end_time
       t.integer :report_number
+      t.json :review, null: false, default: '{}'
+      t.json :content, null: false, default: '{}'
+      t.json :links, null: false, default: '{}'
       t.json :audios, null: false, default: '{}'
+      t.string :keywords, array: true
 
       t.timestamps
     end

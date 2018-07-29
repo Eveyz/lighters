@@ -5,7 +5,7 @@
     <div class="col s12 m6">
       <div class="card">
         <div class="card-content">
-          <span class="card-title"><%= @book.names %></span>
+          <span class="card-title"><%= @book.name %></span>
           <p>
             <strong>RAZ等级:</strong>
             <%= @book.rlevel %>
@@ -28,12 +28,12 @@
 
           <p>
             <strong>系列名(links):</strong>
-            <%= @book.names %>
+            <%= @book.name %>
           </p>
 
           <p>
             <strong>关键词:</strong>
-            <% @keywords.each do |kw| %>
+            <% @book.keywords.each do |kw| %>
               <div class="chip">
                 <%= kw %>
               </div>
@@ -47,7 +47,7 @@
 
           <p>
             <strong>书序/名(links):</strong>
-            <%= @book.links %>
+            <%= @book.serials %>
           </p>
 
           <p>
@@ -77,3 +77,64 @@
   <br>
   <br>
 </div>
+
+
+<div style="background-color: #607d8b;">
+  <br>
+  <div class="container" id="canvas-color-palette-container" style="box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);">
+    <div class="row no-margin" style="background-color: white;">
+      <div class="col m6 offset-m2" style="padding: 10px 0px 10px 0px;">
+        <div class="canvas-color-palette active" style="background-color: #f44336;"></div><!--
+      --><div class="canvas-color-palette" style="background-color: #000000;"></div><!--
+      --><div class="canvas-color-palette" style="background-color: #4caf50;"></div><!--
+      --><div class="canvas-color-palette" style="background-color: #00bcd4;"></div><!--
+      --><div class="canvas-color-palette" style="background-color: #ff9800;"></div>
+      </div>
+      <div class="col m4" style="padding: 10px 0px 10px 0px;">
+        <button class="btn" type="button" onclick="saveCanvas();">保存</button>
+      </div>
+    </div>
+  </div>
+  <br>
+  <canvas style="background-image:url('/test.jpg'); background-size: contain; background-repeat: no-repeat;" id="back_img" oncontextmenu="return true;"></canvas>
+  <br>
+  <br>
+</div>
+<br>
+
+<script>
+  $(document).ready(function() {
+    var canvas = document.getElementById("back_img");
+    var ctx = canvas.getContext("2d");
+    img = new Image();
+    img.onload = function(){
+      var ratio = img.height / img.width;
+      var w = screen.width * 0.9;
+      canvas.width  = w;
+      canvas.height = w * ratio;
+      canvas.style.marginLeft = Math.floor(screen.width * 0.05) + "px";
+      canvas.style.marginRight = "auto";
+    }
+    img.src = "/test.jpg";
+    init("back_img");
+  });
+
+  $(function() {
+    $(".canvas-color-palette").click(function() {
+      $(this).addClass("active");
+      $(this).siblings().removeClass("active");
+      init("back_img");
+    });
+  });
+
+  $(document).ready(function() {
+    var elementPosition = $('#canvas-color-palette-container').offset();
+    $(window).scroll(function(){
+      if($(window).scrollTop() > elementPosition.top){
+        $('#canvas-color-palette-container').css('position','fixed').css('top','0').css('left', elementPosition.left);
+      } else {
+        $('#canvas-color-palette-container').css('position','static');
+      }    
+    });
+  })
+</script>

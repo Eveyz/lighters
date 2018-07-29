@@ -25,7 +25,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :reports
+  resources :reports do
+    collection do
+      get :get_previous_report_books
+    end
+  end
   
   resources :students do
     member do
@@ -49,6 +53,10 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: { registrations: "registrations", sessions: "sessions" }
 
-  resources :books
+  resources :books do
+    collection do
+      get :books_keywords
+    end
+  end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

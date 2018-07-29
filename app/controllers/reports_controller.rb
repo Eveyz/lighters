@@ -19,39 +19,23 @@ class ReportsController < ApplicationController
     @teacher = Teacher.find(params[:teacher_id])
     @student = Student.find(params[:student_id])
     @course = Course.find(params[:course_id])
-    @keywords = []
-    @books = @course.books
-    @books.each do |book|
-      @keywords = @keywords + book.keywords.pluck(:content)
-    end
+    @action = params[:action]
   end
 
   # GET /reports/1/edit
   def edit
-    @keywords = @report.report_keywords.pluck(:content)
     @teacher = Teacher.find(params[:teacher_id])
     @student = Student.find(params[:student_id])
     @course = Course.find(params[:course_id])
+    @action = params[:action]
   end
 
   # POST /reports
   # POST /reports.json
   def create
     @report = Report.new(report_params)
-    @keywords = params[:keywords]
-
     respond_to do |format|
       if @report.save
-        if @keywords.present?
-          @keywords.each do |kw|
-            unless kw.empty?
-              keyword = ReportKeyword.new
-              keyword.content = kw
-              keyword.report_id = @report.id
-              keyword.save
-            end
-          end
-        end
         format.html { redirect_to me_teacher_path(current_user.teacher), notice: 'Report was successfully created.' }
         format.json { render :show, status: :created, location: @report }
       else
@@ -64,26 +48,32 @@ class ReportsController < ApplicationController
   # PATCH/PUT /reports/1
   # PATCH/PUT /reports/1.json
   def update
-    @keywords = []
     respond_to do |format|
       if @report.update(report_params)
-        @report.keywords.destroy_all
-        @keywords = params[:keywords]
-        unless @keywords.empty?
-          @keywords.each do |kw|
-            unless kw.empty?
-              keyword = ReportKeyword.new
-              keyword.content = kw
-              keyword.report_id = @report.id
-              keyword.save
-            end
-          end
-        end
         format.html { redirect_to me_teacher_path(current_user.teacher), notice: 'Report was successfully updated.' }
         format.json { render :show, status: :ok, location: @report }
       else
         format.html { render :edit }
         format.json { render json: @report.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def get_previous_report_books
+    @course = Course.find(params[:course_id])
+    @student = Student.find(params[:student_id])
+    @books = []
+    if params[:action] == "edit"
+      @report = Report.find(params[:reprot_id])
+      if @previous_report.present?
+        @books = @previous_report.review
+        p "why not here"
+        p @books
+      end
+    else
+      @previous_report = Report.where(course_id: @course, student_id: @student).last
+      if @previous_report.present?
+        @books = @previous_report.content
       end
     end
   end
@@ -106,6 +96,6 @@ class ReportsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def report_params
-      params.require(:report).permit(:course_id, :teacher_id, :student_id, :course_date, :start_time, :end_time,:focus, :tutor_comment, :homework, :future_book, {audios: []})
+      params.require(:report).permit(:course_id, :teacher_id, :student_id, :course_date, :start_time, :end_time, :focus, :tutor_comment, :homework, :future_book, review: {}, content: {}, links: {}, audios: {})
     end
 end

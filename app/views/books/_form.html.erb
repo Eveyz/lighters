@@ -40,15 +40,23 @@
               <label><b>绘本分类</b></label>
             </div>
           </div>
+
           <div class="row">
             <div class="input-field col s12">
-              <%= form.text_field :names, id: :book_names %>
-              <label for="names">系列名(links)</label>
+              <%= form.text_field :serials, id: :book_links %>
+              <label for="links">系列名</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <%= form.text_field :name, id: :book_names %>
+              <label for="names">绘本名</label>
             </div>
           </div>
           
           <%= react_component("KeywordWidget", {
-            keywords: @keywords, 
+            keywords: @book.keywords, 
             edit: true, 
             model: "book" }) %>
 
@@ -58,12 +66,7 @@
               <label for="quantity">数量/本</label>
             </div>
           </div>
-          <div class="row">
-            <div class="input-field col s12">
-              <%= form.text_field :links, id: :book_links %>
-              <label for="links">书序/名(links)</label>
-            </div>
-          </div>
+          
           <div class="row">
             <div class="input-field col s12">
               <%= form.text_field :audio, id: :book_audio %>

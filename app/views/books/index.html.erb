@@ -14,8 +14,8 @@
           <th>年龄段</th>
           <th>绘本分类</th>
           <th>系列名(links)</th>
+          <th>绘本名</th>
           <th>数量</th>
-          <th>数量/本</th>
           <% if false %>
             <th>音频资源</th>
             <th>推荐备注</th>
@@ -32,9 +32,9 @@
             <td><%= book.lslevel %></td>
             <td><%= book.age %></td>
             <td><%= book.category %></td>
-            <td><%= book.names %></td>
+            <td><%= book.serials %></td>
+            <td><%= book.name %></td>
             <td><%= book.quantity %></td>
-            <td><%= book.links %></td>
             <% if false %>
               <td><%= book.audio %></td>
               <td><%= book.rcomments %></td>

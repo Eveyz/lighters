@@ -2,7 +2,7 @@ class KeywordWidget extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      keywords: this.props.keywords,
+      keywords: this.props.keywords || [],
       add: false,
       inputValue: ''
     };
@@ -86,7 +86,12 @@ class KeywordWidget extends React.Component {
           <div className="card">
             <div className="card-content">
               <span className="card-title">关键词:</span>
-              <KeywordList keywords={this.state.keywords} edit={this.props.edit} deleteKeyword={this.deleteKeyword.bind(this)} />
+              <KeywordList 
+                keywords={this.state.keywords} 
+                edit={this.props.edit} 
+                deleteKeyword={this.deleteKeyword.bind(this)} 
+                model={this.props.model}
+              />
             </div>
             {action}
           </div>
@@ -105,7 +110,13 @@ class KeywordList extends React.Component {
   renderList() {
     return this.props.keywords.map((keyword, index) => {
       return (
-        <Keyword key={index} keyword={keyword} edit={this.props.edit} deleteKeyword={this.deleteKeyword.bind(this)} />
+        <Keyword 
+          key={keyword + "-" + index} 
+          keyword={keyword} 
+          edit={this.props.edit} 
+          model={this.props.model}
+          deleteKeyword={this.deleteKeyword.bind(this)} 
+        />
       );
     });
   }
@@ -127,7 +138,10 @@ class Keyword extends React.Component {
 
   render() {
     const icon = this.props.edit ? <span><i className="close material-icons" onClick={this.deleteKeyword.bind(this)}>close</i></span> : "";
-    const input = <input type="hidden" name="keywords[]" value={this.props.keyword} />;
+    var input = "";
+    if(this.props.model === "book") {
+      input = <input type="hidden" name="book[keywords][]" value={this.props.keyword} />;
+    }
     return (
       <span>
         <div className="chip">

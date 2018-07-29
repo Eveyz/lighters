@@ -22,7 +22,7 @@
       </div>
       <div id="courses" class="col s12">
         <br>
-        <div id="calendar" style="height: 800px;"></div>
+        <div id="calendar" style="height: 50px;"></div>
         <br>
         <div class="row">
           <div class="col m12">
@@ -53,17 +53,28 @@
         <br>
         <%= render "teachers/books", books: @books %>
         <div>
-          <img src="/test.jpg" style='height: 100%; width: 100%; object-fit: contain' oncontextmenu="return false;" />
+          <img src="/test.jpg" style='height: 100%; width: 100%; object-fit: contain' id="test-image" oncontextmenu="return false;" />
+          <canvas id="books-canvas" oncontextmenu="return false;"></canvas>
         </div>
       </div>
       <div id="test4" class="col s12">Test 4</div>
     </div>
   </div>
 
-  <div style="background: url(/test.jpg) no-repeat center #eee;background-size:100%;"></div>
   <br>
   <br>
 </div>
+
+<div>
+  <div class="canvas-color-palette active" style="background-color: #f44336;"></div>
+  <div class="canvas-color-palette" style="background-color: #000000;"></div>
+  <div class="canvas-color-palette" style="background-color: #4caf50;"></div>
+  <div class="canvas-color-palette" style="background-color: #00bcd4;"></div>
+  <div class="canvas-color-palette" style="background-color: #ff9800;"></div>
+</div>
+
+<br>
+<canvas style="background-image:url('/test.jpg'); background-size: contain; background-repeat: no-repeat;" id="back_img" oncontextmenu="return false;"></canvas>
 
 <script>
   $(document).ready(function() {
@@ -78,16 +89,33 @@
     });
   });
 
-  var Calendar = tui.Calendar;
-  var calendar = new Calendar('#calendar', {
-    defaultView: 'month',
-    taskView: true,
-    template: {
-      monthGridHeader: function(model) {
-        var date = new Date(model.date);
-        var template = '<span class="tui-full-calendar-weekday-grid-date">' + date.getDate() + '</span>';
-        return template;
-      }
+  $(document).ready(function() {
+
+    var canvas = document.getElementById("back_img");
+    var ctx = canvas.getContext("2d");
+
+    img = new Image();
+    img.onload = function(){
+      var ratio = img.height / img.width;
+      var w = screen.width * 0.9;
+      canvas.width  = w;
+      canvas.height = w * ratio;
+      canvas.style.marginLeft = Math.floor(screen.width * 0.05) + "px";
+      canvas.style.marginRight = "auto";
+    //   ctx.drawImage(img, 0, 0, img.width,img.height, 0, 0, img.width,img.height);
     }
+    img.src = "/test.jpg";
+
+    init("back_img");
+    // init_svg("back_svg");
+
+  });
+
+  $(function() {
+    $(".canvas-color-palette").click(function() {
+      $(this).addClass("active");
+      $(this).siblings().removeClass("active");
+      init("back_img");
+    });
   });
 </script>

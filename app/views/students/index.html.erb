@@ -4,10 +4,8 @@
   <div class="container">
     <div class="row">
       <div class="col m12">
-        <p id="notice"><%= notice %></p>
-
-        <h5 style="margin-top: 10px;"><b>学生管理</b></h5>
-
+        <br>
+        <%= link_to '新学生', new_student_path, class: 'btn' %>
         <table>
           <thead>
             <tr>
@@ -39,8 +37,6 @@
         </table>
 
         <br>
-
-        <%= link_to '新学生', new_student_path %>
       </div>
     </div>
   </div>

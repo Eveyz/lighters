@@ -1,6 +1,6 @@
 <nav>
   <div class="nav-wrapper yellow darken-3">
-    <%= link_to "Lighters", root_path, class: 'brand-logo center' %>
+    <%= link_to "Lighters 绘说英语", root_path, class: 'brand-logo center' %>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
       <% if user_signed_in? %>
         <% if current_user.identity == "老师" && current_user.teacher.present? && current_user.teacher.status == "active" %>

@@ -12,12 +12,12 @@
   <% end %>
   <br>
   <div class="row">
-    <div class="col s12 m10 offset-m1">
+    <div class="col s12 m12">
       <div class="card">
         <div class="card-content" style="padding: 50px;">
           <span class="card-title cyan-text"><b>课程基本信息</b></span>
-          <p>授课老师: <%= @teacher.fullname %></p>
-          <p>学生名字: <%= @student.fullname %></p>
+          <p>上课学员: <%= @student.fullname %></p>
+          <p>上课老师: <%= @teacher.fullname %></p>
           <p>课程名称: <%= @course.name %></p>
           <br>
           <div class="row">
@@ -32,14 +32,12 @@
           <%= f.hidden_field :student_id, value: @student.id %>
 
           <div class="row">
-            <div class="input-field col m12">
+            <div class="input-field col m6">
               <%= f.text_field :start_time, id: :start_time, class: "timepicker" %>
               <label for="start_time">开始时间 <span style="color: red;">*</span></label>
             </div>
-          </div>
-
-          <div class="row">
-            <div class="input-field col m12">
+          
+            <div class="input-field col m6">
               <%= f.text_field :end_time, id: :end_time, class: "timepicker" %>
               <label for="end_time">结束时间 <span style="color: red;">*</span></label>
             </div>
@@ -48,9 +46,20 @@
           <div class="row">
             <div class="input-field col m12">
               <%= f.number_field :focus, autofocus: false, id: :focus %>
-              <label for="focus">学生专注时间 <span style="color: red;">*</span></label>
+              <label for="focus">学生专注时长 (分钟) <span style="color: red;">*</span></label>
             </div>
           </div>
+
+          <%= react_component("ReviewAndNewBooks", {
+            model: "report",
+            course_id: @course.id,
+            student_id: @student.id,
+            report_id: @report.id,
+            action: @action
+          }) %>
+
+          <br>
+          <br>
 
           <div class="row">
             <div class="input-field col m12 s12">
@@ -58,11 +67,6 @@
               <label for="tutor_comment">课程评价 <span style="color: red;">*</span></label>
             </div>
           </div>
-
-          <%= react_component("KeywordWidget", { 
-            keywords: @keywords, 
-            edit: true, 
-            model: "report" }) %>
 
           <div class="row">
             <div class="input-field col m12 s12">
@@ -81,7 +85,7 @@
           <div class="row">
             <div class="file-field input-field col m12 s12">
               <div class="btn cyan">
-                <span>课程录音文件 <span style="color: red;">*</span></span>
+                <span>上课录音文件 <span style="color: red;">*</span></span>
                 <%= f.file_field :audios, multiple: true %>
               </div>
               <div class="file-path-wrapper">
@@ -95,7 +99,7 @@
     </div>
 
     <div class="row">
-      <div class="col s12 m10 offset-m1">
+      <div class="col s12 m12">
         <%= f.submit "提交", class: 'btn' %>
       </div>
     </div>

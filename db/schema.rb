@@ -20,15 +20,16 @@ ActiveRecord::Schema.define(version: 20180717172231) do
     t.string "lslevel"
     t.string "age"
     t.string "category"
-    t.string "names"
+    t.string "serials"
+    t.string "name"
     t.integer "quantity"
-    t.string "links"
     t.string "audio"
     t.string "file"
     t.string "cover"
     t.text "rcomments"
     t.text "bcomments"
     t.json "files", default: "{}", null: false
+    t.string "keywords", array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -74,6 +75,7 @@ ActiveRecord::Schema.define(version: 20180717172231) do
 
   create_table "report_keywords", force: :cascade do |t|
     t.string "content"
+    t.bigint "book_id"
     t.bigint "report_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -94,7 +96,11 @@ ActiveRecord::Schema.define(version: 20180717172231) do
     t.string "start_time"
     t.string "end_time"
     t.integer "report_number"
+    t.json "review", default: "{}", null: false
+    t.json "content", default: "{}", null: false
+    t.json "links", default: "{}", null: false
     t.json "audios", default: "{}", null: false
+    t.string "keywords", array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -173,6 +179,7 @@ ActiveRecord::Schema.define(version: 20180717172231) do
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
+    t.string "username", default: "", null: false
     t.string "phone", default: "", null: false
     t.string "wechat", default: "", null: false
     t.string "identity", default: "", null: false
