@@ -20,14 +20,18 @@ class SelectBooksForReport extends React.Component {
           field: this.props.field
         }, 
         (response) => { 
-          console.log(response);
-          this.setState({ addedBooks: response }) 
+          var _ids = new Set();
+          var _book_ids = response.map((book) => { _ids.add(book.id) });
+          this.setState({ 
+            addedBooks: response,
+            book_ids: _ids 
+          }) 
         });
     }
   }
 
   addBook(type, book) {
-    var newBooks = [];
+    // var newBooks = [];
     var _book_ids = new Set();
     if(type === "ADD") {
       _book_ids = this.state.book_ids;
@@ -35,9 +39,12 @@ class SelectBooksForReport extends React.Component {
         M.toast({html: "绘本已添加过"});
       } else {
         _book_ids.add(book.id);
-        newBooks = this.state.addedBooks;
-        newBooks.push(book);
-        this.setState({ addedBooks: newBooks, book_ids: _book_ids });
+        // newBooks = this.state.addedBooks;
+        // newBooks.push(book);
+        this.setState({ 
+          addedBooks: [...this.state.addedBooks, book], 
+          book_ids: _book_ids 
+        });
       }
     }
   }

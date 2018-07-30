@@ -46,15 +46,15 @@ class BookCard extends React.Component {
 
   addKeyword() {
     const _keyword = this.state.inputValue;
-    let _keywords = this.state.keywords;
+    // let _keywords = this.state.keywords;
     let index = _keywords.indexOf(_keyword);
     if(_keyword) {
       if(index > -1) {
         M.toast({html: "关键词已经存在!"})
       } else {
-        _keywords.push(_keyword);
+        // _keywords.push(_keyword);
         this.setState({
-          keywords: _keywords,
+          keywords: [...this.state.keywords, _keyword],
           add: false
         });
       }
@@ -64,15 +64,15 @@ class BookCard extends React.Component {
   }
 
   deleteKeyword(keyword) {
-    let _keywords = this.state.keywords;
+    // let _keywords = this.state.keywords;
     let index = _keywords.indexOf(keyword);
     if (index > -1) {
-      _keywords.splice(index, 1);
+      // _keywords.splice(index, 1);
+      this.setState({
+        keywords: [...this.state.keywords.splice(index, 1)],
+        add: false
+      });
     }
-    this.setState({
-      keywords: _keywords,
-      add: false
-    });
   }
 
   render() {
