@@ -99,12 +99,14 @@ class BookCard extends React.Component {
     var paramsName = this.props.model + "[" + this.props.field + "]" + "[" + this.props.book.id + "]" + "[]";
     const inputForm = <input type="hidden" name={paramsName} value={this.state.keywords} />;
 
+    var classes = this.props.field === "review" ? "card-title orange-text" : "card-title cyan-text";
+
     return(
       <div className="row no-margin">
         <div className="col s12 m12">
           <div className="card">
             <div className="card-content">
-              <span className="card-title cyan-text"><b>{this.props.book.name}</b></span>
+              <span className={classes}><b>{this.props.book.name}</b></span>
               <table>
                 <thead>
                   <tr>

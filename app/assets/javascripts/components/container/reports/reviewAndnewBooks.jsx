@@ -19,7 +19,7 @@ class ReviewAndNewBooks extends React.Component {
       <div>
         <div className="row no-margin">
             <div className="input-field col m12 na-margin">
-              <h6 className="orange-text">复习内容 <span style={{color: "red"}}>*</span></h6>
+              <h5 className="orange-text">复习内容 <span style={{color: "red"}}>*</span></h5>
             </div>
           </div>
 
@@ -38,7 +38,7 @@ class ReviewAndNewBooks extends React.Component {
 
           <div className="row no-margin">
             <div className="input-field col m12 no-margin">
-              <h6 className="cyan-text">新课内容 <span style={{color: "red"}}>*</span></h6>
+              <h5 className="cyan-text">新课内容 <span style={{color: "red"}}>*</span></h5>
             </div>
           </div>
 

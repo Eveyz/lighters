@@ -49,3 +49,22 @@
 .m-box-shadow {
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
 }
+
+.flash-notice {
+  position: absolute;
+  top: 15%;
+  color: white;
+  padding: 20px 50px 20px 50px !important;
+}
+
+.flash-notice.success {
+  background-color: #2ecc71;
+}
+
+.flash-notice.info {
+  background-color: #3498db;
+}
+
+.flash-notice.alert {
+  background-color: #e74c3c;
+}

@@ -35,20 +35,9 @@ class BooksController < ApplicationController
   # POST /books.json
   def create
     @book = Book.new(book_params)
-    # @keywords = params[:keywords]
 
     respond_to do |format|
       if @book.save
-    #     # if @keywords.present?
-    #     #   @keywords.each do |kw|
-    #     #     unless kw.empty?
-    #     #       keyword = Keyword.new
-    #     #       keyword.content = kw
-    #     #       keyword.book_id = @book.id
-    #     #       keyword.save
-    #     #     end
-    #     #   end
-    #     # end
         format.html { redirect_to books_url, notice: 'Book was successfully created.' }
         format.json { render :show, status: :created, location: @book }
       else

@@ -8,14 +8,16 @@ class SelectBooksForReport extends React.Component {
   }
 
   componentWillMount() {
-    // get books from previous report
-    if(this.props.field === "review") {
+    if(this.props.action === "edit" || (this.props.action === "new" && this.props.field === "review")) {
       $.getJSON("/reports/get_previous_report_books", 
         { 
           course_id: this.props.course_id, 
           student_id: this.props.student_id,
           report_id: this.props.report_id,
-          action: this.props.action
+          // passing action to controller to differentiate new or edit
+          // if action is new then should fetch review from previous report
+          actions: this.props.action,
+          field: this.props.field
         }, 
         (response) => { 
           console.log(response);
