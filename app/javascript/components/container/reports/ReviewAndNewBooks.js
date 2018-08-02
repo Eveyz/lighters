@@ -1,3 +1,6 @@
+import React from "react";
+import SelectBooksForReport from "./SelectBooksForReport";
+
 class ReviewAndNewBooks extends React.Component {
   constructor(props) {
     super(props);
@@ -56,3 +59,5 @@ class ReviewAndNewBooks extends React.Component {
     )
   }
 }
+
+export default ReviewAndNewBooks;

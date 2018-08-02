@@ -2,7 +2,7 @@
   <%= render "admin/breadcrumb", domain: "addStudents" %>
 
   <div class="container">
-    <%= react_component("AddStudentsWidget", {
+    <%= react_component("container/students/AddStudentsWidget", {
       course_id: @course.id,
       course_name: @course.name, 
       course_level: @course.level, 

@@ -1,3 +1,7 @@
+import React from "react";
+import SelectTag from "../forms/SelectTag";
+import Book from "../books/Book";
+
 class SelectBookWidget extends React.Component {
   constructor(props) {
     super(props);
@@ -175,3 +179,5 @@ class SelectBookWidget extends React.Component {
     )
   }
 }
+
+export default SelectBookWidget;
