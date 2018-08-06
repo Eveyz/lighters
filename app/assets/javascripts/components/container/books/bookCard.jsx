@@ -46,15 +46,15 @@ class BookCard extends React.Component {
 
   addKeyword() {
     const _keyword = this.state.inputValue;
-    let _keywords = this.state.keywords;
+    // let _keywords = this.state.keywords;
     let index = _keywords.indexOf(_keyword);
     if(_keyword) {
       if(index > -1) {
         M.toast({html: "关键词已经存在!"})
       } else {
-        _keywords.push(_keyword);
+        // _keywords.push(_keyword);
         this.setState({
-          keywords: _keywords,
+          keywords: [...this.state.keywords, _keyword],
           add: false
         });
       }
@@ -64,15 +64,15 @@ class BookCard extends React.Component {
   }
 
   deleteKeyword(keyword) {
-    let _keywords = this.state.keywords;
+    // let _keywords = this.state.keywords;
     let index = _keywords.indexOf(keyword);
     if (index > -1) {
-      _keywords.splice(index, 1);
+      // _keywords.splice(index, 1);
+      this.setState({
+        keywords: [...this.state.keywords.splice(index, 1)],
+        add: false
+      });
     }
-    this.setState({
-      keywords: _keywords,
-      add: false
-    });
   }
 
   render() {
@@ -99,12 +99,14 @@ class BookCard extends React.Component {
     var paramsName = this.props.model + "[" + this.props.field + "]" + "[" + this.props.book.id + "]" + "[]";
     const inputForm = <input type="hidden" name={paramsName} value={this.state.keywords} />;
 
+    var classes = this.props.field === "review" ? "card-title orange-text" : "card-title cyan-text";
+
     return(
       <div className="row no-margin">
         <div className="col s12 m12">
           <div className="card">
             <div className="card-content">
-              <span className="card-title cyan-text"><b>{this.props.book.name}</b></span>
+              <span className={classes}><b>{this.props.book.name}</b></span>
               <table>
                 <thead>
                   <tr>

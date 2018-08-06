@@ -8,24 +8,30 @@ class SelectBooksForReport extends React.Component {
   }
 
   componentWillMount() {
-    // get books from previous report
-    if(this.props.field === "review") {
+    if(this.props.action === "edit" || (this.props.action === "new" && this.props.field === "review")) {
       $.getJSON("/reports/get_previous_report_books", 
         { 
           course_id: this.props.course_id, 
           student_id: this.props.student_id,
           report_id: this.props.report_id,
-          action: this.props.action
+          // passing action to controller to differentiate new or edit
+          // if action is new then should fetch review from previous report
+          actions: this.props.action,
+          field: this.props.field
         }, 
         (response) => { 
-          console.log(response);
-          this.setState({ addedBooks: response }) 
+          var _ids = new Set();
+          var _book_ids = response.map((book) => { _ids.add(book.id) });
+          this.setState({ 
+            addedBooks: response,
+            book_ids: _ids 
+          }) 
         });
     }
   }
 
   addBook(type, book) {
-    var newBooks = [];
+    // var newBooks = [];
     var _book_ids = new Set();
     if(type === "ADD") {
       _book_ids = this.state.book_ids;
@@ -33,9 +39,12 @@ class SelectBooksForReport extends React.Component {
         M.toast({html: "绘本已添加过"});
       } else {
         _book_ids.add(book.id);
-        newBooks = this.state.addedBooks;
-        newBooks.push(book);
-        this.setState({ addedBooks: newBooks, book_ids: _book_ids });
+        // newBooks = this.state.addedBooks;
+        // newBooks.push(book);
+        this.setState({ 
+          addedBooks: [...this.state.addedBooks, book], 
+          book_ids: _book_ids 
+        });
       }
     }
   }

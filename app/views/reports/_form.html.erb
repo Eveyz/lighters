@@ -16,9 +16,9 @@
       <div class="card">
         <div class="card-content" style="padding: 50px;">
           <span class="card-title cyan-text"><b>课程基本信息</b></span>
-          <p>上课学员: <%= @student.fullname %></p>
-          <p>上课老师: <%= @teacher.fullname %></p>
-          <p>课程名称: <%= @course.name %></p>
+          <p><span class="orange-text">上课学员:</span> <%= @student.fullname %></p>
+          <p><span class="orange-text">上课老师:</span> <%= @teacher.fullname %></p>
+          <p><span class="orange-text">课程名称:</span> <%= @course.name %></p>
           <br>
           <div class="row">
             <div class="input-field col m12">
@@ -79,6 +79,13 @@
             <div class="input-field col m12 s12">
               <%= f.text_area :future_book, autofocus: false, id: :future_book, class: "materialize-textarea" %>
               <label for="future_book">下次课书目 <span style="color: red;">*</span></label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col m12 s12">
+              <%= f.text_area :links, autofocus: false, id: :links, class: "materialize-textarea" %>
+              <label for="links">音频链接 <span style="color: red;">*</span></label>
             </div>
           </div>
 
