@@ -14,6 +14,9 @@
 //= require rails-ujs
 //= require jquery
 //= require turbolinks
+//= require fullcalendar/moment.min
+//= require fullcalendar/jquery-ui.min
+//= require fullcalendar/fullcalendar
 //= require react
 //= require react_ujs
 //= require components

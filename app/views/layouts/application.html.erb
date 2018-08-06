@@ -6,11 +6,22 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application' %>
+    <%= stylesheet_pack_tag 'application' %>
   </head>
 
   <body>
-    <%= render "layouts/header" %>
+
+    <% if controller_name == "students" and action_name == "me" %>
+      <%= render "students/student_header" %>
+    <% else %>
+      <%= render "layouts/header" %>
+    <% end %>
+
     <%= yield %>
-    <%= render "layouts/footer" %>
+
+    <% unless controller_name == "students" and action_name == "me" %>
+      <%= render "layouts/footer" %>
+    <% end %>
   </body>
 </html>
