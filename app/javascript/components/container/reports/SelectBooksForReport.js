@@ -1,3 +1,7 @@
+import React from "react";
+import SelectBookWidget from "../books/SelectBookWidget";
+import BookCards from "../books/BookCards";
+
 class SelectBooksForReport extends React.Component {
   constructor(props) {
     super(props);
@@ -52,6 +56,7 @@ class SelectBooksForReport extends React.Component {
   removeBook(action, book) {
     let books = this.state.addedBooks;
     let index = books.indexOf(book);
+    var _book_ids;
     if (index > -1) {
       books.splice(index, 1);
       _book_ids = this.state.book_ids;
@@ -90,3 +95,5 @@ class SelectBooksForReport extends React.Component {
     )
   }
 }
+
+export default SelectBooksForReport;

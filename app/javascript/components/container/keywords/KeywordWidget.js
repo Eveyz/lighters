@@ -1,3 +1,6 @@
+import React from "react";
+import KeywordList from "./KeywordList";
+
 class KeywordWidget extends React.Component {
   constructor(props) {
     super(props);
@@ -101,55 +104,4 @@ class KeywordWidget extends React.Component {
   }
 }
 
-class KeywordList extends React.Component {
-
-  deleteKeyword(keyword) {
-    this.props.deleteKeyword(keyword);
-  }
-
-  renderList() {
-    return this.props.keywords.map((keyword, index) => {
-      return (
-        <Keyword 
-          key={keyword + "-" + index} 
-          keyword={keyword} 
-          edit={this.props.edit} 
-          model={this.props.model}
-          deleteKeyword={this.deleteKeyword.bind(this)} 
-        />
-      );
-    });
-  }
-
-  render() {
-    return (
-      <div>
-        {this.renderList()}
-      </div>
-    )
-  }
-}
-
-class Keyword extends React.Component {
-
-  deleteKeyword() {
-    this.props.deleteKeyword(this.props.keyword);
-  }
-
-  render() {
-    const icon = this.props.edit ? <span><i className="close material-icons" onClick={this.deleteKeyword.bind(this)}>close</i></span> : "";
-    var input = "";
-    if(this.props.model === "book") {
-      input = <input type="hidden" name="book[keywords][]" value={this.props.keyword} />;
-    }
-    return (
-      <span>
-        <div className="chip">
-          {input}
-          {this.props.keyword}
-          {icon}
-        </div>
-      </span>
-    )
-  }
-}
+export default KeywordWidget;
