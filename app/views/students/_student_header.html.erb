@@ -1,0 +1,45 @@
+<nav>
+  <div class="nav-wrapper yellow darken-3">
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <% if user_signed_in? %>
+        <% if current_user.identity == "老师" && current_user.teacher.present? && current_user.teacher.status == "active" %>
+          <li><%= link_to "我的账号", me_teacher_path(current_user.teacher) %> </li>
+        <% elsif current_user.identity == "学员/家长" && current_user.student.present? %>
+          <li><%= link_to "我的账号", me_student_path(current_user.student) %> </li>
+        <% elsif current_user.identity == "admin" %>
+          <li><%= link_to "管理员Dashboard", admin_dashboard_path %></li>
+        <% end %>
+        <li><%= link_to "注销", destroy_user_session_path, method: :delete %> </li>
+      <% else %>
+        <li><%= link_to "申请免费试听", new_user_registration_path %></li>
+        <li><%= link_to "登录", new_user_session_path %></li>
+      <% end %>
+    </ul>
+  </div>
+</nav>
+
+<div class="sidenav-student">
+  <div style="padding: 17px 20px 17px 20px;">
+    <%= link_to "Lighters绘说英语", root_path, class: "center-align", style: 'color: #F7A738;font-size: 20px;font-weight: 600;' %>
+  </div>
+  <div class="sidenav-student-menu inbox">
+    <a href="javascript:;"><h6 class="no-margin">收件箱</h6></a>
+  </div>
+  <div class="sidenav-student-menu purple-color">
+    <a href="javascript:;">课程表</a>
+  </div>
+  <div class="sidenav-student-menu red-color">
+    <a href="javascript:;">课后作业</a>
+  </div>
+  <div class="sidenav-student-menu cyan-color">
+    <a href="javascript:;">绘本资源</a>
+  </div>
+  <div class="sidenav-student-menu blue-color">
+    <a href="javascript:;">其他</a>
+  </div>
+</div>
+
+<div class="main-student">
+  <br>
+  <div id="student-calendar" style="height: 800px;"></div>
+</div>
