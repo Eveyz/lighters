@@ -1,10 +1,5 @@
-class OptionTag extends React.Component {
-  render() {
-    return(
-      <option value={this.props.option}>{this.props.option}</option>
-    )
-  }
-};
+import React from "react";
+import OptionTag from "./OptionTag";
 
 class SelectTag extends React.Component {
 
@@ -52,3 +47,5 @@ class SelectTag extends React.Component {
     )
   }
 }
+
+export default SelectTag;

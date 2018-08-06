@@ -1,3 +1,6 @@
+import React from "react";
+import KeywordList from "../keywords/KeywordList";
+
 class BookCard extends React.Component {
 
   constructor(props) {
@@ -47,7 +50,7 @@ class BookCard extends React.Component {
   addKeyword() {
     const _keyword = this.state.inputValue;
     // let _keywords = this.state.keywords;
-    let index = _keywords.indexOf(_keyword);
+    let index = this.state.keywords.indexOf(_keyword);
     if(_keyword) {
       if(index > -1) {
         M.toast({html: "关键词已经存在!"})
@@ -64,12 +67,12 @@ class BookCard extends React.Component {
   }
 
   deleteKeyword(keyword) {
-    // let _keywords = this.state.keywords;
+    let _keywords = this.state.keywords;
     let index = _keywords.indexOf(keyword);
     if (index > -1) {
-      // _keywords.splice(index, 1);
+      _keywords.splice(index, 1);
       this.setState({
-        keywords: [...this.state.keywords.splice(index, 1)],
+        keywords: _keywords,
         add: false
       });
     }
@@ -138,3 +141,5 @@ class BookCard extends React.Component {
     )
   }
 }
+
+export default BookCard;

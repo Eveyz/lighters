@@ -11,3 +11,8 @@ console.log('Hello World from Webpacker');
 
 import '../src/application.css'
 import calendar from 'calendar';
+
+// Support component names relative to this directory:
+var componentRequireContext = require.context("components", true)
+var ReactRailsUJS = require("react_ujs")
+ReactRailsUJS.useContext(componentRequireContext)

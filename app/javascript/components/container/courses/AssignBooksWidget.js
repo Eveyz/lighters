@@ -1,4 +1,8 @@
-class assignBooksWidget extends React.Component {
+import React from "react";
+import BookTable from "../books/BookTable";
+import SelectBookWidget from "../books/SelectBookWidget";
+
+class AssignBooksWidget extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -90,3 +94,5 @@ class assignBooksWidget extends React.Component {
     )
   }
 }
+
+export default AssignBooksWidget;

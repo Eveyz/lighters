@@ -1,3 +1,7 @@
+import React from "react";
+import StudentList from "./StudentList";
+import Tag from "./Tag";
+
 class AddStudentsWidget extends React.Component {
   constructor(props) {
     super(props);
@@ -76,7 +80,7 @@ class AddStudentsWidget extends React.Component {
 
     var curStudentsList = this.state.students.map((student, index) => {
                             return (
-                              <Tag key={index} student={student} deleteStudent={this.deleteStudent.bind(this)} />
+                              <Tag key={student[0]} student={student} deleteStudent={this.deleteStudent.bind(this)} />
                             );
                           });
 
@@ -142,54 +146,4 @@ class AddStudentsWidget extends React.Component {
   }
 }
 
-class StudentList extends React.Component {
-
-  addStudent(id, name) {
-    this.props.addStudent(id, name);
-  }
-
-  renderList() {
-    return this.props.students.map((student, index) => {
-      return (
-        <Student key={index} student={student} addStudent={this.addStudent.bind(this)} />
-      );
-    });
-  }
-
-  render() {
-    return (
-      <div className="collection">
-        {this.renderList()}
-      </div>
-    )
-  }
-}
-
-class Student extends React.Component {
-  addStudent() {
-    this.props.addStudent(this.props.student[0], this.props.student[1] + this.props.student[2]);
-  }
-
-  render() {
-    return (
-      <a href="javascript:;" onClick={this.addStudent.bind(this)} className="collection-item">{this.props.student[2] + this.props.student[1]}</a>
-    )
-  }
-}
-
-class Tag extends React.Component {
-  
-  deleteStudent() {
-    var student_id = this.props.student[0];
-    this.props.deleteStudent(student_id);
-  }
-
-  render() {
-    return (
-      <div className="chip">
-        {this.props.student[2] + this.props.student[1]}
-        <i className="close material-icons" onClick={this.deleteStudent.bind(this)}>close</i>
-      </div>
-    )
-  }
-}
+export default AddStudentsWidget;
