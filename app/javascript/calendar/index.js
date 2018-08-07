@@ -2,27 +2,33 @@ import Calendar from 'tui-calendar';
 
 $(document).on("ready", function() {
 
-  function renderCalendarTitle(timeStart, timeEnd, mode) {
-    console.log(timeStart);
-    console.log(timeEnd);
+  function renderCalendarTitle(currTime, timeStart, timeEnd, mode) {
+    var _time = '';
+    var currTimeMonth = currTime.getMonth() + 1 < 10 ? "0" + (currTime.getMonth() + 1) : "" + (currTime.getMonth() + 1);
+    var currTimeDay = currTime.getDate() < 10 ? "0" + currTime.getDate() : currTime.getDate();
 
-    var text = '';
+    var timeStartMonth = timeStart.getMonth() + 1 < 10 ? "0" + (timeStart.getMonth() + 1) : "" + (timeStart.getMonth() + 1);
+    var timeStartDay = timeStart.getDate() < 10 ? "0" + timeStart.getDate() : timeStart.getDate();
+
+    var timeEndMonth = timeEnd.getMonth() + 1 < 10 ? "0" + (timeEnd.getMonth() + 1) : "" + (timeEnd.getMonth() + 1);
+    var timeEndDay = timeEnd.getDate() < 10 ? "0" + timeEnd.getDate() : timeEnd.getDate();
+
     if(mode === "month") {
-      text = timeStart.getFullYear() + '.' + timeStart.getMonth();
+      _time = currTime.getFullYear() + '.' + currTimeMonth;
     } else if (mode === "week") {
-      text = timeStart.getFullYear() + '.' + timeStart.getMonth() + '.' + timeStart.getDay() + " ~ " + timeStart.getMonth() + '.' + timeStart.getDay();
+      _time = timeStart.getFullYear() + '.' + timeStartMonth + '.' + timeStartDay + " ~ " + timeEndMonth + '.' + timeEndDay;
     } else if (mode === "day") {
-      text = timeStart.getFullYear() + '.' + timeStart.getMonth() + '.' + timeStart.getDay();
+      _time = currTime.getFullYear() + '.' + currTimeMonth + '.' + currTimeDay;
     };
 
-    $("#student-calendar-date").text(text);
+    $("#student-calendar-date").text(_time);
   };
 
   var calendar = new Calendar('#student-calendar', {
     defaultView: 'month',
     taskView: false,    // can be also ['milestone', 'task']
     scheduleView: true,  // can be also ['allday', 'time']
-    useCreationPopup: false,
+    useCreationPopup: true,
     useDetailPopup: true,
     template: {
       task: function(schedule) {
@@ -53,7 +59,8 @@ $(document).on("ready", function() {
     }
   });
 
-  renderCalendarTitle(calendar.getDateRangeStart(), calendar.getDateRangeEnd(), calendar.getViewName());
+  // set default date for calendar
+  renderCalendarTitle(calendar.getDate(), calendar.getDate(), calendar.getDate(), calendar.getViewName());
 
   calendar.createSchedules([
     {
@@ -71,8 +78,8 @@ $(document).on("ready", function() {
       title: 'second schedule',
       category: 'time',
       dueDateClass: '',
-      start: '2018-08-18T17:30:00+09:00',
-      end: '2018-08-18T18:31:00+09:00',
+      start: '2018-08-31T17:30:00+09:00',
+      end: '2018-08-31T18:31:00+09:00',
       isReadOnly: true    // schedule is read-only
     }
   ]);
@@ -96,56 +103,54 @@ $(document).on("ready", function() {
       console.log('beforeUpdateSchedule', e);
       e.schedule.start = e.start;
       e.schedule.end = e.end;
-      cal.updateSchedule(e.schedule.id, e.schedule.calendarId, e.schedule);
+      calendar.updateSchedule(e.schedule.id, e.schedule.calendarId, e.schedule);
     },
     'beforeDeleteSchedule': function(e) {
       console.log('beforeDeleteSchedule', e);
-      cal.deleteSchedule(e.schedule.id, e.schedule.calendarId);
+      calendar.deleteSchedule(e.schedule.id, e.schedule.calendarId);
     }
   });
   
   $("#student-today-btn").on('click', function() {
     calendar.today();
-    renderCalendarTitle(calendar.getDateRangeStart(), calendar.getDateRangeEnd(), calendar.getViewName());
+    renderCalendarTitle(calendar.getDate(), calendar.getDateRangeStart(), calendar.getDateRangeEnd(), calendar.getViewName());
   });
 
   $("#student-month").on('click', function() {
     calendar.setOptions({month: {visibleWeeksCount: 6}}, true); // or null
     calendar.changeView('month', true);
-    renderCalendarTitle(calendar.getDateRangeStart(), calendar.getDateRangeEnd(), calendar.getViewName());
+    renderCalendarTitle(calendar.getDate(), calendar.getDateRangeStart(), calendar.getDateRangeEnd(), calendar.getViewName());
   });
 
   $("#student-week").on('click', function() {
     calendar.changeView('week', true);
-    console.log(calendar.getDateRangeStart().toUTCString());
-    console.log(calendar.getDateRangeEnd().toUTCString());
-    renderCalendarTitle(calendar.getDateRangeStart(), calendar.getDateRangeEnd(), calendar.getViewName());
+    renderCalendarTitle(calendar.getDate(), calendar.getDateRangeStart(), calendar.getDateRangeEnd(), calendar.getViewName());
   });
 
   $("#student-two-week").on('click', function() {
     calendar.setOptions({month: {visibleWeeksCount: 2}}, true);
     calendar.changeView('month', true);
-    renderCalendarTitle(calendar.getDateRangeStart(), calendar.getDateRangeEnd(), calendar.getViewName());
+    renderCalendarTitle(calendar.getDate(), calendar.getDateRangeStart(), calendar.getDateRangeEnd(), calendar.getViewName());
   });
 
   $("#student-three-week").on('click', function() {
     calendar.setOptions({month: {visibleWeeksCount: 3}}, true);
     calendar.changeView('month', true);
-    renderCalendarTitle(calendar.getDateRangeStart(), calendar.getDateRangeEnd(), calendar.getViewName());
+    renderCalendarTitle(calendar.getDate(), calendar.getDateRangeStart(), calendar.getDateRangeEnd(), calendar.getViewName());
   });
 
   $("#student-day").on('click', function() {
     calendar.changeView('day', true);
-    renderCalendarTitle(calendar.getDateRangeStart(), calendar.getDateRangeEnd(), calendar.getViewName());
+    renderCalendarTitle(calendar.getDate(), calendar.getDateRangeStart(), calendar.getDateRangeEnd(), calendar.getViewName());
   });
 
   $("#student-next").on('click', function() {
     calendar.next();
-    renderCalendarTitle(calendar.getDateRangeStart(), calendar.getDateRangeEnd(), calendar.getViewName());
+    renderCalendarTitle(calendar.getDate(), calendar.getDateRangeStart(), calendar.getDateRangeEnd(), calendar.getViewName());
   });
 
   $("#student-prev").on('click', function() {
     calendar.prev();
-    renderCalendarTitle(calendar.getDateRangeStart(), calendar.getDateRangeEnd(), calendar.getViewName());
+    renderCalendarTitle(calendar.getDate(), calendar.getDateRangeStart(), calendar.getDateRangeEnd(), calendar.getViewName());
   });
 });
