@@ -31,16 +31,17 @@
 
 
 .sidenav-student {
-  height: 100%; /* Full-height: remove this if you want "auto" height */
-  width: 200px; /* Set the width of the sidebar */
-  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  // height: 100%; /* Full-height: remove this if you want "auto" height */
+  // width: 200px; /* Set the width of the sidebar */
+  // width: 16%;
+  // position: fixed; /* Fixed Sidebar (stay in place on scroll) */
   z-index: 1; /* Stay on top */
   top: 0; /* Stay at the top */
   left: 0;
-  background-color: #EEEEEE;
+  // background-color: #EEEEEE;
   overflow-x: hidden; /* Disable horizontal scroll */
   // padding-top: 64px;
-  display: block;
+  // display: block;
 }
 
 .sidenav-student-menu {
@@ -96,10 +97,22 @@
   color: #3498db;
 }
 
+@media only screen and (min-width: 1000px) {
+  .sidenav-student-menu.inbox h6 {
+    font-size: 20px;
+  }
+  .sidenav-student-menu {
+    padding: 20px 8px 20px 25px;
+    text-decoration: none;
+    font-size: 18px;
+  }
+}
+
 /* Style page content */
 .main-student {
-  margin-left: 200px; /* Same as the width of the sidebar */
+  // margin-left: 16%; /* Same as the width of the sidebar */
   padding: 0px 20px;
+  overflow-y: scroll;
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
