@@ -58,9 +58,11 @@ ActiveRecord::Schema.define(version: 20180717172231) do
     t.string "name"
     t.string "level"
     t.integer "capacity"
+    t.integer "course_hours"
     t.string "code"
     t.string "type"
     t.string "status", default: "active", null: false
+    t.json "time_slot", default: "{}", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -86,20 +88,20 @@ ActiveRecord::Schema.define(version: 20180717172231) do
     t.integer "teacher_id"
     t.integer "course_id"
     t.integer "student_id"
-    t.string "type"
     t.string "course_date"
     t.integer "duration"
+    t.integer "report_number"
     t.integer "focus"
+    t.string "type"
     t.string "tutor_comment"
     t.string "homework"
-    t.string "future_book"
     t.string "start_time"
     t.string "end_time"
-    t.integer "report_number"
+    t.string "links"
     t.json "review", default: "{}", null: false
     t.json "content", default: "{}", null: false
-    t.json "links", default: "{}", null: false
     t.json "audios", default: "{}", null: false
+    t.string "future_books", array: true
     t.string "keywords", array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

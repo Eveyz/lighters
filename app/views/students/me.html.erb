@@ -20,32 +20,9 @@
 
   <div class="main-student col m10">
     <br>
-    <div class="row no-margin">
-      <div class="col m1">
-        <!-- Dropdown Trigger -->
-        <a class='dropdown-trigger btn white black-text' href='#' data-target='dropdown1'>月</a>
-
-        <!-- Dropdown Structure -->
-        <ul id='dropdown1' class='dropdown-content'>
-          <li><a href="javascript:;" id="student-month">月</a></li>
-          <li><a href="javascript:;" id="student-week">周</a></li>
-          <li><a href="javascript:;" id="student-day">日</a></li>
-          <li><a href="javascript:;" id="student-two-week">2周</a></li>
-          <li><a href="javascript:;" id="student-three-week">3周</a></li>
-        </ul>
-      </div>
-      <div class="col m1 no-padding">
-        <button id="student-today-btn" class="btn white black-text">今天</button>
-      </div>
-      <div class="col m1 no-padding">
-        <div class="chip white m-box-shadow" style="cursor: pointer;" id="student-prev">&lt;</div>
-        <div class="chip white m-box-shadow" style="cursor: pointer;" id="student-next">&gt;</div>
-      </div>
-      <div class="col m6"><h5 style="margin-top: 5px;" id="student-calendar-date" class="no-margin center-align"></h5></div>
-      <div class="col m3"></div>
-    </div>
-    <br>
-    <div class="calendar-height" id="student-calendar"></div>
+    <%= react_component("container/calendar/CalendarContainer", {
+      id: "course-calendar"
+    }) %>
   </div>
 </div>
 

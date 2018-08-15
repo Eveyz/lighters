@@ -1,6 +1,6 @@
 class CoursesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_course, only: [:show, :edit, :update, :destroy, :add_student, :enroll_student, :drop_student, :get_students, :add_books, :get_books, :append_book, :remove_book]
+  before_action :set_course, only: [:show, :edit, :update, :destroy, :add_student, :enroll_student, :drop_student, :get_students, :add_books, :get_books, :append_book, :remove_book, :delete_course]
 
   # GET /courses
   # GET /courses.json
@@ -169,6 +169,9 @@ class CoursesController < ApplicationController
     end
   end
 
+  def delete_course
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_course
@@ -177,6 +180,6 @@ class CoursesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_params
-      params.require(:course).permit(:name, :level, :capacity, :code, :type, :teacher_id)
+      params.require(:course).permit(:name, :level, :capacity, :code, :type, :teacher_id, :course_hours)
     end
 end

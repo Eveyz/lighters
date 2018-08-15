@@ -34,7 +34,7 @@ class TeachersController < ApplicationController
         format.html {
           if @teacher.active?
             redirect_to me_teacher_path(@teacher)
-            flash[:notice] = 'Teacher was successfully created.' 
+            flash[:success] = 'Teacher was successfully created.' 
           else
             redirect_to pending_teacher_path(@teacher)
             flash[:notice] = 'Teacher was successfully created.'
@@ -93,7 +93,10 @@ class TeachersController < ApplicationController
     @teacher.status = "active"
     @teacher.save
     respond_to do |format|
-      format.html { redirect_to teachers_url, notice: '激活教师成功.' }
+      format.html { 
+        redirect_to teachers_url
+        flash[:success] = '激活教师成功.' 
+      }
       format.json { head :no_content }
     end
   end

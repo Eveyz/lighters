@@ -75,24 +75,17 @@
             </div>
           </div>
 
-          <div class="row">
+          <div class="row no-margin">
             <div class="input-field col m12 s12">
-              <%= f.text_area :future_book, autofocus: false, id: :future_book, class: "materialize-textarea" %>
-              <label for="future_book">下次课书目 <span style="color: red;">*</span></label>
+              <%= f.text_field :links, autofocus: false, id: :links, class: "materialize-textarea" %>
+              <label for="links">课程音频网盘链接</label>
             </div>
           </div>
-
-          <div class="row">
-            <div class="input-field col m12 s12">
-              <%= f.text_area :links, autofocus: false, id: :links, class: "materialize-textarea" %>
-              <label for="links">音频链接 <span style="color: red;">*</span></label>
-            </div>
-          </div>
-
+          <p>或者上传</p>
           <div class="row">
             <div class="file-field input-field col m12 s12">
               <div class="btn cyan">
-                <span>上课录音文件 <span style="color: red;">*</span></span>
+                <span>上课录音文件</span>
                 <%= f.file_field :audios, multiple: true %>
               </div>
               <div class="file-path-wrapper">

@@ -10,13 +10,10 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require materialize
-//= require rails-ujs
 //= require jquery
-//= require turbolinks
-//= require fullcalendar/moment.min
-//= require fullcalendar/jquery-ui.min
-//= require fullcalendar/fullcalendar
+//= require materialize
+//= require materialize-sprockets
+//= require rails-ujs
 //= require_tree .
 
 

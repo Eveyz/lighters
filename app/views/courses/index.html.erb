@@ -1,10 +1,18 @@
 <div class="bg-light-green page-min-height">
 
   <%= render "admin/breadcrumb", domain: "courses" %>
+  
   <div class="container">
+    <br>
+    <div class="row">
+      <div class="col m12">
+        <a class="btn modal-trigger" href="#modal1">添加课程</a>
+      </div>
+    </div>
+
     <div class="row">
       <div class="col m3">
-        <h6 style="color: rgba(0,0,0,.6);font-weight: 700;">课程管理</h6>
+        <h6 style="color: rgba(0,0,0,.6);font-weight: 700;">所有课程</h6>
       </div>
     </div>
 
@@ -17,12 +25,6 @@
             <%= render "courses/course", course: course %>
           <% end %>
         <% end %>
-      </div>
-    </div>
-    <!-- Modal Trigger -->
-    <div class="row">
-      <div class="col m12">
-        <a class="waves-effect waves-light btn modal-trigger" href="#modal1">添加课程</a>
       </div>
     </div>
 

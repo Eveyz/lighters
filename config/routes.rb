@@ -22,6 +22,7 @@ Rails.application.routes.draw do
       get :add_books
       post :append_book
       delete :remove_book
+      delete :delete_course
     end
   end
 

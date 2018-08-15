@@ -34,6 +34,13 @@
 
   <div class="row">
     <div class="input-field col m12">
+      <%= f.number_field :course_hours, autofocus: false, autocomplete: "course_hours", id: :course_hours %>
+      <label for="course_hours">课时<span style="color: red;">*</span></label>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-field col m12">
       <%= f.select :teacher_id, @teachers.collect {|a| [a.fullname, a.id]}, :prompt => '选择教师' %>
     </div>
   </div>
@@ -45,6 +52,7 @@
 
 <script>
   $(document).ready(function() {
+    M.updateTextFields();
     var elems = document.querySelectorAll('select');
     var instances = M.FormSelect.init(elems, {});
   });

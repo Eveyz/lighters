@@ -12,6 +12,7 @@
         <a class="modal-trigger" href="#editcourse<%= course.id %>">编辑课程</a>
         <%= link_to "添加学生", add_student_course_path(course) %>
         <%= link_to "添加绘本", add_books_course_path(course) %>
+        <%= link_to '删除', course, method: :delete, data: { confirm: '你确认要删除嘛?' } %>
       </div>
     </div>
   </div>

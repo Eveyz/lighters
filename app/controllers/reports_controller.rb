@@ -1,3 +1,5 @@
+require 'json'
+
 class ReportsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_report, only: [:show, :edit, :update, :destroy]
@@ -63,6 +65,7 @@ class ReportsController < ApplicationController
   def get_previous_report_books
     @course = Course.find(params[:course_id])
     @student = Student.find(params[:student_id])
+    @field = params[:field]
     @books = []
     if params[:actions] == "edit"
       # if action is edit, then should return review and content
@@ -70,6 +73,8 @@ class ReportsController < ApplicationController
       if @report.present?
         if params[:field] == "review"
           @books = @report.review
+        elsif params[:field] == "future_books"
+          @books = @report.future_books
         else
           @books = @report.content
         end
@@ -137,6 +142,6 @@ class ReportsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def report_params
-      params.require(:report).permit(:course_id, :teacher_id, :student_id, :course_date, :start_time, :end_time, :focus, :tutor_comment, :homework, :future_book, review: {}, content: {}, links: {}, audios: {})
+      params.require(:report).permit(:course_id, :teacher_id, :student_id, :course_date, :start_time, :end_time, :focus, :tutor_comment, :homework, {audios: []}, links: {}, future_books: [], review: {}, content: {})
     end
 end

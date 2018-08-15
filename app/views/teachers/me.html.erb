@@ -14,15 +14,19 @@
     <div class="row">
       <div class="col s12">
         <ul class="tabs">
-          <li class="tab col s3"><a href="#courses">课程</a></li>
+          <li class="tab col s3"><a href="#teacher-calendar-tab">课程表</a></li>
+          <li class="tab col s3"><a href="#courses">所有课程</a></li>
           <li class="tab col s3"><a href="#students">学生</a></li>
           <li class="tab col s3"><a href="#books">绘本</a></li>
-          <li class="tab col s3"><a href="#test4">Test 4</a></li>
         </ul>
       </div>
-      <div id="courses" class="col s12">
+      <div id="teacher-calendar-tab" class="col s12 m12">
         <br>
-        <div id="calendar" style="height: 50px;"></div>
+        <%= react_component("container/calendar/CalendarContainer", {
+            id: "course-calendar"
+          }) %>
+      </div>
+      <div id="courses" class="col s12">
         <br>
         <div class="row">
           <div class="col m12">
@@ -57,7 +61,6 @@
           <canvas id="books-canvas" oncontextmenu="return false;"></canvas>
         </div>
       </div>
-      <div id="test4" class="col s12">Test 4</div>
     </div>
   </div>
 
@@ -65,18 +68,26 @@
   <br>
 </div>
 
-<div>
-  <div class="canvas-color-palette active" style="background-color: #f44336;"></div>
-  <div class="canvas-color-palette" style="background-color: #000000;"></div>
-  <div class="canvas-color-palette" style="background-color: #4caf50;"></div>
-  <div class="canvas-color-palette" style="background-color: #00bcd4;"></div>
-  <div class="canvas-color-palette" style="background-color: #ff9800;"></div>
-</div>
+<% if false %>
+  <div>
+    <div class="canvas-color-palette active" style="background-color: #f44336;"></div>
+    <div class="canvas-color-palette" style="background-color: #000000;"></div>
+    <div class="canvas-color-palette" style="background-color: #4caf50;"></div>
+    <div class="canvas-color-palette" style="background-color: #00bcd4;"></div>
+    <div class="canvas-color-palette" style="background-color: #ff9800;"></div>
+  </div>
 
-<br>
-<canvas style="background-image:url('/test.jpg'); background-size: contain; background-repeat: no-repeat;" id="back_img" oncontextmenu="return false;"></canvas>
+  <br>
+  <canvas style="background-image:url('/test.jpg'); background-size: contain; background-repeat: no-repeat;" id="back_img" oncontextmenu="return false;"></canvas>
+<% end %>
 
 <script>
+
+  $(document).on('ready', function() {
+    var elems = document.querySelectorAll('.dropdown-trigger');
+    var instances = M.Dropdown.init(elems, {});
+  });
+
   $(document).ready(function() {
     var elems = document.querySelectorAll('.tabs');
     var instance = M.Tabs.init(elems, {});
@@ -89,27 +100,27 @@
     });
   });
 
-  $(document).ready(function() {
+  // $(document).ready(function() {
 
-    var canvas = document.getElementById("back_img");
-    var ctx = canvas.getContext("2d");
+  //   var canvas = document.getElementById("back_img");
+  //   var ctx = canvas.getContext("2d");
 
-    img = new Image();
-    img.onload = function(){
-      var ratio = img.height / img.width;
-      var w = screen.width * 0.9;
-      canvas.width  = w;
-      canvas.height = w * ratio;
-      canvas.style.marginLeft = Math.floor(screen.width * 0.05) + "px";
-      canvas.style.marginRight = "auto";
-    //   ctx.drawImage(img, 0, 0, img.width,img.height, 0, 0, img.width,img.height);
-    }
-    img.src = "/test.jpg";
+  //   img = new Image();
+  //   img.onload = function(){
+  //     var ratio = img.height / img.width;
+  //     var w = screen.width * 0.9;
+  //     canvas.width  = w;
+  //     canvas.height = w * ratio;
+  //     canvas.style.marginLeft = Math.floor(screen.width * 0.05) + "px";
+  //     canvas.style.marginRight = "auto";
+  //   //   ctx.drawImage(img, 0, 0, img.width,img.height, 0, 0, img.width,img.height);
+  //   }
+  //   img.src = "/test.jpg";
 
-    init("back_img");
-    // init_svg("back_svg");
+  //   init("back_img");
+  //   // init_svg("back_svg");
 
-  });
+  // });
 
   $(function() {
     $(".canvas-color-palette").click(function() {
