@@ -69,6 +69,7 @@ class AddStudentsWidget extends React.Component {
         dataType: 'json',
         data: { student_id: id },
         success: response => {
+          console.log(response);
           this.setState({students: response});
           M.toast({html: "移除学生成功"})
         }
@@ -85,6 +86,7 @@ class AddStudentsWidget extends React.Component {
                           });
 
     var curStudents = this.state.students.length > 0 ? <div>当前学生: {curStudentsList}</div> : <p>当前学生: 0</p>;
+    
     const mode = this.state.mode;
     let widget = mode == "search" ? 
       <div>
@@ -112,7 +114,7 @@ class AddStudentsWidget extends React.Component {
     return (
       <div>
         <div className="row">
-          <div className="col s12 m6">
+          <div className="col s12 m12">
             <h4>{ this.props.course_name }</h4>
             <p>授课老师: { this.props.teacher }</p>
             <p>课程级别: { this.props.course_level } </p>

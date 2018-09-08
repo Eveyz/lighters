@@ -1,72 +1,91 @@
-<div class="yellow lighten-4" style="min-height: 750px;">
+<div style="min-height: 750px;background: url('/assets/bg.png') no-repeat;background-size: cover;">
   <div class="container">
     <br>
     <br>
-    <div class="row">
-      <div class="col s12 m6 no-padding">
-        <div class="shrink-content" style="background-color: #002949;color: white; min-height: 650px;">
-          <h3>帮助每个学生成长</h3>
-          <ul>
-            <li>给学生布置任务</li>
-            <li>跟踪每个学生的进度</li>
-            <li>加入我们的社区</li>
-          </ul>
-          <h5>通过注册我们的账号，您同意了我服务条款和隐私条例</h5>
+    <div class="row no-margin">
+      <div class="col s12 m8 offset-m2">
+        <div class="card">
+          <div class="card-content">
+            <div class="row">
+              <div class="col s12 m10 offset-m1">
+                <h4 class="center">注册</h4>
+                <br>
+                <%= render "devise/registrations/form" %>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+    </div>
+    <br>
+    <br>
+    <% if false %>
+      <div class="row">
+        <div class="col s12 m6 no-padding">
+          <div class="shrink-content" style="background-color: #002949;color: white; min-height: 650px;">
+            <h3>帮助每个学生成长</h3>
+            <ul>
+              <li>给学生布置任务</li>
+              <li>跟踪每个学生的进度</li>
+              <li>加入我们的社区</li>
+            </ul>
+            <h5>通过注册我们的账号，您同意了我们的服务条款和隐私条例</h5>
+          </div>
+        </div>
 
-      <div class="col s12 m6 no-padding">
-        <div class="shrink-content" style="background-color: #F9FCFD; min-height: 650px;">
-          
-          <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-            <%= devise_error_messages! %>
+        <div class="col s12 m6 no-padding">
+          <div class="shrink-content" style="background-color: #F9FCFD; min-height: 650px;">
+            
+            <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+              <%= devise_error_messages! %>
 
-            <div class="input-field">
-              <%= f.select :identity, [ '学员/家长', '老师'], :prompt => '选择身份' %>
-              <label><b>我是</b></label>
-            </div>
+              <div class="input-field">
+                <%= f.select :identity, [ '学员/家长', '老师'], :prompt => '选择身份' %>
+                <label><b>我是</b></label>
+              </div>
 
+              <br>
+
+              <div class="input-field">
+                <%= f.email_field :email, autofocus: true, autocomplete: "email", id: :email %>
+                <label for="email"><b>邮箱</b></label>
+              </div>
+
+              <div class="input-field">
+                <%= f.text_field :wechat, autocomplete: "off", id: :wechat %>
+                <label for="wechat"><b>微信号</b></label>
+              </div>
+
+              <div class="input-field">
+                <%= f.text_field :phone, autocomplete: "off", id: :phone %>
+                <label for="phone"><b>电话</b></label>
+              </div>
+
+              <div class="input-field">
+                <%= f.password_field :password, autocomplete: "off", id: :password %>
+                <label for="password"><b>密码 <em>(密码长度至少为<%= @minimum_password_length %>)</em></b></label>
+              </div>
+
+              <div class="input-field">
+                <%= f.password_field :password_confirmation, autocomplete: "off", id: :password_confirmation %>
+                <label for="password_confirmation"><b>确认密码</b></label>
+              </div>
+
+              <div class="actions">
+                <%= f.submit "注册", class: 'btn bold cyan' %>
+              </div>
+            <% end %>
             <br>
 
-            <div class="input-field">
-              <%= f.email_field :email, autofocus: true, autocomplete: "email", id: :email %>
-              <label for="email"><b>邮箱</b></label>
+            <div class="center" style="font-weight: bold;">
+              <%= render "devise/shared/links" %>
             </div>
-
-            <div class="input-field">
-              <%= f.text_field :wechat, autocomplete: "off", id: :wechat %>
-              <label for="wechat"><b>微信号</b></label>
-            </div>
-
-            <div class="input-field">
-              <%= f.text_field :phone, autocomplete: "off", id: :phone %>
-              <label for="phone"><b>电话</b></label>
-            </div>
-
-            <div class="input-field">
-              <%= f.password_field :password, autocomplete: "off", id: :password %>
-              <label for="password"><b>密码 <em>(密码长度至少为<%= @minimum_password_length %>)</em></b></label>
-            </div>
-
-            <div class="input-field">
-              <%= f.password_field :password_confirmation, autocomplete: "off", id: :password_confirmation %>
-              <label for="password_confirmation"><b>确认密码</b></label>
-            </div>
-
-            <div class="actions">
-              <%= f.submit "注册", class: 'btn bold cyan' %>
-            </div>
-          <% end %>
-          <br>
-
-          <div class="center" style="font-weight: bold;">
-            <%= render "devise/shared/links" %>
+            
           </div>
-          
         </div>
-      </div>
 
-    </div>
+      </div>
+    <% end %>
 
   </div>
 

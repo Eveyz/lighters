@@ -5,12 +5,17 @@ class RegistrationsController < Devise::RegistrationsController
     if current_user.identity == "老师"
       @teacher = current_user.teacher
       if @teacher.present?
-        teacher_path(@teacher)
+        me_teacher_path(@teacher)
       else
         new_teacher_path
       end
     else
-      new_student_path
+      @student = current_user.student
+      if @student.present?
+        me_student_path(@student)
+      else
+        new_student_path
+      end
     end
   end
 end

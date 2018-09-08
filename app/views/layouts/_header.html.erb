@@ -1,6 +1,12 @@
-<nav>
-  <div class="nav-wrapper yellow darken-3">
-    <%= link_to "Lighters 绘说英语", root_path, class: 'brand-logo center' %>
+<% classes = "amber" %>
+<% if controller_name == "mainpages" and action_name == "welcome" %>
+  <% classes = "transparent-nav non-box-shadow" %>
+<% end %>
+<nav class="<%= classes %>">
+  <div class="nav-wrapper">
+    <%= link_to root_path do %>
+      <%= image_tag "logo12.svg", class: "brand-logo", style: "width: 300px;margin-top: 8px;margin-left: 5px;" %>
+    <% end %>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
       <% if user_signed_in? %>
         <% if current_user.identity == "老师" && current_user.teacher.present? && current_user.teacher.status == "active" %>
@@ -12,7 +18,7 @@
         <% end %>
         <li><%= link_to "注销", destroy_user_session_path, method: :delete %> </li>
       <% else %>
-        <li><%= link_to "申请免费试听", new_user_registration_path %></li>
+        <li><%= link_to "申请免费试课", new_user_registration_path, class: 'waves-effect waves-light btn', style: 'font-size: 18px;' %></li>
         <li><%= link_to "登录", new_user_session_path %></li>
       <% end %>
     </ul>

@@ -1,53 +1,105 @@
-<div class="yellow" style="min-height: 700px;">
+<div class="" style="min-height: 700px;background: url('/assets/bg.png') no-repeat;background-size: cover;">
   <div class="container">
     <br>
     <br>
-    <div class="row">
-      <div class="col s12 m6 no-padding">
-        <div class="shrink-content" style="background-color: #002949;color: white; min-height: 500px;">
-          <h3>帮助每个学生成长</h3>
-          <ul>
-            <li>给学生布置任务</li>
-            <li>跟踪每个学生的进度</li>
-            <li>加入我们的社区</li>
-          </ul>
-          <h5>通过注册我们的账号，您同意了我服务条款和隐私条例</h5>
+    <div class="row no-margin">
+      <div class="col s12 m8 offset-m2">
+        <div class="card">
+          <div class="card-content">
+            <div class="row">
+              <div class="col s12 m10 offset-m1">
+                <h4 class="center">登录</h4>
+                <br>
+                <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+                  <% if resource.errors.any? %>
+                    <ul>
+                      <% resource.errors.each do |attr, msg| %>
+                        <li class="form-error-li center"><%= msg %></li>
+                      <% end %>
+                    </ul>
+                    <br>
+                  <% end %>
+
+                  <div class="input-field">
+                    <%= f.email_field :email, autofocus: true, id: :email, placeholder: "example@email.com" %>
+                    <label for="email">邮箱 <span style="color: red;">*</span></label>
+                  </div>
+
+                  <div class="input-field">
+                    <%= f.password_field :password, autocomplete: "off", id: :password %>
+                    <label for="password">密码 <span style="color: red;">*</span></label>
+                  </div>
+
+                  <% if devise_mapping.rememberable? -%>
+                    <label>
+                      <%= f.check_box :remember_me, class: "filled-in" %>
+                      <span>记住登录</span>
+                    </label>
+                  <% end -%>
+                  <br>
+                  <br>
+                  <div class="actions">
+                    <%= f.submit "登录", class: 'btn' %>
+                  </div>
+                <% end %>
+                <br>
+                <br>
+                <%= render "devise/shared/links" %>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-
-      <div class="col s12 m6 no-padding">
-        <div class="shrink-content" style="background-color: white; min-height: 500px;">
-          <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-
-            <div class="input-field">
-              <%= f.email_field :email, autofocus: true, id: :email, placeholder: "example@email.com" %>
-              <label for="email">邮箱</label>
-            </div>
-
-            <div class="input-field">
-              <%= f.password_field :password, autocomplete: "off", id: :password %>
-              <label for="password">密码</label>
-            </div>
-
-            <% if devise_mapping.rememberable? -%>
-               <label>
-                <%= f.check_box :remember_me, class: "filled-in" %>
-                <span>记住登录</span>
-              </label>
-            <% end -%>
-            <br>
-            <br>
-            <div class="actions">
-              <%= f.submit "登录", class: 'btn' %>
-            </div>
-          <% end %>
-          <br>
-          <br>
-          <%= render "devise/shared/links" %>
-        </div>
-      </div>
-
     </div>
+    <% if false %>
+      <div class="row">
+        <div class="col s12 m6 no-padding">
+          <div class="shrink-content" style="background-color: #002949;color: white; min-height: 500px;">
+            <h3>帮助每个学生成长</h3>
+            <ul>
+              <li>给学生布置任务</li>
+              <li>跟踪每个学生的进度</li>
+              <li>加入我们的社区</li>
+            </ul>
+            <h5>通过注册我们的账号，您同意了我服务条款和隐私条例</h5>
+          </div>
+        </div>
+
+        <div class="col s12 m6 no-padding">
+          <div class="shrink-content" style="background-color: white; min-height: 500px;">
+            <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+              <div class="input-field">
+                <%= f.email_field :email, autofocus: true, id: :email, placeholder: "example@email.com" %>
+                <label for="email">邮箱</label>
+              </div>
+
+              <div class="input-field">
+                <%= f.password_field :password, autocomplete: "off", id: :password %>
+                <label for="password">密码</label>
+              </div>
+
+              <% if devise_mapping.rememberable? -%>
+                <label>
+                  <%= f.check_box :remember_me, class: "filled-in" %>
+                  <span>记住登录</span>
+                </label>
+              <% end -%>
+              <br>
+              <br>
+              <div class="actions">
+                <%= f.submit "登录", class: 'btn' %>
+              </div>
+            <% end %>
+            <br>
+            <br>
+            <%= render "devise/shared/links" %>
+          </div>
+        </div>
+
+      </div>
+    <% end %>
 
   </div>
 

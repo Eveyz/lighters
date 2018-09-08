@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   get 'admin/dashboard', to: 'admin#dashboard'
   get 'reports/new/hide-path-for-rails', to: 'reports#new'
+
+  mount PdfjsViewer::Rails::Engine => "/pdfjs", as: 'pdfjs'
   
   namespace :admin do
     resources :users do
@@ -35,6 +37,8 @@ Rails.application.routes.draw do
   resources :students do
     member do
       get :me
+      get :record_audio
+      post :post_audio
     end
     collection do
       get :search_student

@@ -12,7 +12,12 @@ class SessionsController < Devise::SessionsController
     elsif current_user.identity == "admin"
       admin_dashboard_path
     else
-      new_student_path
+      @student = current_user.student
+      if @student.present?
+        me_student_path(@student)
+      else
+        new_student_path
+      end
     end
   end
 end

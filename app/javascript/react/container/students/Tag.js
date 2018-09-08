@@ -11,7 +11,7 @@ class Tag extends React.Component {
     return (
       <div className="chip">
         {this.props.student[2] + this.props.student[1]}
-        <i className="close material-icons" onClick={this.deleteStudent.bind(this)}>close</i>
+        <span onClick={this.deleteStudent.bind(this)} style={{cursor: "pointer", color: "#e74c3c;"}}> &#10005;</span>
       </div>
     )
   }

@@ -1,4 +1,4 @@
-<div class="bg-light-green page-min-height">
+<div class="bg-light-grey page-min-height">
 
   <%= render "admin/breadcrumb", domain: "teachers" %>
   <div class="container">
@@ -9,7 +9,6 @@
           <p id="notice"><%= notice %></p>
 
           <h5 style="margin-top: 10px;" class="blue-text"><b>待定</b></h5>
-
           <table>
             <thead>
               <tr>
@@ -37,19 +36,18 @@
                   <td><%= teacher.city %></td>
                   <td><%= teacher.work %></td>
                   <td><%= link_to '查看', teacher %></td>
-                  <td><%= link_to '注销', teacher, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                  <td><%= link_to '注销', teacher, method: :delete, data: { confirm: '你确认嘛?' }, class: 'r-link-color' %></td>
                 </tr>
               <% end %>
             </tbody>
           </table>
-
         </div>
       </div>
     <% end %>
 
     <div class="row">
       <div class="col m12">
-        <h5 style="margin-top: 10px;" class="green-text"><b>在职教师</b></h5>
+        <h5 style="margin-top: 10px;" class="r-green-color"><b>在职教师</b></h5>
 
         <table>
           <thead>

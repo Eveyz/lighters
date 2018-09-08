@@ -26,6 +26,7 @@ class CreateStudents < ActiveRecord::Migration[5.1]
       t.string :way
       t.string :reason
       t.string :status
+      t.json :recording
       t.references :user, foreign_key: true
 
       t.timestamps

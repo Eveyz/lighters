@@ -1,6 +1,6 @@
 class StudentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_student, only: [:show, :edit, :update, :destroy]
+  before_action :set_student, only: [:show, :edit, :update, :destroy, :record_audio, :post_audio]
 
   # GET /students
   # GET /students.json
@@ -29,14 +29,19 @@ class StudentsController < ApplicationController
   # POST /students
   # POST /students.json
   def create
-    params[:student][:expectation] = params[:student][:expectation].join(",")
-    params[:student][:paragraph] = params[:student][:paragraph].join(",")
+    if params[:student][:expectation].present?
+      params[:student][:expectation] = params[:student][:expectation].join(",")
+    end
+    if params[:student][:paragraph].present?
+      params[:student][:paragraph] = params[:student][:paragraph].join(",")
+    end
     
     @student = current_user.create_student(student_params)
+    @student.status = "RECORD_AUDIO"
 
     respond_to do |format|
       if @student.save
-        format.html { redirect_to me_student_path(@student), notice: 'Student was successfully created.' }
+        format.html { redirect_to record_audio_student_path(@student), notice: 'Student was successfully created.' }
         format.json { render :show, status: :created, location: @student }
       else
         format.html { render :new }
@@ -77,6 +82,12 @@ class StudentsController < ApplicationController
     respond_to do |format|
       format.json { render json: @students }
     end
+  end
+
+  def record_audio
+  end
+
+  def post_audio
   end
 
   private

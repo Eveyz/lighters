@@ -13,6 +13,11 @@
 //= require jquery
 //= require materialize
 //= require materialize-sprockets
+//= require p5/p5.min
+//= require p5/p5.sound
+//= require pdf/pdf
+//= require pdf/pdf.worker
+//= require recorder
 //= require rails-ujs
 //= require_tree .
 

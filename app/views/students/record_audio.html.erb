@@ -1,0 +1,43 @@
+<div class="bg-light-grey">
+  <div class="container">
+    <br>
+    <br>
+    <h3 class="center no-margin airfont lg">学员调查问卷</h3>
+
+    <div class="row">
+      <div class="col s12 m10 offset-m1">
+        <h5>请家长务必仔细填写此调查问卷, 我们会根据此问卷安排对应试课老师和绘本 (<span style="color: red;">*</span> 为必填项)</h5>
+      </div>
+    </div>
+
+    <div>
+      <button id="prev" class="btn">上一页</button>
+      <button id="next" class="btn">下一页</button>
+      &nbsp; &nbsp;
+      <span>Page: <span id="page_num"></span> / <span id="page_count"></span></span>
+    </div>
+
+    <canvas id="the-pdf-canvas"></canvas>
+
+    <div class="row">
+      <div class="col s12 m10 offset-m1">
+        <div class="card r-box-shadow">
+          <div class="card-content" style="padding: 50px;">
+            <span class="card-title">学员级别测试</span>
+            <%= react_component("container/forms/Record", {
+              required: true,
+              options: ["My name is Tony.", "Can you read out this paragraph loudly?", "I like your T-shirt."],
+              question: "请让孩子阅读以下段落，选出孩子能完整读出 (请按语音键录音) 并理解的最高级别的选项 (不超过两个生词) (多选题) ",
+              field: "recording"
+            }) %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+  </div>
+</div>

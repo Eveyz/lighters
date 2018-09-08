@@ -1,0 +1,52 @@
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+
+  <% if resource.errors.any? %>
+    <ul>
+      <% resource.errors.each do |attr, msg| %>
+        <li class="form-error-li center"><%= msg %></li>
+      <% end %>
+    </ul>
+    <br>
+  <% end %>
+
+  <div class="input-field">
+    <%= f.select :identity, [ '学员/家长', '老师'], :prompt => '选择身份' %>
+    <label for="identity"><b>我是 <span style="color: red;">*</span></b></label>
+  </div>
+
+  <div class="input-field">
+    <%= f.email_field :email, autofocus: false, autocomplete: "email", id: :email %>
+    <label for="email"><b>邮箱 <span style="color: red;">*</span></b></label>
+  </div>
+
+  <div class="input-field">
+    <%= f.text_field :wechat, autocomplete: "off", id: :wechat %>
+    <label for="wechat"><b>微信号 <span style="color: red;">*</span></b></label>
+  </div>
+
+  <div class="input-field">
+    <%= f.text_field :phone, autocomplete: "off", id: :phone %>
+    <label for="phone"><b>电话 <span style="color: red;">*</span></b></label>
+  </div>
+
+  <div class="input-field">
+    <%= f.password_field :password, autocomplete: "off", id: :password %>
+    <label for="password"><b>密码 <em>(密码长度至少为<%= @minimum_password_length %>)</em> <span style="color: red;">*</span></b></label>
+  </div>
+
+  <div class="input-field">
+    <%= f.password_field :password_confirmation, autocomplete: "off", id: :password_confirmation %>
+    <label for="password_confirmation"><b>确认密码 <span style="color: red;">*</span></b></label>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "注册", class: 'btn bold cyan' %>
+  </div>
+  <br>
+  <p>点击 “注册” 即表示您同意并愿意遵守Lighters绘说英语 <span><u>用户协议</u></span> 和 <span><u>隐私政策</u></span>。</p>
+<% end %>
+<br>
+
+<div class="center" style="font-weight: bold;">
+  <%= render "devise/shared/links" %>
+</div>

@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 admin = User.new
-admin.email = 'admin@lighter.com'
+admin.email = 'admin@lighters.com'
 admin.identity = 'admin'
 admin.password = 'saiop147'
 admin.save!

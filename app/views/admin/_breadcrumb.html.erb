@@ -1,4 +1,4 @@
-<div style="background-color: white;padding: 20px 0px 20px 0px;">
+<div style="background-color: white; padding: 20px 0px 20px 0px;" class="r-box-shadow">
   <div class="container">
     <div class="row no-margin">
       <div class="col m12">
@@ -24,6 +24,9 @@
         <% when "addBooks" %>
           <span style="color: #BDC8CB;"><%= link_to "Dashboard", admin_dashboard_path %> > <%= link_to "课程管理", courses_path %> > 添加绘本</span>
           <h5 style="margin-top: 10px;"><b>添加绘本</b></h5>
+        <% when "newCourse" %>
+          <span style="color: #BDC8CB;"><%= link_to "Dashboard", admin_dashboard_path %> > <%= link_to "课程管理", courses_path %> > 添加课程</span>
+          <h5 style="margin-top: 10px;"><b>添加课程</b></h5>
         <% end %>
       </div>
     </div>
