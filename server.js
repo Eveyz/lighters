@@ -87,14 +87,8 @@ helper.calculateTeacherCourseNum()
 var db = config.db;
 const PORT = process.env.PORT || config.port;
 
-const gracefulShutdown = () => {
-  mongoose.connection.close(false, () => {
-    console.log('Mongo closed');
-    server.close(() => {
-      console.log('Shutting down...');
-    });
-  });
-};
+
+let serverInstance; // Declare a variable to hold the server instance
 
 if (process.env.NODE_ENV === "production") {
   server.use(logger('combined'));
@@ -124,14 +118,16 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.join(__dirname, '/build/index.html'));
   });
 
-  https.createServer(server).listen(PORT, () => {
-    console.log(`Render production server is on port: ${PORT}`)
+  serverInstance = server.listen(PORT, () => {
+    console.info('Render express listening on port ', PORT);
     // Handle kill commands
     process.on('SIGTERM', gracefulShutdown);
-
-    // Prevent dirty exit on code-fault crashes:
-    process.on('uncaughtException', gracefulShutdown);
+    process.on('uncaughtException', (error) => {
+      console.error('Uncaught Exception:', error); // Log the uncaught exception
+      gracefulShutdown();
+    });
   });
+
 } else {
   server.listen(PORT, () => {
     console.info('DEV express listenning on port ', PORT);
@@ -143,5 +139,18 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
+const gracefulShutdown = () => {
+  console.log("Shutting down gracefully...");
+  serverInstance.close(() => {
+    console.log("Closed all remaining connections.");
+    process.exit(0);
+  });
+
+  // Force close after 5 seconds
+  setTimeout(() => {
+    console.error("Forcing shutdown...");
+    process.exit(1);
+  }, 5000);
+};
 
 module.exports = server

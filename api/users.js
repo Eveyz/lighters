@@ -34,7 +34,7 @@ function getRequestIpAddress(request) {
   return ipAddress
 }
 
-router.post('/authenticate', (req, res) => {
+router.post('/authenticate', async (req, res) => {
   if(req.body.username && req.body.password) {
     // audit user ip
     // let ip = getRequestIpAddress(req)
@@ -48,9 +48,12 @@ router.post('/authenticate', (req, res) => {
     // });
     
     User.findOne({ username: req.body.username }, async function(err, user) {
+      const count = await User.countDocuments(); 
+      console.log(count);
       if(err) console.error(err);
+
       if(!user) {
-        return res.status(200).json({
+        return res.status(404).json({
           success: false,
           status: 'error',
           msg: '用户不存在'
