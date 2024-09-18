@@ -46,9 +46,9 @@
     "yup": "^0.26.6"
   },
   "scripts": {
-    "start": "cross-env PORT=3001 REACT_APP_IMAGE_PATH='http://localhost:8000/public/classroom/' react-scripts start",
+    "start": "PORT=3001 REACT_APP_IMAGE_PATH='http://localhost:8000/public/classroom/' react-scripts start",
     "dev": "next",
-    "build": "cross-env --env.REACT_APP_IMAGE_PATH=https://www.lightersenglish.com/public/classroom/ GENERATE_SOURCEMAP=false react-scripts build --profile",
+    "build": "--env.REACT_APP_IMAGE_PATH=https://lighters.onrender.com/public/classroom/ GENERATE_SOURCEMAP=false react-scripts build --profile",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
