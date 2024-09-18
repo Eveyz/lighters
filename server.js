@@ -134,7 +134,7 @@ if (process.env.NODE_ENV === "production") {
   });
 } else {
   server.listen(PORT, () => {
-    console.info('Express listenning on port ', PORT);
+    console.info('DEV express listenning on port ', PORT);
     // Handle kill commands
     process.on('SIGTERM', gracefulShutdown);
 
