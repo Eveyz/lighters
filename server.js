@@ -124,8 +124,8 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.join(__dirname, '/build/index.html'));
   });
 
-  https.createServer(credentials, server).listen(PORT, () => {
-    console.log("Production server is on")
+  https.createServer(server).listen(PORT, () => {
+    console.log(`Render production server is on port: ${PORT}`)
     // Handle kill commands
     process.on('SIGTERM', gracefulShutdown);
 
