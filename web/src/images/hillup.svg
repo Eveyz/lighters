@@ -1,0 +1,24 @@
+
+<svg width="580px" height="200px" viewBox="0 0 580 200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Public-V1-UI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Churn---Progress-Tab---Premium-to-Free" transform="translate(-515.000000, -689.000000)" fill="#FCBD01">
+            <g id="Pane-Copy" transform="translate(485.000000, 183.000000)">
+                <g id="Group-15" transform="translate(30.000000, 224.000000)">
+                    <g id="Group-80" transform="translate(0.000000, 216.000000)">
+                        <g id="Group-9" transform="translate(0.000000, 36.000000)">
+                            <g id="Simple-Burnup---Large">
+                                <g id="HighCharts" transform="translate(0.000000, 30.000000)">
+                                    <polygon id="Path-2" fill-opacity="0.08" points="0 180.692308 78.0725661 174 156.149489 159.5 234.226412 159.5 312.303335 120.461538 390.380258 102.615385 468.457181 31.2307692 546.534105 0 580 0 580 200.769231 0 200.769231"></polygon>
+                                    <polygon id="Path-2" fill-opacity="0.1" points="0 191.846154 78.0725661 190.730769 156.149489 176.230769 234.226412 176.230769 312.303335 142.769231 390.380258 120.461538 468.457181 64.6923077 546.534105 27.8846154 579.995643 27.8846154 580 200.769231 0 200.769231"></polygon>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

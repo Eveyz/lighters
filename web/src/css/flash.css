@@ -1,0 +1,21 @@
+.flash-msg {
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.flash-msg span {
+  padding: 8px 0px;
+  font-weight: bold;
+}
+
+.error-msg {
+  background-color: #e74c3c;
+}
+
+.warning-msg {
+  background-color: #f39c12;
+}
+
+.success-msg {
+  background-color: #2ecc71;
+}
