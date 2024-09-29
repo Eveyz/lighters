@@ -119,16 +119,16 @@ router.post('/', utils.verifyAdmin, async (req, res) => {
 
 /* Update course */
 router.put('/:_id', utils.verifyAdmin, async (req, res) => {
-  let _course = req.body;
+  let updated_fields = req.body;
 
   let query = {_id: req.params._id};
 	// if the field doesn't exist $set will set a new field
 	let update = {
-		'$set': _course
+		'$set': updated_fields
   };
   
   // remove course from previous teachers
-  if(_course.teachers && _course.teachers.length > 0) {
+  if(updated_fields.teachers && updated_fields.teachers.length > 0) {
     Course.findOne(query, (err, course) => {
       if(err) {
         console.error(err);
@@ -154,8 +154,8 @@ router.put('/:_id', utils.verifyAdmin, async (req, res) => {
 
   if(course.teachers) {
     // append course into assigned teache
-    course.teachers.forEach(id => {
-      Teacher.findOneAndUpdate({_id: id}, {'$addToSet': { 'courses': course.id } }, options, (err, teacher) => {
+    course.teachers.forEach(tid => {
+      Teacher.findOneAndUpdate({_id: tid._id}, {'$addToSet': { 'courses': course._id } }, options, (err, teacher) => {
         if(err) {
           console.error(err);
         }
