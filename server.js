@@ -135,7 +135,9 @@ if (process.env.NODE_ENV === "production") {
     process.on('SIGTERM', gracefulShutdown);
 
     // Prevent dirty exit on code-fault crashes:
-    process.on('uncaughtException', gracefulShutdown);
+    process.on('uncaughtException', err => {
+      console.log(err)
+    });
   });
 }
 

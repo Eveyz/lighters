@@ -87,7 +87,7 @@ router.get('/:_id', authenticate, (req, res) => {
 });
 
 /* Create courses */
-router.post('/', utils.verifyAdmin, (req, res) => {
+router.post('/', utils.verifyAdmin, async (req, res) => {
   var course = req.body;
   
   if(course.teachers.length > 0) {
@@ -98,42 +98,28 @@ router.post('/', utils.verifyAdmin, (req, res) => {
     });
     course.teachers = mongoose_ids;
   }
-  
-	Course.create(course, function(err, course) {
-		if(err) {
-			console.error(err);
-    }
-    course.populate('books').populate('teachers', 'lastname firstname englishname').populate('students', function(err, c) {
-      if(err) {
-        console.error(err);
-      }
-      // append course into assign teacher
-      c.teachers.forEach(id => {
-        Teacher.findOneAndUpdate(
-          {_id: id}, 
-          {'$addToSet': { 'courses': c.id } }, 
-          { new: true }, 
-          (err, teacher) => {
-          if(err) console.error(err);
-        })
-      });
-      res.json(c);
-    });
-	})
+
+  var created_course = await Course.create(course)
+  // .populate('books').populate('teachers', 'lastname firstname englishname').populate('students')
+
+  // append course into assign teacher
+  created_course.teachers.forEach(id => {
+    Teacher.findOneAndUpdate(
+      {_id: id}, 
+      {'$addToSet': { 'courses': created_course.id } }, 
+      { new: true }, 
+      (err, teacher) => {
+      if(err) console.error(err);
+    })
+  });
+
+  res.json(created_course);
+
 });
 
 /* Update course */
-router.put('/:_id', utils.verifyAdmin, (req, res) => {
+router.put('/:_id', utils.verifyAdmin, async (req, res) => {
   let _course = req.body;
-
-  // update teacher for course
-  // if(_course.teachers && _course.teachers.length > 0) {
-  //   let mongoose_ids = [];
-  //   _course.teachers.forEach(id => {
-  //     mongoose_ids.push(mongoose.Types.ObjectId(id));
-  //   });
-  //   _course.teachers = mongoose_ids;
-  // }
 
   let query = {_id: req.params._id};
 	// if the field doesn't exist $set will set a new field
@@ -163,40 +149,24 @@ router.put('/:_id', utils.verifyAdmin, (req, res) => {
 
 	var options = { new: true }; // newly updated record
 
-	Course.findOneAndUpdate(query, update, options, (err, course) =>{
-		if(err) {
-			console.error(err);
-    }
+	var course = await Course.
+    findOneAndUpdate(query, update, options)
+    .populate('books')
+    .populate('teachers', 'lastname firstname englishname')
+    .populate('students')
 
-    course.populate('books').populate('teachers', 'lastname firstname englishname').populate('students', async function(err, c) {
-      if(err) {
-        console.error(err);
-      }
-
-      if(_course.teachers) {
-        // append course into assigned teacher
-        var all_promises = []
-        _course.teachers.forEach(id => {
-          new Promise(async (resolve, reject) => {
-            let teacher = await Teacher.findOneAndUpdate({_id: id}, {'$addToSet': { 'courses': c.id } }, options)
-            resolve(teacher)
-          })
-        })
-        await Promise.all(all_promises)
-        // _course.teachers.forEach(id => {
-        //   Teacher.findOneAndUpdate(
-        //     {_id: id}, 
-        //     {'$addToSet': { 'courses': c.id } }, 
-        //     options, 
-        //     (err, teacher) => {
-        //     if(err) console.error(err);
-        //   })
-        // })
-      }
-
-      res.json(c);
-    });
-	});
+  if(course.teachers) {
+    // append course into assigned teacher
+    var all_promises = []
+    course.teachers.forEach(id => {
+      new Promise(async (resolve, reject) => {
+        let teacher = await Teacher.findOneAndUpdate({_id: id}, {'$addToSet': { 'courses': course.id } }, options)
+        resolve(teacher)
+      })
+    })
+    await Promise.all(all_promises)
+  }
+  res.json(course);
 });
 
 /* Delete course */
