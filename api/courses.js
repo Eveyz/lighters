@@ -126,9 +126,6 @@ router.put('/:_id', utils.verifyAdmin, async (req, res) => {
 	let update = {
 		'$set': updated_fields
   };
-  
-  console.log(1)
-  console.log(updated_fields)
 
   // remove course from previous teachers
   if(updated_fields.teachers && updated_fields.teachers.length > 0) {
@@ -137,14 +134,12 @@ router.put('/:_id', utils.verifyAdmin, async (req, res) => {
         console.error(err);
       }
       course.teachers.forEach((t) => {
-        console.log("teachers")
-        console.log(t)
-        Teacher.findOne({_id: t._id}, (err, teacher) => {
+        Teacher.findOne({_id: t.toString()}, (err, teacher) => {
           if(err) {
             console.error(err);
           }
           if(teacher) {
-            teacher.courses.pull(course._id)
+            teacher.courses.pull(course._id.toString())
             teacher.save()
           }
         })
@@ -157,17 +152,10 @@ router.put('/:_id', utils.verifyAdmin, async (req, res) => {
 	var course = await Course.
     findOneAndUpdate(query, update, options)
 
-  console.log(3)
-  console.log(course)
-  console.log(course._id)
-
   if(course.teachers) {
     // append course into assigned teache
     course.teachers.forEach(tid => {
-      console.log("teachers inside")
-      console.log(tid)
-      console.log(tid._id)
-      Teacher.findOneAndUpdate({_id: tid._id}, {'$addToSet': { 'courses': course._id } }, options, (err, teacher) => {
+      Teacher.findOneAndUpdate({_id: tid.toString()}, {'$addToSet': { 'courses': course._id.toString() } }, options, (err, teacher) => {
         if(err) {
           console.error(err);
         }

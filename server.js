@@ -124,7 +124,7 @@ if (process.env.NODE_ENV === "production") {
     process.on('SIGTERM', gracefulShutdown);
     process.on('uncaughtException', (error) => {
       console.error('Uncaught Exception:', error); // Log the uncaught exception
-      gracefulShutdown();
+      // gracefulShutdown();
     });
   });
 
