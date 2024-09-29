@@ -127,6 +127,9 @@ router.put('/:_id', utils.verifyAdmin, async (req, res) => {
 		'$set': updated_fields
   };
   
+  console.log(1)
+  console.log(updated_fields)
+
   // remove course from previous teachers
   if(updated_fields.teachers && updated_fields.teachers.length > 0) {
     Course.findOne(query, (err, course) => {
@@ -134,6 +137,8 @@ router.put('/:_id', utils.verifyAdmin, async (req, res) => {
         console.error(err);
       }
       course.teachers.forEach((t) => {
+        console.log("teachers")
+        console.log(t)
         Teacher.findOne({_id: t._id}, (err, teacher) => {
           if(err) {
             console.error(err);
@@ -152,9 +157,16 @@ router.put('/:_id', utils.verifyAdmin, async (req, res) => {
 	var course = await Course.
     findOneAndUpdate(query, update, options)
 
+  console.log(3)
+  console.log(course)
+  console.log(course._id)
+
   if(course.teachers) {
     // append course into assigned teache
     course.teachers.forEach(tid => {
+      console.log("teachers inside")
+      console.log(tid)
+      console.log(tid._id)
       Teacher.findOneAndUpdate({_id: tid._id}, {'$addToSet': { 'courses': course._id } }, options, (err, teacher) => {
         if(err) {
           console.error(err);
@@ -181,7 +193,7 @@ router.delete('/:_id', utils.verifyAdmin, (req, res) => {
 });
 
 /* Add student */
-router.post('/:_id/post_student', utils.verifyAdmin, (req, res) => {
+router.post('/:_id/post_student', utils.verifyAdmin, async (req, res) => {
   let query = {_id: req.params._id};
   let body = req.body;
 
@@ -193,33 +205,26 @@ router.post('/:_id/post_student', utils.verifyAdmin, (req, res) => {
 
   let options = {new: true};
 
-  Course.findOneAndUpdate(query, update, options, (err, course) => {
-    if(err) throw(err);
+  let course = await Course.findOneAndUpdate(query, update, options)
 
-    course.populate('books').populate('teachers', 'lastname firstname englishname').populate('students', function(err, c) {
-      if(err) {
-        console.error(err);
+  // append course into assign teacher
+  course.students.forEach(id => {
+    Student.findOneAndUpdate(
+      {_id: id}, 
+      {'$addToSet': { 'courses': course._id } }, 
+      options, 
+      (err, student) => {
+        if(err) console.error(err);
       }
-
-      // append course into assign teacher
-      c.students.forEach(id => {
-        Student.findOneAndUpdate(
-          {_id: id}, 
-          {'$addToSet': { 'courses': c.id } }, 
-          options, 
-          (err, student) => {
-            if(err) console.error(err);
-          }
-        )
-      });
-
-      res.json(c);
-    });
+    )
   });
+
+  res.json(course);
+
 });
 
 /* Delete student */
-router.put('/:_id/delete_student', utils.verifyAdmin, (req, res) => {
+router.put('/:_id/delete_student', utils.verifyAdmin, async (req, res) => {
   let query = {_id: req.params._id};
   let body = req.body;
 
@@ -231,28 +236,21 @@ router.put('/:_id/delete_student', utils.verifyAdmin, (req, res) => {
 
   let options = {new: true};
 
-  Course.findOneAndUpdate(query, update, options, (err, course) => {
-    if(err) throw(err);
-    
-    course.populate('books').populate('teachers', 'lastname firstname englishname').populate('students', function(err, c) {
-      if(err) {
-        console.error(err);
-      }
-      // append course into assign teacher
-      c.students.forEach(id => {
-        Student.findOneAndUpdate(
-          {_id: id}, 
-          {'$pull': { 'courses': c.id } }, 
-          options, 
-          (err, student) => {
-          if(err) console.error(err);
-        })
-      });
+  let course = await Course.findOneAndUpdate(query, update, options)
 
-      res.json(c);
-    });
-
+  // append course into assign teacher
+  course.students.forEach(id => {
+    Student.findOneAndUpdate(
+      {_id: id}, 
+      {'$pull': { 'courses': course._id } }, 
+      options, 
+      (err, student) => {
+      if(err) console.error(err);
+    })
   });
+
+  res.json(course);
+
 });
 
 /* Add book */
