@@ -128,40 +128,40 @@ router.put('/:_id', utils.verifyAdmin, async (req, res) => {
   };
 
   // remove course from previous teachers
-  // if(updated_fields.teachers && updated_fields.teachers.length > 0) {
-  //   Course.findOne(query, (err, course) => {
-  //     if(err) {
-  //       console.error(err);
-  //     }
-  //     course.teachers.forEach((t) => {
-  //       Teacher.findOne({_id: t.toString()}, (err, teacher) => {
-  //         if(err) {
-  //           console.error(err);
-  //         }
-  //         if(teacher) {
-  //           teacher.courses.pull(course._id.toString())
-  //           teacher.save()
-  //         }
-  //       })
-  //     })
-  //   })
-  // }
+  if('teachers' in updated_fields && updated_fields.teachers.length > 0) {
+    Course.findOne(query, (err, course) => {
+      if(err) {
+        console.error(err);
+      }
+      course.teachers.forEach((t) => {
+        Teacher.findOne({_id: t.toString()}, (err, teacher) => {
+          if(err) {
+            console.error(err);
+          }
+          if(teacher) {
+            teacher.courses.pull(course._id.toString())
+            teacher.save()
+          }
+        })
+      })
+    })
+  }
 
 	var options = { new: true }; // newly updated record
 
 	var course = await Course.
     findOneAndUpdate(query, update, options)
 
-  // if(course.teachers) {
-  //   // append course into assigned teache
-  //   course.teachers.forEach(tid => {
-  //     Teacher.findOneAndUpdate({_id: tid.toString()}, {'$addToSet': { 'courses': course._id.toString() } }, options, (err, teacher) => {
-  //       if(err) {
-  //         console.error(err);
-  //       }
-  //     })
-  //   })
-  // }
+  if('teachers' in course) {
+    // append course into assigned teache
+    course.teachers.forEach(tid => {
+      Teacher.findOneAndUpdate({_id: tid.toString()}, {'$addToSet': { 'courses': course._id.toString() } }, options, (err, teacher) => {
+        if(err) {
+          console.error(err);
+        }
+      })
+    })
+  }
 
   res.json(course);
 });
