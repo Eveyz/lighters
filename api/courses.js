@@ -151,20 +151,16 @@ router.put('/:_id', utils.verifyAdmin, async (req, res) => {
 
 	var course = await Course.
     findOneAndUpdate(query, update, options)
-    .populate('books')
-    .populate('teachers', 'lastname firstname englishname')
-    .populate('students')
 
   if(course.teachers) {
-    // append course into assigned teacher
-    var all_promises = []
+    // append course into assigned teache
     course.teachers.forEach(id => {
-      new Promise(async (resolve, reject) => {
-        let teacher = await Teacher.findOneAndUpdate({_id: id}, {'$addToSet': { 'courses': course.id } }, options)
-        resolve(teacher)
+      Teacher.findOneAndUpdate({_id: id}, {'$addToSet': { 'courses': course.id } }, options, (err, teacher) => {
+        if(err) {
+          console.error(err);
+        }
       })
     })
-    await Promise.all(all_promises)
   }
   res.json(course);
 });
