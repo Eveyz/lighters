@@ -152,16 +152,17 @@ router.put('/:_id', utils.verifyAdmin, async (req, res) => {
 	var course = await Course.
     findOneAndUpdate(query, update, options)
 
-  if(course.teachers) {
-    // append course into assigned teache
-    course.teachers.forEach(tid => {
-      Teacher.findOneAndUpdate({_id: tid.toString()}, {'$addToSet': { 'courses': course._id.toString() } }, options, (err, teacher) => {
-        if(err) {
-          console.error(err);
-        }
-      })
-    })
-  }
+  // if(course.teachers) {
+  //   // append course into assigned teache
+  //   course.teachers.forEach(tid => {
+  //     Teacher.findOneAndUpdate({_id: tid.toString()}, {'$addToSet': { 'courses': course._id.toString() } }, options, (err, teacher) => {
+  //       if(err) {
+  //         console.error(err);
+  //       }
+  //     })
+  //   })
+  // }
+  
   res.json(course);
 });
 
