@@ -1,7 +1,7 @@
 import React from 'react';
 import M from 'materialize-css';
 
-import { updateCourse } from '../../actions/courses_actions';
+import { updateCourse, deleteCourse } from '../../actions/courses_actions';
 import { Modal } from 'react-materialize';
 import ThemeList from './ThemeList';
 import history from '../../history';
@@ -39,6 +39,10 @@ const Course = props => {
     updateCourse(props.id, {status: "inactive"});
   }
 
+  const removeCourse = () => {
+    deleteCourse(props.id)
+  }
+
   var nameList = props.course.teachers.map((teacher, index) => {
     return (
       <span key={index}>{teacher.lastname + teacher.firstname}</span>
@@ -53,9 +57,24 @@ const Course = props => {
                   <ThemeList selectTheme={selectTheme} />
                 </Modal>
 
-  let statusBtn = props.course.status === "active" ? <a href="" onClick={() => { if (window.confirm('确认要关闭课程嘛?')) deactivateCourse() }}>关闭</a> : <a href="" onClick={() => { if (window.confirm('确认要激活课程嘛?')) activateCourse() }}>激活</a>
+  let statusBtn = props.course.status === "active" ? 
+    <div
+      style={{color: 'red', cursor: 'pointer'}}
+      onClick={() => { 
+        if(window.confirm('确认要关闭课程嘛?')) deactivateCourse() 
+      }}>关闭</div> 
+    : 
+    <div
+      style={{color: 'green', cursor: 'pointer'}}
+      onClick={() => { 
+        if(window.confirm('确认要激活课程嘛?')) activateCourse() 
+    }}>激活</div>
 
   const image = props.course.theme ? props.course.theme : "WorldStudies-title.jpg"
+
+  const deleteBtn = props.course.status === "inactive" ? <div style={{color: 'red', cursor: 'pointer'}} onClick={() => { 
+    if(window.confirm('确认要永久删除课程嘛?')) { removeCourse() }
+  }}>永久删除</div> : ""
 
   return(
     <div className="col s12 m3">
@@ -78,6 +97,7 @@ const Course = props => {
           <a onClick={addBook} href="">添加绘本</a>
           {modal}
           {statusBtn}
+          {deleteBtn}
         </div>
       </div>
     </div>

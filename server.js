@@ -132,12 +132,12 @@ if (process.env.NODE_ENV === "production") {
   server.listen(PORT, () => {
     console.info('DEV express listenning on port ', PORT);
     // Handle kill commands
-    process.on('SIGTERM', gracefulShutdown);
+    // process.on('SIGTERM', gracefulShutdown);
 
     // Prevent dirty exit on code-fault crashes:
-    process.on('uncaughtException', err => {
-      console.log(err)
-    });
+    // process.on('uncaughtException', err => {
+    //   console.log(err)
+    // });
   });
 }
 

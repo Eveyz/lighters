@@ -90,7 +90,7 @@ router.get('/:_id', authenticate, (req, res) => {
 router.post('/', utils.verifyAdmin, async (req, res) => {
   var course = req.body;
   
-  if(course.teachers.length > 0) {
+  if('teachers' in course && course.teachers.length > 0) {
     let mongoose_ids = [];
     course.teachers.forEach(id => {
       let _id = mongoose.Types.ObjectId(id);
@@ -106,7 +106,7 @@ router.post('/', utils.verifyAdmin, async (req, res) => {
   created_course.teachers.forEach(id => {
     Teacher.findOneAndUpdate(
       {_id: id}, 
-      {'$addToSet': { 'courses': created_course.id } }, 
+      {'$addToSet': { 'courses': created_course._id } }, 
       { new: true }, 
       (err, teacher) => {
       if(err) console.error(err);
@@ -153,7 +153,7 @@ router.put('/:_id', utils.verifyAdmin, async (req, res) => {
     findOneAndUpdate(query, update, options)
 
   if('teachers' in course) {
-    // append course into assigned teache
+    // append course into assigned teacher
     course.teachers.forEach(tid => {
       Teacher.findOneAndUpdate({_id: tid.toString()}, {'$addToSet': { 'courses': course._id.toString() } }, options, (err, teacher) => {
         if(err) {
@@ -167,8 +167,15 @@ router.put('/:_id', utils.verifyAdmin, async (req, res) => {
 });
 
 /* Delete course */
-router.delete('/:_id', utils.verifyAdmin, (req, res) => {
+router.delete('/:_id', utils.verifyAdmin, async (req, res) => {
   var query = {_id: req.params._id};
+
+  var course = await Course.findOne(query);
+  if("teachers" in course) {
+    course.teachers.forEach(async tid => {
+      var teacher = await Teacher.findOneAndUpdate({ _id: tid }, { $pull: { 'courses': course._id } }, { new: true });
+    })
+  }
 	
   Course.findOneAndRemove(query, (err, course) => {
 		if (err) {

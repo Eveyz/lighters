@@ -33,6 +33,7 @@ export const addCourse = (course) => {
   axios.post("/courses", course)
     .then(function(response){
       history.push("/admin/courses/all");
+      window.location.reload()
       window.Materialize.toast('成功添加课程', 1000, 'green');
     })
     .catch(function(err){
@@ -49,30 +50,31 @@ export const editCourse = (course) => {
 
 export const updateCourse = (course_id, field, back) => {
   axios.put(`/courses/${course_id}`, field)
-    .then((response) => {
-      if(back) {
-        history.push('/admin/courses/all')
-      } else {
-        window.location.reload()
-      }
-      window.Materialize.toast('成功更新课程', 1000, 'green')
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+  .then((response) => {
+    history.push('/admin/courses/all')
+    window.location.reload()
+    // if(back) {
+    // } else {
+    // }
+    window.Materialize.toast('成功更新课程', 1000, 'green')
+  })
+  .catch((err) => {
+    console.log(err)
+  })
 };
 
 export const deleteCourse = id => {
-  return (dispatch) => {
-    return axios.delete("/courses/" + id)
-      .then(response => {
-        dispatch({type: DELETE_COURSE, payload: id})
-        // history.push("/admin/courses/all");
-      })
-      .catch(err => {
-        if(err) throw(err);
-      })
-  }
+  console.log("inside this delete action outer");
+  axios.delete("/courses/" + id)
+  .then(response => {
+    // dispatch({type: DELETE_COURSE, payload: id})
+    history.push("/admin/courses/all");
+    window.location.reload();
+  })
+  .catch(err => {
+    console.error("Error deleting course:", err);
+    if(err) throw(err);
+  })
 };
 
 export const addStudent = (course) => {
