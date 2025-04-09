@@ -20,7 +20,6 @@ const utils = require('../utils');
 const crypto = require('crypto');
 const hbs = require('nodemailer-express-handlebars');
 const nodemailer = require('nodemailer');
-const async = require('async')
 let bcrypt = require('bcrypt-nodejs');
 
 function getRequestIpAddress(request) {
@@ -309,12 +308,14 @@ router.get('/admin/init', utils.verifyAdmin, async (req, res) => {
 // });
 
 /* Send reset password email */
-router.post('/send_reset_password_email', (req, res) => {
+router.post('/send_reset_password_email', async (req, res) => {
   const email = process.env.MAILER_EMAIL_ID || 'lightersenglish@gmail.com';
   const pass = process.env.MAILER_PASSWORD || 'auth_email_pass';
 
   var smtpTransport = nodemailer.createTransport({
-    service: 'gmail',
+    host: 'smtp.163.com',
+    port: 465,
+    secure: true,
     auth: {
       user: email,
       pass: pass
@@ -333,60 +334,57 @@ router.post('/send_reset_password_email', (req, res) => {
   
   smtpTransport.use('compile', hbs(handlebarsOptions));
 
-  async.waterfall([
-    function(done) {
-      User.findOne({
-        username: req.body.username
-      }).exec(function(err, user) {
-        if (user) {
-          done(err, user);
-        } else {
-          done('User not found.');
-          return res.json({
-            success: false,
-            message: '用户名不正确' 
-          });
-        }
-      });
-    },
-    function(user, done) {
-      // create the random token
-      crypto.randomBytes(20, function(err, buffer) {
-        var token = buffer.toString('hex');
-        done(err, user, token);
-      });
-    },
-    function(user, token, done) {
-      User.findOneAndUpdate({ _id: user._id }, { reset_password_token: token, reset_password_expires: Date.now() + 86400000 }, { upsert: true, new: true }).exec(function(err, new_user) {
-        done(err, token, new_user);
-      });
-    },
-    function(token, user, done) {
-      var data = {
-        to: req.body.email,
-        from: email,
-        template: 'reset_password',
-        subject: '重置密码',
-        context: {
-          url: `http://localhost:3001/users/reset_password?token=${token}`,
-          name: user.username
-        }
-      };
+  var uri = process.env.URL_PROD;
+  if(process.env.NODE_ENV == "dev") {
+    uri = process.env.URL_DEV;
+  }
 
-      smtpTransport.sendMail(data, function(err) {
-        if (!err) {
-          return res.json({
-            success: true,
-            message: 'Kindly check your email for further instructions' 
-          });
-        } else {
-          return done(err);
-        }
+  try {
+    // Find user by username
+    const user = await User.findOne({ username: req.body.username }).exec();
+    if (!user) {
+      return res.json({
+        success: false,
+        message: '用户名不正确' 
       });
     }
-  ], function(err) {
-    res.status(422).json({'error': 'Missing information'});
-  })
+    
+    // Create random token
+    const buffer = await crypto.randomBytes(20);
+    const token = buffer.toString('hex');
+    
+    // Update user with reset token
+    const updatedUser = await User.findOneAndUpdate(
+      { _id: user._id }, 
+      { 
+        reset_password_token: token, 
+        reset_password_expires: Date.now() + 86400000 
+      }, 
+      { upsert: true, new: true }
+    ).exec();
+    
+    // Send email
+    const data = {
+      to: req.body.email,
+      from: email,
+      template: 'reset_password',
+      subject: '重置密码',
+      context: {
+        url: `${uri}/users/reset_password?token=${token}`,
+        name: updatedUser.username
+      }
+    };
+
+    await smtpTransport.sendMail(data);
+    
+    return res.json({
+      success: true,
+      message: '请查看你的邮箱'
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({'error': 'Internal server error, please try again later'});
+  }
 });
 
 /* Send reset password email */

@@ -7,11 +7,13 @@ import Header from '../../components/layouts/Header'
 import Footer from '../../components/layouts/Footer'
 import { FlashMessage } from '../../components/FlashMessage'
 import Background from '../../images/bg.png'
+import { set } from 'lodash'
 
 const ForgetPassword = props => {
 
   const [submitted, setSubmitted] = useState(false)
   const [done, setDone] = useState(false)
+  const [msg, setMsg] = useState('已发送重置密码邮件到您填写的邮箱，请注意查看邮箱')
   var username = useRef(null)
   var email = useRef(null)
 
@@ -23,7 +25,9 @@ const ForgetPassword = props => {
       setSubmitted(false)
     })
     .catch(err => {
-      console.log(err)
+      setSubmitted(false)
+      setDone(true)
+      setMsg(err.response.data.error)
     })
   }
 
@@ -48,7 +52,7 @@ const ForgetPassword = props => {
                     done ?
                     <div className="row">
                       <div className="col s12 m10 offset-m1">
-                        <h5 className="center">已发送重置密码邮件到您填写的邮箱，请注意查看邮箱</h5>
+                        <h5 className="center">{msg}</h5>
                       </div>
                     </div>
                     :

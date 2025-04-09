@@ -4,7 +4,11 @@ const env = process.env;
 if (process.env.NODE_ENV !== "test") {
   const mongoose = require('mongoose');
   mongoose.set('strictQuery', false);
-  const uri = process.env.MONGODB_URI;
+
+  let uri = process.env.MONGODB_URI;
+  if(process.env.NODE_ENV == "dev") {
+    uri = process.env.MONGODB_URI_DEV;
+  }
   
   const clientOptions = {
     // useNewUrlParser: true, 
