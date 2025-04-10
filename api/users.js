@@ -368,7 +368,7 @@ router.post('/send_reset_password_email', async (req, res) => {
       to: req.body.email,
       from: email,
       template: 'reset_password',
-      subject: '重置密码',
+      subject: 'Lighters重置密码',
       context: {
         url: `${uri}/users/reset_password?token=${token}`,
         name: updatedUser.username
@@ -387,42 +387,59 @@ router.post('/send_reset_password_email', async (req, res) => {
   }
 });
 
-/* Send reset password email */
-router.post('/reset_password', (req, res) => {
+/* Reset password */
+router.post('/reset_password', async (req, res) => {
+  try {
+    if (!req.body.token || !req.body.password || !req.body.passwordCon) {
+      return res.status(400).json({ 'error': 'Missing information' });
+    }
 
-  if(req.body.token && req.body.password && req.body.passwordCon) {
-    async.waterfall([
-      function(done) {
-        User.findOne({
-          reset_password_token: req.body.token
-        }).exec(function(err, user) {
-          if (user) {
-            done(err, user);
-          } else {
-            done('User not found.');
-          }
-        });
-      },
-      function(user, done) {
-        User.findOneAndUpdate({ _id: user._id }, { 
-          password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(8), null), 
-          passwordCon: bcrypt.hashSync(req.body.passwordCon, bcrypt.genSaltSync(8), null),
-          updated_at: new Date()
-        }, { upsert: true, new: true }).exec(function(err, newUser) {
-          if(err) {
-            done(err)
-          }
-          res.json({
-            username: newUser.username
-          })
-        });
-      },
-    ], function(err) {
-      res.status(422).json({'error': 'Missing information'});
-    })
-	} else {
-    res.status(300).json({'error': 'Missing information'});
+    // Find user with valid token
+    const user = await User.findOne({
+      reset_password_token: req.body.token,
+      reset_password_expires: { $gt: Date.now() }
+    }).exec();
+
+    if (!user) {
+      return res.status(404).json({ 
+        success: false, 
+        message: 'Password reset token is invalid or has expired.' 
+      });
+    }
+
+    // Update user password
+    const updatedUser = await User.findOneAndUpdate(
+      { _id: user._id }, 
+      { 
+        password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(8), null), 
+        passwordCon: bcrypt.hashSync(req.body.passwordCon, bcrypt.genSaltSync(8), null),
+        reset_password_token: undefined,
+        reset_password_expires: undefined,
+        updated_at: new Date()
+      }, 
+      { new: true }
+    ).exec();
+
+    if (!updatedUser) {
+      return res.status(500).json({ 
+        success: false, 
+        message: 'Error updating password.' 
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: 'Password has been reset.',
+      username: updatedUser.username
+    });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ 
+      success: false, 
+      message: 'Internal server error', 
+      error: err.message 
+    });
   }
-})
+});
 
 module.exports = router;

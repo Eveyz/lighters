@@ -21,6 +21,7 @@ var userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   passwordCon: { type: String, required: true },
   reset_password_token: { type: String },
+  reset_password_expires: { type: Date },
   admin: { type: Boolean, default: false },
   remember: { type: Boolean, default: false },
   consent: { type: Boolean, default: false },
