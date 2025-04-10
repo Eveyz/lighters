@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const fs = require('fs');
 const https = require('https');
-
+const compression = require('compression');
 const express = require("express");
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -10,6 +10,7 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const path = require('path');
 const schedule = require('node-schedule');
+const cluster = require('cluster');
 
 const config = require("./config");
 const helper = require('./helper')
@@ -42,6 +43,7 @@ server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: false }));
 server.use(cookieParser());
 server.use('/public', express.static(__dirname + '/public'));
+server.use(compression());
 
 /* API 
  * @author: znz
@@ -87,58 +89,72 @@ helper.calculateTeacherCourseNum()
 var db = config.db;
 const PORT = process.env.PORT || config.port;
 
+const numCPUs = require('os').cpus().length;
 
 let serverInstance; // Declare a variable to hold the server instance
 
-if (process.env.NODE_ENV === "production") {
-  server.use(logger('combined'));
-  server.use(express.static(path.join(__dirname, '/build')));
+if (cluster.isMaster) {
+  // Fork workers for each CPU core
+  for (let i = 0; i < numCPUs; i++) {
+    cluster.fork();
+  }
 
-  server.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '/build/index.html'));
+  // Listen for dying workers and replace them
+  cluster.on('exit', (worker, code, signal) => {
+    console.log(`Worker ${worker.process.pid} died. Spawning a new worker.`);
+    cluster.fork();
   });
-
-  const privateKey = fs.readFileSync(`${process.env.SSL_LOCATION}/${process.env.SSL_KEY}`, 'utf8');
-  const certificate = fs.readFileSync(`${process.env.SSL_LOCATION}/${process.env.SSL_PEM}`, 'utf8');
-  const credentials = {key: privateKey, cert: certificate};
-
-  https.createServer(credentials, server).listen(PORT, () => {
-    console.log("Production server is on")
-    // Handle kill commands
-    process.on('SIGTERM', gracefulShutdown);
-
-    // Prevent dirty exit on code-fault crashes:
-    process.on('uncaughtException', gracefulShutdown);
-  });
-} else if (process.env.NODE_ENV === "render") {
-  server.use(logger('combined'));
-  server.use(express.static(path.join(__dirname, '/build')));
-
-  server.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '/build/index.html'));
-  });
-
-  serverInstance = server.listen(PORT, () => {
-    console.info('Render express listening on port ', PORT);
-    // Handle kill commands
-    process.on('SIGTERM', gracefulShutdown);
-    process.on('uncaughtException', (error) => {
-      console.error('Uncaught Exception:', error); // Log the uncaught exception
-      // gracefulShutdown();
-    });
-  });
-
 } else {
-  server.listen(PORT, () => {
-    console.info('DEV express listenning on port ', PORT);
-    // Handle kill commands
-    // process.on('SIGTERM', gracefulShutdown);
-
-    // Prevent dirty exit on code-fault crashes:
-    // process.on('uncaughtException', err => {
-    //   console.log(err)
-    // });
-  });
+  if (process.env.NODE_ENV === "production") {
+    server.use(logger('combined'));
+    server.use(express.static(path.join(__dirname, '/build')));
+  
+    server.get('*', (req, res) => {
+      res.sendFile(path.join(__dirname, '/build/index.html'));
+    });
+  
+    const privateKey = fs.readFileSync(`${process.env.SSL_LOCATION}/${process.env.SSL_KEY}`, 'utf8');
+    const certificate = fs.readFileSync(`${process.env.SSL_LOCATION}/${process.env.SSL_PEM}`, 'utf8');
+    const credentials = {key: privateKey, cert: certificate};
+  
+    https.createServer(credentials, server).listen(PORT, () => {
+      console.log("Production server is on")
+      // Handle kill commands
+      process.on('SIGTERM', gracefulShutdown);
+  
+      // Prevent dirty exit on code-fault crashes:
+      process.on('uncaughtException', gracefulShutdown);
+    });
+  } else if (process.env.NODE_ENV === "render") {
+    server.use(logger('combined'));
+    server.use(express.static(path.join(__dirname, '/build')));
+  
+    server.get('*', (req, res) => {
+      res.sendFile(path.join(__dirname, '/build/index.html'));
+    });
+  
+    serverInstance = server.listen(PORT, () => {
+      console.info('Render express listening on port ', PORT);
+      // Handle kill commands
+      process.on('SIGTERM', gracefulShutdown);
+      process.on('uncaughtException', (error) => {
+        console.error('Uncaught Exception:', error); // Log the uncaught exception
+        // gracefulShutdown();
+      });
+    });
+  
+  } else {
+    server.listen(PORT, () => {
+      console.info('DEV express listenning on port ', PORT);
+      // Handle kill commands
+      // process.on('SIGTERM', gracefulShutdown);
+  
+      // Prevent dirty exit on code-fault crashes:
+      // process.on('uncaughtException', err => {
+      //   console.log(err)
+      // });
+    });
+  }
 }
 
 const gracefulShutdown = () => {

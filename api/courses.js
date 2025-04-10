@@ -17,7 +17,6 @@ const authenticate = require('../middlewares/authenticate');
 
 /* Get Courses */
 router.get('/', utils.verifyAdmin, async (req, res) => {
-  // console.log(req.currentUser);
   var _query = req.query;
   
   try {
