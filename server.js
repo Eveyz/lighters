@@ -93,68 +93,55 @@ const numCPUs = require('os').cpus().length;
 
 let serverInstance; // Declare a variable to hold the server instance
 
-if (cluster.isMaster) {
-  // Fork workers for each CPU core
-  for (let i = 0; i < numCPUs; i++) {
-    cluster.fork();
-  }
+if (process.env.NODE_ENV === "production") {
+  server.use(logger('combined'));
+  server.use(express.static(path.join(__dirname, '/build')));
 
-  // Listen for dying workers and replace them
-  cluster.on('exit', (worker, code, signal) => {
-    console.log(`Worker ${worker.process.pid} died. Spawning a new worker.`);
-    cluster.fork();
+  server.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '/build/index.html'));
   });
+
+  const privateKey = fs.readFileSync(`${process.env.SSL_LOCATION}/${process.env.SSL_KEY}`, 'utf8');
+  const certificate = fs.readFileSync(`${process.env.SSL_LOCATION}/${process.env.SSL_PEM}`, 'utf8');
+  const credentials = {key: privateKey, cert: certificate};
+
+  https.createServer(credentials, server).listen(PORT, () => {
+    console.log("Production server is on")
+    // Handle kill commands
+    process.on('SIGTERM', gracefulShutdown);
+
+    // Prevent dirty exit on code-fault crashes:
+    process.on('uncaughtException', gracefulShutdown);
+  });
+} else if (process.env.NODE_ENV === "render") {
+  server.use(logger('combined'));
+  server.use(express.static(path.join(__dirname, '/build')));
+
+  server.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '/build/index.html'));
+  });
+
+  serverInstance = server.listen(PORT, () => {
+    console.info('Render express listening on port ', PORT);
+    // Handle kill commands
+    process.on('SIGTERM', gracefulShutdown);
+    process.on('uncaughtException', (error) => {
+      console.error('Uncaught Exception:', error); // Log the uncaught exception
+      // gracefulShutdown();
+    });
+  });
+
 } else {
-  if (process.env.NODE_ENV === "production") {
-    server.use(logger('combined'));
-    server.use(express.static(path.join(__dirname, '/build')));
-  
-    server.get('*', (req, res) => {
-      res.sendFile(path.join(__dirname, '/build/index.html'));
-    });
-  
-    const privateKey = fs.readFileSync(`${process.env.SSL_LOCATION}/${process.env.SSL_KEY}`, 'utf8');
-    const certificate = fs.readFileSync(`${process.env.SSL_LOCATION}/${process.env.SSL_PEM}`, 'utf8');
-    const credentials = {key: privateKey, cert: certificate};
-  
-    https.createServer(credentials, server).listen(PORT, () => {
-      console.log("Production server is on")
-      // Handle kill commands
-      process.on('SIGTERM', gracefulShutdown);
-  
-      // Prevent dirty exit on code-fault crashes:
-      process.on('uncaughtException', gracefulShutdown);
-    });
-  } else if (process.env.NODE_ENV === "render") {
-    server.use(logger('combined'));
-    server.use(express.static(path.join(__dirname, '/build')));
-  
-    server.get('*', (req, res) => {
-      res.sendFile(path.join(__dirname, '/build/index.html'));
-    });
-  
-    serverInstance = server.listen(PORT, () => {
-      console.info('Render express listening on port ', PORT);
-      // Handle kill commands
-      process.on('SIGTERM', gracefulShutdown);
-      process.on('uncaughtException', (error) => {
-        console.error('Uncaught Exception:', error); // Log the uncaught exception
-        // gracefulShutdown();
-      });
-    });
-  
-  } else {
-    server.listen(PORT, () => {
-      console.info('DEV express listenning on port ', PORT);
-      // Handle kill commands
-      // process.on('SIGTERM', gracefulShutdown);
-  
-      // Prevent dirty exit on code-fault crashes:
-      // process.on('uncaughtException', err => {
-      //   console.log(err)
-      // });
-    });
-  }
+  server.listen(PORT, () => {
+    console.info('DEV express listenning on port ', PORT);
+    // Handle kill commands
+    // process.on('SIGTERM', gracefulShutdown);
+
+    // Prevent dirty exit on code-fault crashes:
+    // process.on('uncaughtException', err => {
+    //   console.log(err)
+    // });
+  });
 }
 
 const gracefulShutdown = () => {
